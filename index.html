@@ -1,52 +1,74 @@
 <html>
-    <head>
-        <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    </head>
-    <body>
-        <a-scene>
-            <a-assets>
-                <a-asset-item id="arch_red"     src="resources/models/arch_red.gltf"/>
-                <a-asset-item id="arch_blue"    src="resources/models/arch_blue.gltf"/>
-                <a-asset-item id="arch_green"   src="resources/models/arch_green.gltf"/>
-                <a-asset-item id="arch_cyan"    src="resources/models/arch_cyan.gltf"/>
-            </a-assets>
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+        <script src="resources/scripts/three.js"></script>
+        <script src="resources/scripts/EllipseCurve.js"></script>
+		<script>
 
-            <a-sky color="#ECECEC"></a-sky>
 
-            <a-entity line="start: 0, 0, 0; end: 0 0 10; color: black"></a-entity>
-            <a-entity line="start: 0, 0, 10; end: 30 0 10; color: black"></a-entity>
-            <a-entity line="start: 30, 0, 10; end: 30 0 0; color: black"></a-entity>
-            <a-entity line="start: 30, 0, 0; end: 0 0 0; color: black"></a-entity>
-            <a-entity line="start: 10, 0, 0; end: 10 0 10; color: black"></a-entity>
-            <a-entity line="start: 20, 0, 0; end: 20 0 20; color: black"></a-entity>
 
-            <a-gltf-model src="#arch_red"   scale="5 2 2"   position="15 0 10"></a-gltf-model>
-            <a-gltf-model src="#arch_blue"  scale="5 4 1.5" position="15 0 10"></a-gltf-model>
-            <a-gltf-model src="#arch_green" scale="5 6 1"   position="15 0 10"></a-gltf-model>
-            <a-gltf-model src="#arch_cyan"  scale="5 8 0.5" position="15 0 10"></a-gltf-model>
 
-            <!-- notes
 
-            <a-cylinder position="0 0 0" rotation="90 0 0" radius="1.0" height="0.025" color="blue" theta-start="90" theta-length="180" side="double"></a-cylinder>
-            <a-cylinder position="0 0 -5" rotation="90 0 0" radius="1.0" height="0.025" color="blue" theta-start="90" theta-length="180" side="double"></a-cylinder>
-            <a-cylinder position="0 0 -10" rotation="90 0 0" radius="1.0" height="0.025" color="green" theta-start="90" theta-length="180" side="double"></a-cylinder>
-            <a-cylinder position="0 0 -15" rotation="90 0 0" radius="1.0" height="0.025" color="cyan" theta-start="90" theta-length="180" side="double"></a-cylinder>
 
-            <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-            <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-            <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-        
-            -->
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            var cube = new THREE.Mesh( geometry, material );
+            
+            var curve = new THREE.EllipseCurve(
+                0,  0,            // ax, aY
+                10, 10,           // xRadius, yRadius
+                0,  2 * Math.PI,  // aStartAngle, aEndAngle
+                false,            // aClockwise
+                0                 // aRotation
+            );
+
+            var points = curve.getPoints( 50 );
+            var geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+            var material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
+            // Create the final object to add to the scene
+            var ellipse = new THREE.Line( geometry, material );
+
+
+
+            scene.add( cube );
+            scene.add( curve )
+
+
+
+
+			camera.position.z = 5;
+
+			var animate = function () {
+				requestAnimationFrame( animate );
+
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+			};
+
+            animate();
             
 
-            <!-- camera -->
-            <a-entity position="0 10 -10">
-                <a-camera universal-controls>
-                    <a-entity raycaster="far: 150; objects: .intersectable" cursor geometry="primitive: ring; radiusOuter: 0.015;
-                                    radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -0.75"></a-entity>
-                </a-camera>
-            </a-entity>
-            
-        </a-scene>
-    </body>
+
+
+
+
+		</script>
+	</body>
 </html>
