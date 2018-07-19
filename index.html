@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Shape Example</title>
+		<title>Titanic: Data Visualization</title>
 		<style>
 			body { margin: 0; }
 			canvas { width: 100%; height: 100% }
@@ -55,11 +55,17 @@
 			// 		(cpX,cpY) = vertex position
 			//		(X,Y)	  = end position
 
-			var x = 0, y = 0;
 			var green = new THREE.Shape();
 			var material_green = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			material_green.side = THREE.DoubleSide;
+
 			var red = new THREE.Shape();
 			var material_red = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+			material_red.side = THREE.DoubleSide;
+
+			var blue = new THREE.Shape();
+			var material_blue = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+			material_blue.side = THREE.DoubleSide;
 
 			red.moveTo( 0, 0 );
 			red.quadraticCurveTo(50,200,100,0);
@@ -69,25 +75,28 @@
 			green.quadraticCurveTo(50,150,100,0);
 			green.quadraticCurveTo(50,100,0,0);
 
+			blue.moveTo( 0, 0 );
+			blue.quadraticCurveTo(50,100,100,0);
+			blue.quadraticCurveTo(50,50,0,0);
+
 
 			var geometry_red = new THREE.ShapeGeometry( red );
 			var geometry_green = new THREE.ShapeGeometry( green );
+			var geometry_blue = new THREE.ShapeGeometry( blue );
 			
 			var arch_red = new THREE.Mesh( geometry_red, material_red );
 			var arch_green = new THREE.Mesh( geometry_green, material_green );
-
-			arch_green.position.x = 0;
-			arch_green.position.y = 0;
-			arch_green.position.z = 0;
+			var arch_blue = new THREE.Mesh( geometry_blue, material_blue );
 
 
 
 
 			// --------- scene -------- //
 
+			scene.add( grid );
 			scene.add( arch_red );
 			scene.add( arch_green );
-			scene.add( grid );
+			scene.add( arch_blue );
 
 
 
