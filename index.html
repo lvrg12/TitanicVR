@@ -9,14 +9,20 @@
 	</head>
 	<body>
 		<script src="resources/scripts/three.min.js"></script>
+		<script src="resources/scripts/OrbitControls.js"></script>
 		<script>
 
 
 			// -------- setting ------- //
 
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			camera.position.z = 30;
+			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			//camera.lookAt( new THREE.Vector3( 150, 0, 50 ) );
+
+			var controls = new THREE.OrbitControls( camera );
+			camera.position.set( 150, 100, 400 );
+			controls.target = new THREE.Vector3( 150, 0, 50);
+			controls.update();
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
@@ -24,27 +30,64 @@
 
 
 
-			// --------- heart -------- //
+			// --------- grid -------- //
+
+			var material_line = new THREE.LineBasicMaterial( { color: 0xffffff } );
+
+			var geometry_line = new THREE.Geometry();
+			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
+			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 100) );
+			geometry_line.vertices.push(new THREE.Vector3( 300, 0, 100) );
+			geometry_line.vertices.push(new THREE.Vector3( 300, 0, 0) );
+			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
+			geometry_line.vertices.push(new THREE.Vector3( 100, 0, 0) );
+			geometry_line.vertices.push(new THREE.Vector3( 100, 0, 100) );
+			geometry_line.vertices.push(new THREE.Vector3( 200, 0, 100) );
+			geometry_line.vertices.push(new THREE.Vector3( 200, 0, 0) );
+
+			var grid = new THREE.Line( geometry_line, material_line );
+
+
+			
+			// --------- archs -------- //
+
+			// quadraticCurveTo(cpX,cpY,X,Y):
+			// 		(cpX,cpY) = vertex position
+			//		(X,Y)	  = end position
 
 			var x = 0, y = 0;
-			var heartShape = new THREE.Shape();
-			heartShape.moveTo( x + 5, y + 5 );
-			heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
-			heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
-			heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
-			heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
-			heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
-			heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
-			var geometry = new THREE.ShapeGeometry( heartShape );
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var mesh = new THREE.Mesh( geometry, material ) ;
+			var green = new THREE.Shape();
+			var material_green = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			var red = new THREE.Shape();
+			var material_red = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+
+			red.moveTo( 0, 0 );
+			red.quadraticCurveTo(50,200,100,0);
+			red.quadraticCurveTo(50,150,0,0);
+			
+			green.moveTo( 0, 0 );
+			green.quadraticCurveTo(50,150,100,0);
+			green.quadraticCurveTo(50,100,0,0);
+
+
+			var geometry_red = new THREE.ShapeGeometry( red );
+			var geometry_green = new THREE.ShapeGeometry( green );
+			
+			var arch_red = new THREE.Mesh( geometry_red, material_red );
+			var arch_green = new THREE.Mesh( geometry_green, material_green );
+
+			arch_green.position.x = 0;
+			arch_green.position.y = 0;
+			arch_green.position.z = 0;
 
 
 
 
 			// --------- scene -------- //
 
-			scene.add( mesh );
+			scene.add( arch_red );
+			scene.add( arch_green );
+			scene.add( grid );
 
 
 
@@ -52,6 +95,7 @@
 
 			var animate = function () {
 				requestAnimationFrame( animate );
+				controls.update();
 				renderer.render( scene, camera );
 			};
 
