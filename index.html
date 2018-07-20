@@ -1,38 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
+		<title>three.js webgl - geometry - shapes</title>
 		<meta charset="utf-8">
-		<title>Titanic: Data Visualization</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			body {
+				font-family: Monospace;
+				background-color: #f0f0f0;
+				margin: 0px;
+				overflow: hidden;
+			}
 		</style>
 	</head>
 	<body>
+
 		<script src="resources/scripts/three.min.js"></script>
 		<script src="resources/scripts/OrbitControls.js"></script>
+		<script src="resources/scripts/functions.js"></script>
+
 		<script>
 
+			var container, camera, scene, renderer, controls, group;
+			init();
 
-			// -------- setting ------- //
+			// Grid
 
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
-			//camera.lookAt( new THREE.Vector3( 150, 0, 50 ) );
-
-			var controls = new THREE.OrbitControls( camera );
-			camera.position.set( 150, 100, 400 );
-			controls.target = new THREE.Vector3( 150, 0, 50);
-			controls.update();
-
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-
-
-			// --------- grid -------- //
-
-			var material_line = new THREE.LineBasicMaterial( { color: 0xffffff } );
+			var material_line = new THREE.LineBasicMaterial( { color: 0x000000 } );
 
 			var geometry_line = new THREE.Geometry();
 			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
@@ -47,69 +41,40 @@
 
 			var grid = new THREE.Line( geometry_line, material_line );
 
+			group.add( grid );
 
-			
-			// --------- archs -------- //
 
-			// quadraticCurveTo(cpX,cpY,X,Y):
-			// 		(cpX,cpY) = vertex position
-			//		(X,Y)	  = end position
-
-			var green = new THREE.Shape();
-			var material_green = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			material_green.side = THREE.DoubleSide;
+			// Archs
 
 			var red = new THREE.Shape();
-			var material_red = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-			material_red.side = THREE.DoubleSide;
-
-			var blue = new THREE.Shape();
-			var material_blue = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-			material_blue.side = THREE.DoubleSide;
-
 			red.moveTo( 0, 0 );
 			red.quadraticCurveTo(50,200,100,0);
 			red.quadraticCurveTo(50,150,0,0);
-			
+
+			var green = new THREE.Shape();
 			green.moveTo( 0, 0 );
 			green.quadraticCurveTo(50,150,100,0);
 			green.quadraticCurveTo(50,100,0,0);
 
+			var blue = new THREE.Shape();
 			blue.moveTo( 0, 0 );
 			blue.quadraticCurveTo(50,100,100,0);
 			blue.quadraticCurveTo(50,50,0,0);
 
-
-			var geometry_red = new THREE.ShapeGeometry( red );
-			var geometry_green = new THREE.ShapeGeometry( green );
-			var geometry_blue = new THREE.ShapeGeometry( blue );
 			
-			var arch_red = new THREE.Mesh( geometry_red, material_red );
-			var arch_green = new THREE.Mesh( geometry_green, material_green );
-			var arch_blue = new THREE.Mesh( geometry_blue, material_blue );
 
+			// addShape( shape, color, x, y, z, rx, ry,rz, s );
 
+			var extrudeSettings = { depth: 2, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
 
+			addShape( red, 		extrudeSettings, 0xff0000, 0, 0, 0, 0, 0, 0, 1 );
+			addShape( green, 	extrudeSettings, 0x00ff00, 0, 0, 0, 0, 0, 0, 1 );
+			addShape( blue, 	extrudeSettings, 0x0000ff, 0, 0, 0, 0, 0, 0, 1 );
 
-			// --------- scene -------- //
-
-			scene.add( grid );
-			scene.add( arch_red );
-			scene.add( arch_green );
-			scene.add( arch_blue );
-
-
-
-
-
-			var animate = function () {
-				requestAnimationFrame( animate );
-				controls.update();
-				renderer.render( scene, camera );
-			};
 
 			animate();
 
 		</script>
+
 	</body>
 </html>
