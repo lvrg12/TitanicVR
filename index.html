@@ -18,63 +18,7 @@
 		<script src="resources/scripts/three.min.js"></script>
 		<script src="resources/scripts/OrbitControls.js"></script>
 		<script src="resources/scripts/functions.js"></script>
-
-		<script>
-
-			var container, camera, scene, renderer, controls, group;
-			init();
-
-			// Grid
-
-			var material_line = new THREE.LineBasicMaterial( { color: 0x000000 } );
-
-			var geometry_line = new THREE.Geometry();
-			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
-			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 100) );
-			geometry_line.vertices.push(new THREE.Vector3( 300, 0, 100) );
-			geometry_line.vertices.push(new THREE.Vector3( 300, 0, 0) );
-			geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
-			geometry_line.vertices.push(new THREE.Vector3( 100, 0, 0) );
-			geometry_line.vertices.push(new THREE.Vector3( 100, 0, 100) );
-			geometry_line.vertices.push(new THREE.Vector3( 200, 0, 100) );
-			geometry_line.vertices.push(new THREE.Vector3( 200, 0, 0) );
-
-			var grid = new THREE.Line( geometry_line, material_line );
-
-			group.add( grid );
-
-
-			// Archs
-
-			var red = new THREE.Shape();
-			red.moveTo( 0, 0 );
-			red.quadraticCurveTo(50,200,100,0);
-			red.quadraticCurveTo(50,150,0,0);
-
-			var green = new THREE.Shape();
-			green.moveTo( 0, 0 );
-			green.quadraticCurveTo(50,150,100,0);
-			green.quadraticCurveTo(50,100,0,0);
-
-			var blue = new THREE.Shape();
-			blue.moveTo( 0, 0 );
-			blue.quadraticCurveTo(50,100,100,0);
-			blue.quadraticCurveTo(50,50,0,0);
-
-			
-
-			// addShape( shape, color, x, y, z, rx, ry,rz, s );
-
-			var extrudeSettings = { depth: 2, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
-
-			addShape( red, 		extrudeSettings, 0xff0000, 0, 0, 0, 0, 0, 0, 1 );
-			addShape( green, 	extrudeSettings, 0x00ff00, 0, 0, 0, 0, 0, 0, 1 );
-			addShape( blue, 	extrudeSettings, 0x0000ff, 0, 0, 0, 0, 0, 0, 1 );
-
-
-			animate();
-
-		</script>
+		<script src="resources/scripts/main.js"></script>
 
 	</body>
 </html>
