@@ -24,50 +24,27 @@ function init() {
 
     group = new THREE.Group();
     scene.add( group );
-}
-
-function Stack(values)
-{
-    this.type = "Arch";
-    this.archs = [];
-
-    var totalValue = 0;
-    for( var i=0; i<values.length; i++)
-        totalValue+=values[i];
-
-    var tempTopValue = totalValue/2;
-    values.sort(function(a, b){return b - a});
-    //console.log(values);
-
-    var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff]
-
-    for( var i=0; i<values.length; i++)
-        addArch(values[i],100,colors[i]);
+    
 
 
-    function addArch(value, length, color)
-    {
-        // console.log( "tempTopValue: " + tempTopValue );
-        var top = tempTopValue;
-        var down = top-value;
-        tempTopValue-= value;
-        // console.log( "value: " + value + " top: " + top + " down: " + down );
+    // Grid
 
-        var arch = new THREE.Shape();
-        arch.moveTo( 0, 0 );
-        arch.quadraticCurveTo(length/2,top,length,0);
-        arch.quadraticCurveTo(length/2,down,0,0);
-        // this.archs.push(arch);
+    var material_line = new THREE.LineBasicMaterial( { color: 0x000000 } );
 
-        var extrudeSettings = { depth: 2, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
-        addShape( arch, extrudeSettings, color, 0, 0, 0, 0, 0, 0, 1 );
-    }
+    var geometry_line = new THREE.Geometry();
+    geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
+    geometry_line.vertices.push(new THREE.Vector3( 0, 0, 100) );
+    geometry_line.vertices.push(new THREE.Vector3( 300, 0, 100) );
+    geometry_line.vertices.push(new THREE.Vector3( 300, 0, 0) );
+    geometry_line.vertices.push(new THREE.Vector3( 0, 0, 0) );
+    geometry_line.vertices.push(new THREE.Vector3( 100, 0, 0) );
+    geometry_line.vertices.push(new THREE.Vector3( 100, 0, 100) );
+    geometry_line.vertices.push(new THREE.Vector3( 200, 0, 100) );
+    geometry_line.vertices.push(new THREE.Vector3( 200, 0, 0) );
 
-    this.getLength = function ()
-    {
-        return this.archs.length;
-    }
+    var grid = new THREE.Line( geometry_line, material_line );
 
+    group.add( grid );
 }
 
 // addShape( shape, color, x, y, z, rx, ry,rz, s );
