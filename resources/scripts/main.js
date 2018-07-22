@@ -14,7 +14,7 @@ var choices = [["A","B","C"]
                ,["Europe","America"]
                ,["adult","teen","child"]];
 
-var amount = 200;
+var amount = 30;
 var record;
 
 for( var n=0; n<amount; n++ )
