@@ -53,7 +53,7 @@ function Grid( columns, len, fieldNames, optionNames )
             } );
 
             var textMesh = new THREE.Mesh( geometry, material_text );
-            textMesh.position.set( x, len/-6.6, z );
+            textMesh.position.set( x, len/-4, z );
             textMesh.rotation.x = xR;
             group.add( textMesh );
         } );
@@ -70,7 +70,7 @@ function Grid( columns, len, fieldNames, optionNames )
 
         geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
-        geometry.vertices.push(new THREE.Vector3( x, len/-10, z ));
+        geometry.vertices.push(new THREE.Vector3( x, (len/-4) + len/20, z ));
         var marker = new THREE.Line( geometry, material );
         group.add( marker );
     }
