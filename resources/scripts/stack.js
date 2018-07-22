@@ -29,6 +29,7 @@ function Stack(coord, newCoord, values, len, colors, startOption)
             addArch(values[v],colors[v]);
     }
 
+    // addArch( value of arch, color of arch )
     function addArch(value, color)
     {
         var top = tempTopValue;
