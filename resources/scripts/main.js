@@ -7,40 +7,29 @@ init();
 // var json = loadFile("resources/datasets/titanic_test.csv");
 // console.log(json);
 
-var table = [["id","class","sex","continent","age"],
-            ["0","A","male","Europe","adult"],
-            ["1","B","male","Europe","adult"],
-            ["2","C","male","Asia","adult"],
-            ["3","C","male","Europe","adult"],
-            ["4","B","male","America","adult"],
-            ["5","C","male","Europe","teen"],
-            ["6","C","male","Asia","adult"],
-            ["7","B","male","Europe","adult"],
-            ["8","C","male","Europe","adult"],
-            ["9","C","male","Europe","adult"],
-            ["10","B","male","Europe","adult"],
-            ["11","C","male","America","adult"],
-            ["12","B","male","Europe","adult"],
-            ["13","A","male","Asia","adult"],
-            ["14","C","male","Europe","teen"],
-            ["15","A","female","Europe","adult"],
-            ["16","B","female","America","adult"],
-            ["17","C","female","Europe","adult"],
-            ["18","B","female","Europe","adult"],
-            ["19","B","female","Europe","adult"],
-            ["20","C","female","Europe","adult"],
-            ["21","A","female","America","teen"],
-            ["22","B","female","Europe","adult"],
-            ["23","C","female","Europe","adult"],
-            ["24","C","female","Europe","adult"],
-            ["25","B","female","Europe","adult"],
-            ["26","C","female","Europe","adult"],
-            ["27","C","female","Europe","child"],
-            ["28","B","female","Europe","child"],
-            ["29","C","female","America","child"]]
+
+var table = [["class","sex","continent","age"]];
+var choices = [["A","B","C"]
+               ,["male","female"]
+               ,["Europe","America"]
+               ,["adult","teen","child"]];
+
+var amount = 200;
+var record;
+
+for( var n=0; n<amount; n++ )
+{ 
+    record = [];
+    for( var m=0; m<choices.length; m++ )
+    {
+        record.push(choices[m][Math.floor(Math.random() * choices[m].length)]);
+    }
+    table.push(record);
+}
+
 
 var startField = "class";
-var ignoreFields = ["id"];
+var ignoreFields = [];
 var data = new ProcessedData(startField, ignoreFields, table);
 
 // Grid
