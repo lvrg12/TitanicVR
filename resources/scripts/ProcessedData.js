@@ -47,10 +47,6 @@ function ProcessedData( startField, ignoreFields, table )
         }
     }
 
-    console.log(fieldNames);
-    console.log(fieldOptions);
-    //console.log();
-
     //initializing start options values
     var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff];
     startField = table[0].indexOf(startField);
@@ -83,6 +79,12 @@ function ProcessedData( startField, ignoreFields, table )
     function getAllFields()
     {
         return fieldNames;
+    }
+
+    // returns array of options names
+    function getAllOptions()
+    {
+        return fieldOptions;
     }
 
     // returns array of options names of given field
@@ -132,13 +134,13 @@ function ProcessedData( startField, ignoreFields, table )
             }
         }
 
-        console.log(totalValues);
         return totalValues;
     }
     
     this.getNumberOfRecords = getNumberOfRecords;
     this.getNumberOfAllOptions = getNumberOfAllOptions;
     this.getAllFields = getAllFields;
+    this.getAllOptions = getAllOptions;
     this.getOptionsOfField = getOptionsOfField;
     this.getOptionsOfStartField = getOptionsOfStartField;
     this.getColors = getColors;

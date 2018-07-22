@@ -26,15 +26,20 @@ function init() {
     scene.add( group );
 }
 
-// addShape( shape, color, x, y, z, rx, ry,rz, s );
-function addShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s )
+function loadFile( filepath )
 {
-    var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-    var mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color } ) );
-    mesh.position.set( x, y, z );
-    mesh.rotation.set( rx, ry, rz );
-    mesh.scale.set( s, s, s );
-    group.add( mesh );
+    var results = Papa.parse( filepath, {
+        header: true,
+        step: function(row) {
+            console.log("Row:", row.data);
+        },
+        complete: function() {
+            console.log("All done!");
+        }
+    });
+
+    return results;
+
 }
 
 

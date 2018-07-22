@@ -1,23 +1,27 @@
-var container, camera, scene, renderer, controls, group, LEN = 100;
+var container, camera, scene, renderer, controls, group
+const LEN = 100;
 init();
 
 // Read Input
 
+// var json = loadFile("resources/datasets/titanic_test.csv");
+// console.log(json);
+
 var table = [["id","class","sex","continent","age"],
             ["0","a","m","euro","adult"],
             ["1","b","m","euro","adult"],
-            ["2","c","m","euro","adult"],
+            ["2","c","m","asia","adult"],
             ["3","c","m","euro","adult"],
             ["4","b","m","amer","adult"],
             ["5","c","m","euro","teen"],
-            ["6","c","m","euro","adult"],
+            ["6","c","m","asia","adult"],
             ["7","b","m","euro","adult"],
             ["8","c","m","euro","adult"],
             ["9","c","m","euro","adult"],
             ["10","b","m","euro","adult"],
             ["11","c","m","amer","adult"],
             ["12","b","m","euro","adult"],
-            ["13","b","m","euro","adult"],
+            ["13","a","m","asia","adult"],
             ["14","c","m","euro","teen"],
             ["15","a","f","euro","adult"],
             ["16","b","f","amer","adult"],
@@ -25,7 +29,7 @@ var table = [["id","class","sex","continent","age"],
             ["18","b","f","euro","adult"],
             ["19","b","f","euro","adult"],
             ["20","c","f","euro","adult"],
-            ["21","c","f","amer","teen"],
+            ["21","a","f","amer","teen"],
             ["22","b","f","euro","adult"],
             ["23","c","f","euro","adult"],
             ["24","c","f","euro","adult"],
@@ -41,7 +45,7 @@ var data = new ProcessedData(startField, ignoreFields, table);
 
 // Grid
 
-var grid = new Grid(data.getNumberOfAllOptions(), LEN);
+var grid = new Grid(data.getNumberOfAllOptions(), LEN, data.getAllFields(), data.getAllOptions());
 
 
 // Stacks

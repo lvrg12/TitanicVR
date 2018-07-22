@@ -1,31 +1,76 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function Grid( columns, len )
+function Grid( columns, len, fieldNames, optionNames )
 {
     this.type = "Grid";
     this.columns = columns.length;
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
+    var material_text = new THREE.MeshPhongMaterial( { color: 0x000000 } );
     var geometry;
 
     // drawing quadrants
     for( var i=1; i<columns.length; i++)
         addQuad(i);
 
-    // drawing markers
-    for( var i=0; i<columns.length; i++)
-        for( var j=0; j<columns[i]; j++)
-            addMarkers(markerLocation(i,j));
+    // drawing text
+    for( var f=0; f<columns.length; f++)
+    {
+        addText(fieldNames[f],markerLocation(f,0),true,false);
+        for( var j=0; j<columns[f]; j++)
+            addText(optionNames[f][j],markerLocation(f,j),false,true);
+    }
 
-    function addMarkers( coord )
+    function addText( text, coord, isField, isMarkerVisible )
+    {
+        var xR = 0;
+        var x = coord[0];
+        if( isField )
+        {
+            var z = len + len/3.3;
+            text = text.toUpperCase();
+            xR = -1.5708;
+        }
+        else
+        {
+            var z = coord[1];
+        }
+
+        var loader = new THREE.FontLoader();
+
+        loader.load( 'resources/fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+            var geometry = new THREE.TextGeometry( text, {
+                font: font,
+                size: len/20,
+                height: 0.5,
+                curveSegments: 12,
+                bevelEnabled: false,
+                bevelThickness: 10,
+                bevelSize: 8,
+                bevelSegments: 5
+            } );
+
+            var textMesh = new THREE.Mesh( geometry, material_text );
+            textMesh.position.set( x, len/-6.6, z );
+            textMesh.rotation.x = xR;
+            group.add( textMesh );
+        } );
+
+
+        if( isMarkerVisible )
+            addMarker( coord );
+    }
+
+    function addMarker( coord )
     {
         var x = coord[0];
         var z = coord[1];
 
         geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
-        geometry.vertices.push(new THREE.Vector3( x, 10, z ));
+        geometry.vertices.push(new THREE.Vector3( x, len/-10, z ));
         var marker = new THREE.Line( geometry, material );
         group.add( marker );
     }
@@ -41,6 +86,8 @@ function Grid( columns, len )
         var quad = new THREE.Line( geometry, material );
         group.add( quad );
     }
+
+
 
     function markerLocation(column, option)
     {
@@ -65,5 +112,4 @@ function Grid( columns, len )
     this.getFieldCount = getFieldCount;
 
     
-
 }

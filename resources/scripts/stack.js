@@ -15,8 +15,6 @@ function Stack(coord, newCoord, values, len, colors, startOption)
     var nZ = newCoord[1] * 1.0;
 
     colors = ( startOption != null ) ? [colors[startOption]] : colors;
-    //console.log(coord+"---"+newCoord+"---"+values+"---"+len+"---"+colors+"---"+startOption);
-
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
@@ -53,6 +51,17 @@ function Stack(coord, newCoord, values, len, colors, startOption)
     this.getLength = function ()
     {
         return values.length;
+    }
+
+    // addShape( shape, color, x, y, z, rx, ry,rz, s );
+    function addShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s )
+    {
+        var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+        var mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color } ) );
+        mesh.position.set( x, y, z );
+        mesh.rotation.set( rx, ry, rz );
+        mesh.scale.set( s, s, s );
+        group.add( mesh );
     }
 
 }
