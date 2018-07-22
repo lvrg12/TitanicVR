@@ -6,8 +6,8 @@ function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xf0f0f0 );
 
-    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
-    camera.position.set( 150, 100, 400 );
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
+    camera.position.set( LEN, LEN, LEN * 4 );
     scene.add( camera );
 
     controls = new THREE.OrbitControls( camera );

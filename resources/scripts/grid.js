@@ -56,7 +56,13 @@ function Grid( columns, len )
         return [x,z];
     }
 
+    function getFieldCount()
+    {
+        return columns.length;
+    }
+
     this.markerLocation = markerLocation;
+    this.getFieldCount = getFieldCount;
 
     
 
