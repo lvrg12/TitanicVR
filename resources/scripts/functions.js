@@ -11,7 +11,6 @@ function init() {
     scene.add( camera );
 
     controls = new THREE.OrbitControls( camera );
-    controls.target = new THREE.Vector3( 150, 0, 50);
     controls.update();
     
     var light = new THREE.PointLight( 0xffffff, 0.8 );

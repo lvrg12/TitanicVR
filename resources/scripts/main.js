@@ -1,5 +1,5 @@
 var container, camera, scene, renderer, controls, group
-const LEN = 100;
+const LEN = 500;
 const STEAM = true;
 init();
 
@@ -15,7 +15,7 @@ var choices = [["A","B","C"]
                ,["Europe","America"]
                ,["adult","teen","child"]];
 
-var amount = 100;
+var amount = 1500;
 var record;
 
 for( var n=0; n<amount; n++ )
@@ -30,13 +30,14 @@ for( var n=0; n<amount; n++ )
 
 
 var startField = "class";
-var ignoreFields = ["age"];
+var ignoreFields = [];
 var data = new ProcessedData(startField, ignoreFields, table);
 
 // Grid
 
 var grid = new Grid(data.getNumberOfAllOptions(), LEN, data.getAllFields(), data.getAllOptions());
 
+controls.target.set( (LEN/2) * (grid.getFieldCount()-1), 0, LEN/2 );
 
 
 // StackColumns

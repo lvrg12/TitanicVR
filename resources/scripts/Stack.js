@@ -8,7 +8,7 @@
 function Stack(coord, newCoord, values, len, colors, startOption, isSteam)
 {
     this.type = "Stack";
-    var extrudeSettings = { depth: 1, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
+    var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
     var x = coord[0] * 1.0;
     var z = coord[1] * 1.0;
     var nX = newCoord[0] * 1.0;
