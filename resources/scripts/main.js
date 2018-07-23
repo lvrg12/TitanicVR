@@ -1,37 +1,38 @@
 var container, camera, scene, renderer, controls, group
-const LEN = 500;
 const STEAM = true;
-init();
 
 // Read Input
 
-// var json = loadFile("resources/datasets/titanic_test.csv");
-// console.log(json);
+var table = loadFile("resources/datasets/titanic2.csv");
 
 
-var table = [["class","sex","continent","age"]];
-var choices = [["A","B","C"]
-               ,["male","female"]
-               ,["Europe","America"]
-               ,["adult","teen","child"]];
-
-var amount = 1500;
-var record;
-
-for( var n=0; n<amount; n++ )
-{ 
-    record = [];
-    for( var m=0; m<choices.length; m++ )
-    {
-        record.push(choices[m][Math.floor(Math.random() * choices[m].length)]);
-    }
-    table.push(record);
-}
+// var amount = 1500;
+// var table = [["class","sex","continent","age"]];
+// var choices = [["A","B","C"]
+//                ,["male","female"]
+//                ,["Europe","America"]
+//                ,["adult","child"]];
 
 
-var startField = "class";
-var ignoreFields = [];
+// var record;
+
+// for( var n=0; n<amount; n++ )
+// { 
+//     record = [];
+//     for( var m=0; m<choices.length; m++ )
+//     {
+//         record.push(choices[m][Math.floor(Math.random() * choices[m].length)]);
+//     }
+//     table.push(record);
+// }
+
+
+var startField = "pclass";
+var ignoreFields = ["embarked","parch","sibsp"];
+//var ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
 var data = new ProcessedData(startField, ignoreFields, table);
+const LEN = data.getNumberOfRecords()/2;
+init();
 
 // Grid
 
@@ -49,10 +50,27 @@ for( var f=0; f<grid.getFieldCount(); f++ )
         var coord = grid.markerLocation(f,op);
         var isStartField = ( f == 0 ) ? op : null;
         var values = data.tally(op,0,op,f,isStartField);
-        console.log("f"+f+": " + values);
+        //console.log("f"+f+": " + values);
         //new StackC(coord,values, LEN, data.getColors(), isStartField);
     }
 
+}
+
+// Stacks
+
+for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
+{
+    for( var f=0; f<grid.getFieldCount(); f++)
+    {
+        for( var op2=0; op2<data.getOptionsOfField(f).length; op2++ )
+        {
+            var coord = grid.markerLocation(f,op2);
+            var isStartField = ( f == 0 ) ? op1 : null;
+            var values = data.tally(op1,0,op2,f,isStartField);
+            //console.log("f=0 op1="+op1+" AND f="+f+" op2="+op2+" -> "+ values);
+            //new StackC(startCoord,values, LEN, data.getColors(), isStartField);
+        }
+    }
 }
 
 

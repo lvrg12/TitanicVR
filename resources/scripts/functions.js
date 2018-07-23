@@ -27,17 +27,13 @@ function init() {
 
 function loadFile( filepath )
 {
-    var results = Papa.parse( filepath, {
-        header: true,
-        step: function(row) {
-            console.log("Row:", row.data);
-        },
-        complete: function() {
-            console.log("All done!");
-        }
-    });
-
-    return results;
+    return $.csv.toArrays($.ajax({
+                url: filepath,
+                async: false,
+                success: function (csvd) {
+                    data = $.csv.toArrays(csvd);
+                }
+            }).responseText)
 
 }
 

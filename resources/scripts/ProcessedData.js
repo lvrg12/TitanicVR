@@ -47,8 +47,11 @@ function ProcessedData( startField, ignoreFields, table )
         }
     }
 
+    console.log(fieldOptionCount[0][0]);
+    console.log(fieldOptionCount[0][2]);
+
     //initializing start options values
-    var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff];
+    var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff,0xf0f0f0];
     startField = table[0].indexOf(startField);
     colors = colors.slice(0, fieldOptions[startField].length);
 
