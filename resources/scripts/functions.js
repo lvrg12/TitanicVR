@@ -51,7 +51,7 @@ function animate()
 {
     requestAnimationFrame( animate );
     controls.update();
-    raycaster.setFromCamera( mouse, camera );
+    //raycaster.setFromCamera( mouse, camera );
     render();
 }
 
@@ -65,7 +65,7 @@ function onDocumentMouseDown( event )
     if ( intersects.length > 0 )
     {
         for( var i=0; i<intersects.length; i++ )
-            console.log(intersects[i].object.material.color);
+            console.log(intersects[i].object.material.color.set("black"));
     }
 }
 
