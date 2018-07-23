@@ -2,15 +2,12 @@
 // len = length of side of quad
 // values = array of values
 // colors = colors of start field options
-// startOption = true if start field
 
-function StackC( coord, values, LEN, colors, startOption)
+function StackC( coord, values, len, colors)
 {
     this.type = "Column";
     var x = coord[0];
     var z = coord[1];
-
-    colors = ( startOption != null ) ? [colors[startOption]] : colors;
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
@@ -36,7 +33,7 @@ function StackC( coord, values, LEN, colors, startOption)
 
         var geometry = new THREE.CylinderGeometry( 5, 5, value, 32 );
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
-        cylinder.position.set( x, tempTopValue-value/2, z );
+        cylinder.position.set( x, tempTopValue+value/2, z );
         group.add( cylinder );
     }
 }

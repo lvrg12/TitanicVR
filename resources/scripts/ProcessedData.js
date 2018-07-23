@@ -47,9 +47,6 @@ function ProcessedData( startField, ignoreFields, table )
         }
     }
 
-    console.log(fieldOptionCount[0][0]);
-    console.log(fieldOptionCount[0][2]);
-
     //initializing start options values
     var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff,0xf0f0f0];
     startField = table[0].indexOf(startField);
@@ -108,33 +105,41 @@ function ProcessedData( startField, ignoreFields, table )
         return colors;
     }
 
-    // returns a tally of records with option1 and option2
-    // isStart true if tally is using start field
-    function tally(option1,field1,option2,field2,isStartField)
+    // returns a tally of records with option1 and option2 of each start option
+    function tallyStack(field1,option1,field2,option2)
     {
         var option1Name = fieldOptions[field1][option1];
         var option2Name = fieldOptions[field2][option2];
         var totalValues;
 
-        if( isStartField != null )
+        totalValues = new Array(getOptionsOfStartField().length);
+        var current_start_option;
+        for( var st=0; st<totalValues.length; st++ )
         {
-            totalValues = [0];
+            totalValues[st] = 0;
+            current_start_option = fieldOptions[startField][st];
             for( var i=1; i<table.length; i++ )
-                if ( table[i][field1] == option1Name && table[i][field2] == option2Name )
-                    totalValues[0]++;
+                if ( table[i][startField] == current_start_option && table[i][field1] == option1Name && table[i][field2] == option2Name )
+                    totalValues[st]++;
         }
-        else
+
+        return totalValues;
+    }
+
+    // returns a tally of records with start options and given option
+    function tallyColumn(field2,option2)
+    {
+        var option2Name = fieldOptions[field2][option2];
+        var totalValues;
+
+        totalValues = new Array(getOptionsOfStartField().length);
+        for( var st=0; st<totalValues.length; st++ )
         {
-            totalValues = new Array(getOptionsOfStartField().length);
-            var current_start_option;
-            for( var st=0; st<totalValues.length; st++ )
-            {
-                totalValues[st] = 0;
-                current_start_option = fieldOptions[startField][st];
-                for( var i=1; i<table.length; i++ )
-                    if ( table[i][startField] == current_start_option && table[i][field1] == option1Name && table[i][field2] == option2Name )
-                        totalValues[st]++;
-            }
+            totalValues[st] = 0;
+            current_start_option = fieldOptions[startField][st];
+            for( var i=1; i<table.length; i++ )
+                if ( table[i][startField] == current_start_option && table[i][field2] == option2Name )
+                    totalValues[st]++;
         }
 
         return totalValues;
@@ -147,9 +152,8 @@ function ProcessedData( startField, ignoreFields, table )
     this.getOptionsOfField = getOptionsOfField;
     this.getOptionsOfStartField = getOptionsOfStartField;
     this.getColors = getColors;
-    this.tally = tally;
-
-
+    this.tallyStack = tallyStack;
+    this.tallyColumn = tallyColumn;
 
 
 }

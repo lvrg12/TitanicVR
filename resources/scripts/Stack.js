@@ -3,9 +3,8 @@
 // len = length of side of quad
 // values = array of values
 // colors = colors of archs
-// startOption = true if stach is in quad 0 (start field)
 
-function Stack(coord, newCoord, values, len, colors, startOption, isSteam)
+function Stack(coord, newCoord, values, len, colors, isSteam)
 {
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
@@ -13,8 +12,6 @@ function Stack(coord, newCoord, values, len, colors, startOption, isSteam)
     var z = coord[1] * 1.0;
     var nX = newCoord[0] * 1.0;
     var nZ = newCoord[1] * 1.0;
-
-    colors = ( startOption != null ) ? [colors[startOption]] : colors;
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
