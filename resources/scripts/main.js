@@ -1,5 +1,6 @@
 var container, camera, scene, renderer, controls, group
 const LEN = 100;
+const STEAM = true;
 init();
 
 // Read Input
@@ -14,7 +15,7 @@ var choices = [["A","B","C"]
                ,["Europe","America"]
                ,["adult","teen","child"]];
 
-var amount = 300;
+var amount = 100;
 var record;
 
 for( var n=0; n<amount; n++ )
@@ -29,12 +30,30 @@ for( var n=0; n<amount; n++ )
 
 
 var startField = "class";
-var ignoreFields = [];
+var ignoreFields = ["age"];
 var data = new ProcessedData(startField, ignoreFields, table);
 
 // Grid
 
 var grid = new Grid(data.getNumberOfAllOptions(), LEN, data.getAllFields(), data.getAllOptions());
+
+
+
+// StackColumns
+
+for( var f=0; f<grid.getFieldCount(); f++ )
+{
+    for( var op=0; op<data.getOptionsOfField(f).length; op++)
+    {
+        var coord = grid.markerLocation(f,op);
+        var isStartField = ( f == 0 ) ? op : null;
+        var values = data.tally(op,0,op,f,isStartField);
+        console.log("f"+f+": " + values);
+        //new StackC(coord,values, LEN, data.getColors(), isStartField);
+    }
+
+}
+
 
 
 // Stacks
@@ -50,8 +69,7 @@ for( var f=0; f<grid.getFieldCount()-1; f++)
         {
             var endCoord = grid.markerLocation(f+1,op2);
             var values = data.tally(op1,f,op2,f+1,isStartField);
-            //console.log("f"+ f + "->f" + (f+1) + " ---- " + op1 + " and " + op2 + ": " + values);
-            var stack = new Stack(startCoord,endCoord,values, LEN, data.getColors(), isStartField);
+            new Stack(startCoord,endCoord,values, LEN, data.getColors(), isStartField, STEAM);
         }
     }
 }

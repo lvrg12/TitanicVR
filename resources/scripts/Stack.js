@@ -5,9 +5,9 @@
 // colors = colors of archs
 // startOption = true if stach is in quad 0 (start field)
 
-function Stack(coord, newCoord, values, len, colors, startOption)
+function Stack(coord, newCoord, values, len, colors, startOption, isSteam)
 {
-    this.type = "Arch";
+    this.type = "Stack";
     var extrudeSettings = { depth: 1, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
     var x = coord[0] * 1.0;
     var z = coord[1] * 1.0;
@@ -20,13 +20,17 @@ function Stack(coord, newCoord, values, len, colors, startOption)
     for( var v=0; v<values.length; v++)
         totalValue+=values[v];
 
-    if ( totalValue > 0 )
+    if ( totalValue >= 0 )
     {
-        var tempTopValue = totalValue/2;
+        var tempTopValue = ( isSteam ) ? totalValue/2 : totalValue;
 
         // drawing archs
         for( var v=0; v<values.length; v++)
             addArch(values[v],colors[v]);
+    }
+    else
+    {
+        console.error("Total tally can not be negative");
     }
 
     // addArch( value of arch, color of arch )
