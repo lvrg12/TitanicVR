@@ -5,7 +5,7 @@ var ignoreFields;
 
 // Read Input
 
-var table = loadFile("resources/datasets/titanic1.csv");
+var table = loadFile("resources/datasets/titanic2.csv");
 
 
 // var amount = 1500;
@@ -30,9 +30,9 @@ var table = loadFile("resources/datasets/titanic1.csv");
 // }
 
 
-startField = "Pclass";
-//ignoreFields = ["embarked","parch","sibsp"];
-ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
+startField = "pclass";
+ignoreFields = ["embarked","parch","sibsp"];
+//ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
 var data = new ProcessedData(startField, ignoreFields, table);
 const LEN = data.getNumberOfRecords()/2;
 init();
