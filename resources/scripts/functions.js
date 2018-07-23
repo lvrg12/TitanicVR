@@ -1,4 +1,5 @@
-function init() {
+function init()
+{
 
     container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -21,6 +22,14 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
 
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+
+    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+    window.requestAnimationFrame( render );
+
+
     group = new THREE.Group();
     scene.add( group );
 }
@@ -42,5 +51,29 @@ function animate()
 {
     requestAnimationFrame( animate );
     controls.update();
-    renderer.render( scene, camera );
+    raycaster.setFromCamera( mouse, camera );
+    render();
+}
+
+function onDocumentMouseDown( event )
+{
+    event.preventDefault();
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    // calculate objects intersecting the picking ray
+	var intersects = raycaster.intersectObjects( group.children );
+    if ( intersects.length > 0 )
+    {
+        for( var i=0; i<intersects.length; i++ )
+            console.log(intersects[i].object.material.color);
+    }
+}
+
+function render()
+{
+
+	// update the picking ray with the camera and mouse position
+	raycaster.setFromCamera( mouse, camera );
+	renderer.render( scene, camera );
+
 }

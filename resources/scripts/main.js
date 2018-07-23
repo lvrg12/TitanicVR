@@ -1,5 +1,5 @@
-var container, camera, scene, renderer, controls, group
-const STEAM = true;
+var container, camera, scene, renderer, controls, group, raycaster, mouse;
+const STEAM = false;
 var startField;
 var ignoreFields;
 
@@ -44,7 +44,9 @@ var grid = new Grid(data.getNumberOfAllOptions(), LEN, data.getAllFields(), data
 controls.target.set( (LEN/2) * (grid.getFieldCount()-1), 0, LEN/2 );
 
 
-// StackColumns
+// Columns
+
+var columns = []
 
 for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
 {
@@ -54,7 +56,7 @@ for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
         {
             var coord = grid.markerLocation(f,op2);
             var values = data.tallyColumn(f,op2);
-            new StackC(coord,values, LEN, data.getColors());
+            columns.push(new Column(coord,values, LEN, data.getColors()));
         }
     }
 }
@@ -62,6 +64,8 @@ for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
 
 
 // Stacks
+
+var stacks = []
 
 for( var f=0; f<grid.getFieldCount()-1; f++)
 {
@@ -73,7 +77,7 @@ for( var f=0; f<grid.getFieldCount()-1; f++)
         {
             var endCoord = grid.markerLocation(f+1,op2);
             var values = data.tallyStack(f,op1,f+1,op2);
-            new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM);
+            columns.push(new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM));
         }
     }
 }

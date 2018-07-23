@@ -3,7 +3,7 @@
 // values = array of values
 // colors = colors of start field options
 
-function StackC( coord, values, len, colors)
+function Column( coord, values, len, colors)
 {
     this.type = "Column";
     var x = coord[0];
