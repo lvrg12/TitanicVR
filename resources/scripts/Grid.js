@@ -52,7 +52,7 @@ function Grid( columns, len, fieldNames, optionNames )
                 bevelSegments: 5
             } );
 
-            var textMesh = new THREE.Mesh( geometry, material_text );
+            var textMesh = new THREE.Mesh( geometry, material_text.clone() );
             textMesh.position.set( x, len/-4, z );
             textMesh.rotation.x = xR;
             group.add( textMesh );
@@ -83,7 +83,7 @@ function Grid( columns, len, fieldNames, optionNames )
         geometry.vertices.push(new THREE.Vector3( q * len, 0, len ));
         geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, len ));
         geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, 0 ));
-        var quad = new THREE.Line( geometry, material );
+        var quad = new THREE.Line( geometry, material.clone() );
         group.add( quad );
     }
 

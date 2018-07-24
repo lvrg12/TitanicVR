@@ -1,4 +1,4 @@
-var container, camera, scene, renderer, controls, group, raycaster, mouse;
+var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED;
 const STEAM = false;
 var startField;
 var ignoreFields;
