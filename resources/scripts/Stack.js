@@ -23,7 +23,8 @@ function Stack(coord, newCoord, values, len, colors, isSteam)
 
         // drawing archs
         for( var v=0; v<values.length; v++)
-            addArch(values[v],colors[v]);
+            if( values[v] > 0 )
+                addArch(values[v],colors[v]);
     }
     else
     {

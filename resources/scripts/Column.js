@@ -5,7 +5,6 @@
 
 function Column( coord, values, len, colors)
 {
-    console.log("here");
     this.type = "Column";
     var x = coord[0];
     var z = coord[1];
@@ -20,7 +19,8 @@ function Column( coord, values, len, colors)
 
         // drawing archs
         for( var v=0; v<values.length; v++)
-            addColumn(values[v],colors[v]);
+            if( values[v] > 0 )
+                addColumn(values[v],colors[v]);
     }
     else
     {

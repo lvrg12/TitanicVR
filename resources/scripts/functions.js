@@ -96,7 +96,12 @@ function onDocumentMouseDown( event )
     }
     else
     {
-        INTERSECTED = null;
+        for( var i=0; i<group.children.length; i++ )
+        {
+            var children_type = group.children[i].geometry.type;
+            if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
+                    group.children[i].material.opacity = 1.0;
+        }
     }
 }
 

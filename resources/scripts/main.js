@@ -79,7 +79,7 @@ for( var f=0; f<grid.getFieldCount()-1; f++)
     }
 }
 
-//console.log( group.children[9].material.transparent );
+//console.log( "here" );
 
 
 // Animate
