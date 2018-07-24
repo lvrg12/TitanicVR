@@ -88,7 +88,7 @@ function onDocumentMouseDown( event )
             {
                 var children_type = group.children[i].geometry.type;
                 if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
-                    if( group.children[i].material.color.getHex() == intersected_color )
+                    if( group.children[i].material.color.getHex() != intersected_color )
                         group.children[i].material.opacity = 0.05;
             }
 
