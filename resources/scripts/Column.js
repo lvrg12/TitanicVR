@@ -2,8 +2,9 @@
 // len = length of side of quad
 // values = array of values
 // colors = colors of start field options
+// attributes = options that the column covers
 
-function Column( coord, values, len, colors)
+function Column( coord, values, len, colors, attributes)
 {
     this.type = "Column";
     var x = coord[0];
@@ -36,6 +37,7 @@ function Column( coord, values, len, colors)
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
         cylinder.position.set( x, tempTopValue+value/2, z );
         cylinder.material.transparent = true;
+        cylinder.attributes = attributes;
         group.add( cylinder );
     }
 }

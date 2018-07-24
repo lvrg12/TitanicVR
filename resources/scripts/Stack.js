@@ -3,8 +3,9 @@
 // len = length of side of quad
 // values = array of values
 // colors = colors of archs
+// attributes = options that the stack covers
 
-function Stack(coord, newCoord, values, len, colors, isSteam)
+function Stack(coord, newCoord, values, len, colors, isSteam, attributes)
 {
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
@@ -28,7 +29,7 @@ function Stack(coord, newCoord, values, len, colors, isSteam)
     }
     else
     {
-        console.error("Total tally can not be negative");
+        console.error("Total tally cannot be negative");
     }
 
     // addArch( value of arch, color of arch )
@@ -65,6 +66,7 @@ function Stack(coord, newCoord, values, len, colors, isSteam)
         mesh.rotation.set( rx, ry, rz );
         mesh.scale.set( s, s, s );
         mesh.material.transparent = true;
+        mesh.attributes = attributes;
         group.add( mesh );
     }
 }

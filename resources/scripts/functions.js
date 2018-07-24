@@ -80,28 +80,23 @@ function onDocumentMouseDown( event )
         {
             INTERSECTED = intersects[ 0 ].object;
 
-            var intersected_color = INTERSECTED.material.color.getHex();
-
             //console.log(group.children[5]);
 
-            for( var i=0; i<group.children.length; i++ )
-            {
-                var children_type = group.children[i].geometry.type;
-                if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
-                    if( group.children[i].material.color.getHex() != intersected_color )
-                        group.children[i].material.opacity = 0.05;
-            }
+            var iXpos = INTERSECTED.position.x;
+            var itype = INTERSECTED.geometry.type;
 
+
+            if ( iXpos == 0 )
+                filterByFirstColumn( INTERSECTED );
+            else if( itype == "CylinderGeometry" )
+                filterByColumn( INTERSECTED );
+            else
+                filterByStack( INTERSECTED );
         }
     }
     else
     {
-        for( var i=0; i<group.children.length; i++ )
-        {
-            var children_type = group.children[i].geometry.type;
-            if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
-                    group.children[i].material.opacity = 1.0;
-        }
+        filterReset();
     }
 }
 

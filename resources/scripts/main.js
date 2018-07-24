@@ -55,7 +55,8 @@ for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
         {
             var coord = grid.markerLocation(f,op2);
             var values = data.tallyColumn(f,op2);
-            new Column(coord,values, LEN, data.getColors());
+            var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
+            new Column(coord,values, LEN, data.getColors(), attributes);
         }
     }
 }
@@ -74,12 +75,11 @@ for( var f=0; f<grid.getFieldCount()-1; f++)
         {
             var endCoord = grid.markerLocation(f+1,op2);
             var values = data.tallyStack(f,op1,f+1,op2);
-            new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM);
+            var attributes = { "field1": f, "option1": op1, "field2": f+1, "option2": op2 }
+            new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM, attributes);
         }
     }
 }
-
-//console.log( "here" );
 
 
 // Animate
