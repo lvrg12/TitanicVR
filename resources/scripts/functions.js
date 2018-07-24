@@ -78,10 +78,19 @@ function onDocumentMouseDown( event )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
         {
-
             INTERSECTED = intersects[ 0 ].object;
-            INTERSECTED.material.color.setHex( 0xFFFFFF );
-            console.log(INTERSECTED);
+
+            var intersected_color = INTERSECTED.material.color.getHex();
+
+            //console.log(group.children[5]);
+
+            for( var i=0; i<group.children.length; i++ )
+            {
+                var children_type = group.children[i].geometry.type;
+                if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
+                    if( group.children[i].material.color.getHex() == intersected_color )
+                        group.children[i].material.opacity = 0.05;
+            }
 
         }
     }

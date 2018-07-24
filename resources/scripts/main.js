@@ -46,7 +46,6 @@ controls.target.set( (LEN/2) * (grid.getFieldCount()-1), 0, LEN/2 );
 
 // Columns
 
-var columns = []
 
 for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
 {
@@ -56,7 +55,7 @@ for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
         {
             var coord = grid.markerLocation(f,op2);
             var values = data.tallyColumn(f,op2);
-            columns.push(new Column(coord,values, LEN, data.getColors()));
+            new Column(coord,values, LEN, data.getColors());
         }
     }
 }
@@ -64,8 +63,6 @@ for( var op1=0; op1<data.getOptionsOfField(0).length; op1++)
 
 
 // Stacks
-
-var stacks = []
 
 for( var f=0; f<grid.getFieldCount()-1; f++)
 {
@@ -77,10 +74,12 @@ for( var f=0; f<grid.getFieldCount()-1; f++)
         {
             var endCoord = grid.markerLocation(f+1,op2);
             var values = data.tallyStack(f,op1,f+1,op2);
-            columns.push(new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM));
+            new Stack(startCoord,endCoord,values, LEN, data.getColors(), STEAM);
         }
     }
 }
+
+//console.log( group.children[9].material.transparent );
 
 
 // Animate

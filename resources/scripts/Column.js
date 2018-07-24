@@ -5,6 +5,7 @@
 
 function Column( coord, values, len, colors)
 {
+    console.log("here");
     this.type = "Column";
     var x = coord[0];
     var z = coord[1];
@@ -34,6 +35,9 @@ function Column( coord, values, len, colors)
         var geometry = new THREE.CylinderGeometry( 5, 5, value, 32 );
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
         cylinder.position.set( x, tempTopValue+value/2, z );
+        console.log("here");
+        console.log( cylinder.material );
+        cylinder.material.transparent = true;
         group.add( cylinder );
     }
 }

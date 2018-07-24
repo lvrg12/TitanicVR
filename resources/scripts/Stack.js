@@ -63,7 +63,7 @@ function Stack(coord, newCoord, values, len, colors, isSteam)
         mesh.position.set( x, y, z );
         mesh.rotation.set( rx, ry, rz );
         mesh.scale.set( s, s, s );
+        mesh.material.transparent = true;
         group.add( mesh );
     }
-
 }
