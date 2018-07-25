@@ -5,7 +5,7 @@
 // colors = colors of archs
 // attributes = options that the stack covers
 
-function Stack(coord, newCoord, values, len, colors, isSteam, attributes)
+function Stack(coord, newCoord, values, len, colors, isSteam, attributes, group)
 {
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
@@ -52,21 +52,16 @@ function Stack(coord, newCoord, values, len, colors, isSteam, attributes)
         addShape( arch, extrudeSettings, color, x, 0, z, 0, theta, 0, 1 );
     }
 
-    this.getLength = function ()
-    {
-        return values.length;
-    }
-
     // addShape( shape, color, x, y, z, rx, ry,rz, s );
     function addShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s )
     {
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-        var mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color } ) );
-        mesh.position.set( x, y, z );
-        mesh.rotation.set( rx, ry, rz );
-        mesh.scale.set( s, s, s );
-        mesh.material.transparent = true;
-        mesh.attributes = attributes;
-        group.add( mesh );
+        var arch = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color } ) );
+        arch.position.set( x, y, z );
+        arch.rotation.set( rx, ry, rz );
+        arch.scale.set( s, s, s );
+        arch.material.transparent = true;
+        arch.attributes = attributes;
+        group.add( arch );
     }
 }

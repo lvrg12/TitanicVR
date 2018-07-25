@@ -1,7 +1,7 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function Grid( columns, len, fieldNames, optionNames )
+function Grid( columns, len, fieldNames, optionNames, group )
 {
     this.type = "Grid";
     this.columns = columns.length;

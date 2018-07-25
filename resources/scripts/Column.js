@@ -4,7 +4,7 @@
 // colors = colors of start field options
 // attributes = options that the column covers
 
-function Column( coord, values, len, colors, attributes)
+function Column( coord, values, len, colors, attributes, group)
 {
     this.type = "Column";
     var x = coord[0];

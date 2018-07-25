@@ -30,11 +30,6 @@ function init()
     window.requestAnimationFrame( render );
     window.addEventListener( 'resize', onWindowResize, false );
 
-
-
-
-    group = new THREE.Group();
-    scene.add( group );
 }
 
 function loadFile( filepath )
@@ -73,7 +68,8 @@ function onDocumentMouseDown( event )
 
     // find intersections
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects( group.children );
+    var intersects = raycaster.intersectObjects( chart.group.children );
+    console.log(chartTmp);
     if ( intersects.length > 0 )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
@@ -91,13 +87,12 @@ function onDocumentMouseDown( event )
 
             FILTERED = 1;
 
-            if ( iXpos == 0 )
+            if ( iXpos == 0 )                           // first field column selected
                 filterByFirstColumn( INTERSECTED );
-            else if( itype == "CylinderGeometry" )
+            else if( itype == "CylinderGeometry" )      // column selected
                 filterByColumn( INTERSECTED );
-            else
+            else                                        // stack selected
                 filterByStack( INTERSECTED );
-                
         }
     }
     else

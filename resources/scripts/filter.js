@@ -14,31 +14,23 @@ function filterByFirstColumn( intersected )
 
 function filterByColumn( intersected )
 {
+    for( var i=0; i<chart.group.children.length; i++ )
+        chart.group.children[i].material.opacity = 0.05;
+
     var ifield1 = intersected.attributes.field1;
+    var ifield2 = intersected.attributes.field2;
     var ioption1 = intersected.attributes.option1;
+    var ioption2 = intersected.attributes.option2;
 
-    for( var i=0; i<group.children.length; i++ )
-    {
-        var ctype = group.children[i].geometry.type;
-        if( ctype == "ExtrudeGeometry" || ctype == "CylinderGeometry" )
-        {
-            var cfield1 = group.children[i].attributes.field1;
-            var cfield2 = group.children[i].attributes.field2;
-            var coption1 = group.children[i].attributes.option1;
-            var coption2 = group.children[i].attributes.option2;
-
-            var match = cfield1 == ifield1 && coption1 == ioption1 || cfield2 == ifield1 && coption2 == ioption1;
-            
-            if( !match )
-                group.children[i].material.opacity = 0.05;
-
-        }
-    }
+    chartTmp = new Chart( data, [ifield1,ioption1,ifield2,ioption2] );
+    chartTmp.addToScene();
 }
 
 
 function filterByStack( intersected )
 {
+    filter.filterReset();
+
     var ifield1 = intersected.attributes.field1;
     var ifield2 = intersected.attributes.field2;
     var ioption1 = intersected.attributes.option1;
@@ -55,7 +47,7 @@ function filterByStack( intersected )
             var coption1 = group.children[i].attributes.option1;
             var coption2 = group.children[i].attributes.option2;
 
-            var match = cfield1 == ifield1 && coption1 == ioption1 || cfield2 == ifield2 && coption2 == ioption2;
+            var match = cfield1 == ifield2 && coption1 == ioption2 || cfield2 == ifield1 && coption2 == ioption1 || cfield1 == ifield1 && coption1 == ioption1 && cfield2 == ifield2 && coption2 == ioption2;
             
             if( !match )
                 group.children[i].material.opacity = 0.05;
@@ -63,16 +55,16 @@ function filterByStack( intersected )
         }
     }
 
+    intersected.material.opacity = 1.0;
+
 
 }
 
 
 function filterReset()
 {
-    for( var i=0; i<group.children.length; i++ )
-    {
-        var children_type = group.children[i].geometry.type;
-        if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
-                group.children[i].material.opacity = 1.0;
-    }
+    chartTmp.removeFromScene();
+    chartTmp = null;
+    for( var i=0; i<chart.group.children.length; i++ )
+        chart.group.children[i].material.opacity = 1.0;
 }

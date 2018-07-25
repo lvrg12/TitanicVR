@@ -53,10 +53,7 @@ function ProcessedData( startField, ignoreFields, table )
     colors = colors.slice(0, fieldOptions[startField].length);
 
 
-
-
     // Methods
-
 
     // returns record count
     function getNumberOfRecords()
