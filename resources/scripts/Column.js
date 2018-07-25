@@ -33,7 +33,7 @@ function Column( coord, values, len, colors, attributes)
     {
         tempTopValue-= value;
 
-        var geometry = new THREE.CylinderGeometry( 5, 5, value, 32 );
+        var geometry = new THREE.CylinderGeometry( len/50, len/50, value, 32 );
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
         cylinder.position.set( x, tempTopValue+value/2, z );
         cylinder.material.transparent = true;

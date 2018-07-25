@@ -85,6 +85,11 @@ function onDocumentMouseDown( event )
             var iXpos = INTERSECTED.position.x;
             var itype = INTERSECTED.geometry.type;
 
+            
+            if( FILTERED == 1 )
+                filterReset();
+
+            FILTERED = 1;
 
             if ( iXpos == 0 )
                 filterByFirstColumn( INTERSECTED );
@@ -92,11 +97,15 @@ function onDocumentMouseDown( event )
                 filterByColumn( INTERSECTED );
             else
                 filterByStack( INTERSECTED );
+                
         }
     }
     else
     {
-        filterReset();
+        if( FILTERED == 1 )
+            filterReset();
+
+        FILTERED = 0;
     }
 }
 

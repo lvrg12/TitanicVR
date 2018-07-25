@@ -1,4 +1,4 @@
-var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED;
+var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 const STEAM = false;
 var startField;
 var ignoreFields;
@@ -31,10 +31,11 @@ var table = loadFile("resources/datasets/titanic2.csv");
 
 
 startField = "pclass";
-ignoreFields = ["embarked","parch","sibsp"];
+ignoreFields = ["embarked","parch"];
 //ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
 var data = new ProcessedData(startField, ignoreFields, table);
 const LEN = data.getNumberOfRecords()/2;
+console.log(LEN);
 init();
 
 // Grid
