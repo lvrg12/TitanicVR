@@ -37,6 +37,7 @@ else
 }
 
 //ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
+var table = new ProcessedTable(startField, ignoreFields, table);
 var data = new ProcessedData(startField, ignoreFields, table);
 const LEN = data.getNumberOfRecords()/2;
 
