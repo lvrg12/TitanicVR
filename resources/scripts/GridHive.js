@@ -3,9 +3,9 @@
 
 function GridHive( columns, len, fieldNames, optionNames, group)
 {
-    console.log(Math.PI/columns.length);
     this.type = "GridHive";
     this.columns = columns.length;
+    this.separation = -2*Math.PI/columns.length;
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
     var material_text = new THREE.MeshPhongMaterial( { color: 0x000000 } );

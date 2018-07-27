@@ -5,7 +5,7 @@
 // colors = colors of archs
 // attributes = options that the stack covers
 
-function Stack(coord, newCoord, values, len, colors, isSteam, attributes, group)
+function StackHive(coord, newCoord, values, len, colors, isSteam, attributes, group, fromField, separation)
 {
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
@@ -39,17 +39,26 @@ function Stack(coord, newCoord, values, len, colors, isSteam, attributes, group)
         var down = top-value;
         tempTopValue-= value;
         var dist = Math.sqrt(Math.pow((nX-x),2)+Math.pow((nZ-z),2));
-        var theta = (z > nZ) ? Math.acos(len/dist) : Math.acos(len/dist) * -1;
+        
+        var theta;
+      
+      
+        if( fromField == 0 )
+            theta = ( Math.PI - Math.acos((x-nX)/dist) );
+        else
+            theta = Math.asin( ( Math.sin() ) / dist );
+
+
+        //var theta = (x < nX) ? Math.PI + Math.acos((nX-x)/dist) : Math.PI-Math.acos((x-nX)/dist);
+        //theta = (x < nX) ? theta*-1 : theta*1;
+
 
         // draw arch
-        // quadraticCurveTo(cpX,cpY,X,Y):
-        //      (cpX,cpY) = vertex position
-        //		(X,Y)	  = end position
         var arch = new THREE.Shape();
         arch.moveTo( 0 , 0 );
         arch.quadraticCurveTo(dist/2,top,dist,0);
         arch.quadraticCurveTo(dist/2,down,0,0);
-        addShape( arch, extrudeSettings, color, x, 0, z, 0, theta, 0, 1 );
+        addShape( arch, extrudeSettings, color, x, 0, z, 0, theta + separation*fromField, 0, 1 );
     }
 
     // addShape( shape, color, x, y, z, rx, ry,rz, s );
