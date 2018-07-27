@@ -1,7 +1,7 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function ProcessedTable( startFieldName, ignoreFields, table, filterVar )
+function ProcessedTable( startFieldName, ignoreFields, table)
 {
     this.type = "ProcessedTable";
 
@@ -27,18 +27,6 @@ function ProcessedTable( startFieldName, ignoreFields, table, filterVar )
         }
     }
 
-
-    // add boolean filtered
-    // if( filterVar != null )
-    //     for( var r=0; r<table.length; r++ )
-    //         table[r].push(table[r][f] == filterVar[0] && op1 == filterVar[1] && (f+1 == filterVar[2]) && (op2 == filterVar[2]))
-    //     {
-    //         if( (f == filterVar[0]) && (op1 == filterVar[1]) && (f+1 == filterVar[2]) && (op2 == filterVar[2]) )
-    //         tmp = table[r][0];
-    //         table[r][0] = table[r][index];
-    //         table[r][index] = tmp;
-    //     }
-    // }
-
+    return table;
 
 }

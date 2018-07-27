@@ -1,5 +1,6 @@
 var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 const STEAM = true;
+const HIVE = true;
 var startField;
 var ignoreFields;
 
@@ -7,9 +8,9 @@ var ignoreFields;
 
 if( true )
 {
-    var table = loadFile("resources/datasets/titanic2.csv");
     startField = "pclass";
-    ignoreFields = ["embarked"];
+    ignoreFields = ["parch","sibsp"];
+    var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 }
 else
 {
@@ -37,13 +38,11 @@ else
 }
 
 //ignoreFields = ["Name","Age","Siblings/Spouses Aboard", "Parent/Children Aboard", "Fare"];
-var table = new ProcessedTable(startField, ignoreFields, table);
-var data = new ProcessedData(startField, ignoreFields, table);
-const LEN = data.getNumberOfRecords()/2;
-
+const LEN = table.length/2;
 init();
+controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
 
-var chart = new Chart(data, true);
+var chart = new Chart(table, null);
 chart.addToScene();
 
 var chartTmp = null;

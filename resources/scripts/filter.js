@@ -1,12 +1,12 @@
 function filterByFirstColumn( intersected )
 {
     var intersected_color = intersected.material.color.getHex();
-    for( var i=0; i<group.children.length; i++ )
+    for( var i=0; i<chart.group.children.length; i++ )
     {
-        var children_type = group.children[i].geometry.type;
+        var children_type = chart.group.children[i].geometry.type;
         if( children_type == "ExtrudeGeometry" || children_type == "CylinderGeometry" )
-            if( group.children[i].material.color.getHex() != intersected_color )
-                group.children[i].material.opacity = 0.05;
+            if( chart.group.children[i].material.color.getHex() != intersected_color )
+                chart.group.children[i].material.opacity = 0.05;
     }
 
 }
@@ -22,6 +22,8 @@ function filterByColumn( intersected )
     var ioption1 = intersected.attributes.option1;
     var ioption2 = intersected.attributes.option2;
 
+    //console.log([ifield1,ioption1,ifield2,ioption2]);
+
     chartTmp = new Chart( data, [ifield1,ioption1,ifield2,ioption2] );
     chartTmp.addToScene();
 }
@@ -29,42 +31,30 @@ function filterByColumn( intersected )
 
 function filterByStack( intersected )
 {
-    filter.filterReset();
+
+    for( var i=0; i<chart.group.children.length; i++ )
+        chart.group.children[i].material.opacity = 0.05;
 
     var ifield1 = intersected.attributes.field1;
     var ifield2 = intersected.attributes.field2;
     var ioption1 = intersected.attributes.option1;
     var ioption2 = intersected.attributes.option2;
 
+    //console.log([ifield1,ioption1,ifield2,ioption2]);
 
-    for( var i=0; i<group.children.length; i++ )
-    {
-        var ctype = group.children[i].geometry.type;
-        if( ctype == "ExtrudeGeometry" || ctype == "CylinderGeometry" )
-        {
-            var cfield1 = group.children[i].attributes.field1;
-            var cfield2 = group.children[i].attributes.field2;
-            var coption1 = group.children[i].attributes.option1;
-            var coption2 = group.children[i].attributes.option2;
-
-            var match = cfield1 == ifield2 && coption1 == ioption2 || cfield2 == ifield1 && coption2 == ioption1 || cfield1 == ifield1 && coption1 == ioption1 && cfield2 == ifield2 && coption2 == ioption2;
-            
-            if( !match )
-                group.children[i].material.opacity = 0.05;
-
-        }
-    }
-
-    intersected.material.opacity = 1.0;
-
+    chartTmp = new Chart( data, [ifield1,ioption1,ifield2,ioption2] );
+    chartTmp.addToScene();
 
 }
 
 
 function filterReset()
 {
-    chartTmp.removeFromScene();
-    chartTmp = null;
+    if( chartTmp != null )
+    {
+        chartTmp.removeFromScene();
+        chartTmp = null;
+    }
     for( var i=0; i<chart.group.children.length; i++ )
         chart.group.children[i].material.opacity = 1.0;
 }

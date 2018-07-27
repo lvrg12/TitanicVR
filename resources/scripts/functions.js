@@ -25,7 +25,7 @@ function init()
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    //document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'resize', onWindowResize, false );
@@ -69,37 +69,39 @@ function onDocumentMouseDown( event )
     // find intersections
     raycaster.setFromCamera( mouse, camera );
     var intersects = raycaster.intersectObjects( chart.group.children );
-    console.log(chartTmp);
+    console.log(scene.children);
     if ( intersects.length > 0 )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
         {
             INTERSECTED = intersects[ 0 ].object;
 
-            //console.log(group.children[5]);
-
             var iXpos = INTERSECTED.position.x;
             var itype = INTERSECTED.geometry.type;
 
             
             if( FILTERED == 1 )
+            {
                 filterReset();
+                FILTERED = 0;
+            }
+            else
+            {
+                if ( iXpos == 0 )                           // first field column selected
+                    filterByFirstColumn( INTERSECTED );
+                else if( itype == "CylinderGeometry" )      // column selected
+                    filterByColumn( INTERSECTED );
+                else                                        // stack selected
+                    filterByStack( INTERSECTED );
 
-            FILTERED = 1;
+                FILTERED = 1;
+            }
 
-            if ( iXpos == 0 )                           // first field column selected
-                filterByFirstColumn( INTERSECTED );
-            else if( itype == "CylinderGeometry" )      // column selected
-                filterByColumn( INTERSECTED );
-            else                                        // stack selected
-                filterByStack( INTERSECTED );
         }
     }
     else
     {
-        if( FILTERED == 1 )
-            filterReset();
-
+        filterReset();
         FILTERED = 0;
     }
 }

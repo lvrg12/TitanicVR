@@ -1,9 +1,10 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function Grid( columns, len, fieldNames, optionNames, group)
+function GridHive( columns, len, fieldNames, optionNames, group)
 {
-    this.type = "Grid";
+    console.log(Math.PI/columns.length);
+    this.type = "GridHive";
     this.columns = columns.length;
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
@@ -11,31 +12,31 @@ function Grid( columns, len, fieldNames, optionNames, group)
     var geometry;
 
     // drawing quadrants
-    for( var i=1; i<columns.length; i++)
-        addQuad(i);
+    for( var i=0; i<columns.length; i++)
+        addQuad( 2*Math.PI/(columns.length), i );
 
     // drawing text
     for( var f=0; f<columns.length; f++)
     {
-        addText(fieldNames[f],markerLocation(f,0),true,false);
+        addFieldText(fieldNames[f],f);
         for( var j=0; j<columns[f]; j++)
-            addText(optionNames[f][j],markerLocation(f,j),false,true);
+            addText(optionNames[f][j],markerLocation(f,j),false);
     }
 
-    function addText( text, coord, isField, isMarkerVisible )
+    function addFieldText(text,field)
     {
-        var xR = 0;
-        var x = coord[0];
-        if( isField )
-        {
-            var z = len + len/3.3;
-            text = text.toUpperCase();
-            xR = -1.5708;
-        }
-        else
-        {
-            var z = coord[1];
-        }
+        text = text.toUpperCase();
+        var t = -2 * Math.PI/columns.length * field;
+        var x = len/5 + len + len/5;
+
+        addText(text, [ x * Math.cos(t) , x * Math.sin(t) ], true);
+    }
+
+    function addText( text, coord, isFieldName )
+    {
+        var xR = ( isFieldName )? -2*Math.PI/4 : 0;
+        var z = coord[1];
+        var x = coord[0]
 
         var loader = new THREE.FontLoader();
 
@@ -59,7 +60,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
         } );
 
 
-        if( isMarkerVisible )
+        if( !isFieldName )
             addMarker( coord );
     }
 
@@ -75,32 +76,29 @@ function Grid( columns, len, fieldNames, optionNames, group)
         group.add( marker );
     }
 
-    function addQuad( q )
+    function addQuad( angle ,q )
     {
         geometry = new THREE.Geometry();
-        geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, 0 ));
-        geometry.vertices.push(new THREE.Vector3( q * len, 0, 0 ));
-        geometry.vertices.push(new THREE.Vector3( q * len, 0, len ));
-        geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, len ));
-        geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, 0 ));
+        geometry.vertices.push(new THREE.Vector3( len/5, 0, 0 ));
+        geometry.vertices.push(new THREE.Vector3( len+len/5, 0, 0 ));
         var quad = new THREE.Line( geometry, material.clone() );
+        quad.rotation.set( 0, q * angle, 0);
         group.add( quad );
     }
 
 
 
-    function markerLocation(column, option)
+    function markerLocation(field, option)
     {
-        var num_of_options = columns[column];
+        var num_of_options = columns[field];
 
         if( option > num_of_options-1 || option < 0 )
-            console.error("Column " + column + " does not contain option " + option);
-
+            console.error("Field " + field + " does not contain option " + option);
         var separation = len / ( num_of_options - 1 );
-        var x = column * len;
-        var z = option * separation;
+        var t = -2 * Math.PI/columns.length * field;
+        var x = len/5 + option * separation;
         
-        return [x,z];
+        return [ x * Math.cos(t) , x * Math.sin(t) ];
     }
 
     function getFieldCount()

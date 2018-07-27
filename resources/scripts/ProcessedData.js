@@ -1,18 +1,10 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function ProcessedData( startField, ignoreFields, table )
+function ProcessedData( table, filterVar )
 {
     this.type = "ProcessedData";
     var fieldNames = [];
-
-    // removing ignoreFields from table
-    for( var i=0; i<ignoreFields.length; i++)
-    {
-        var index = table[0].indexOf(ignoreFields[i]);
-        for( var j=0; j<table.length; j++)
-            table[j].splice(index, 1);
-    }
 
     // naming fields
     for( var i=0; i<table[0].length; i++)
@@ -47,9 +39,28 @@ function ProcessedData( startField, ignoreFields, table )
         }
     }
 
+    // add boolean filtered
+    if( filterVar != null )
+    {
+        var f1 = filterVar[0];
+        var op1 = fieldOptions[f1][filterVar[1]];
+
+        if( filterVar[2] != null )
+        {
+            var f2 = filterVar[2];
+            var op2 = fieldOptions[f2][filterVar[3]];
+        }
+
+        for( var r=1; r<table.length; r++ )
+            if( filterVar[2] != null )
+                table[r].push( table[r][f1] != op1 && table[r][f2] != op2 );
+            else
+                table[r].push( table[r][f1] != op1 );
+    }
+
     //initializing start options values
-    var colors = [0xff0000,0x00ff00,0x0000ff,0xff00ff,0xffff00,0x00ffff,0xf0f0f0];
-    startField = table[0].indexOf(startField);
+    var colors = [0x1f77b4,0xff7f0e,0x2ca02c,0xd62728,0x9467bd,0x8c564b,0xe377c2,0x7f7f7f, 0xbcbd22, 0x17becf];
+    var startField = 0;
     colors = colors.slice(0, fieldOptions[startField].length);
 
 
@@ -136,7 +147,8 @@ function ProcessedData( startField, ignoreFields, table )
             current_start_option = fieldOptions[startField][st];
             for( var i=1; i<table.length; i++ )
                 if ( table[i][startField] == current_start_option && table[i][field2] == option2Name )
-                    totalValues[st]++;
+                    if ( !table[i][table[0].length] )
+                        totalValues[st]++;
         }
 
         return totalValues;
