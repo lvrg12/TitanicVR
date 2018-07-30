@@ -40,17 +40,19 @@ function StackHive(coord, newCoord, values, len, colors, isSteam, attributes, gr
         tempTopValue-= value;
         var dist = Math.sqrt(Math.pow((nX-x),2)+Math.pow((nZ-z),2));
         
-        var theta;
-      
-      
-        if( fromField == 0 )
-            theta = ( Math.PI - Math.acos((x-nX)/dist) );
+        var theta = ( Math.sin(separation) * Math.sqrt( Math.pow(nX,2) + Math.pow(nZ,2) ) ) / dist;
+        
+
+        if( theta * 57.296 > -56.66 )
+        //if( (nX>0 & nX>x) | (x>0 & nX<0 & nZ>z) | (z>0 & nZ<0 & nX>x) | (z<0 & nZ<0 & z>nZ) )
+            theta = Math.asin( theta ) ;
         else
-            theta = Math.asin( ( Math.sin() ) / dist );
-
-
-        //var theta = (x < nX) ? Math.PI + Math.acos((nX-x)/dist) : Math.PI-Math.acos((x-nX)/dist);
-        //theta = (x < nX) ? theta*-1 : theta*1;
+            theta = Math.acos( theta ) + Math.PI/2;
+            
+        var a = new THREE.Vector3( x, 0, z );
+        var b = new THREE.Vector3( nX, 0, nZ );
+        //var theta = a.angleTo( b );
+        console.log(theta * 57.296);
 
 
         // draw arch
@@ -58,7 +60,7 @@ function StackHive(coord, newCoord, values, len, colors, isSteam, attributes, gr
         arch.moveTo( 0 , 0 );
         arch.quadraticCurveTo(dist/2,top,dist,0);
         arch.quadraticCurveTo(dist/2,down,0,0);
-        addShape( arch, extrudeSettings, color, x, 0, z, 0, theta + separation*fromField, 0, 1 );
+        addShape( arch, extrudeSettings, color, x, 0, z, 0, Math.PI - separation*fromField + theta, 0, 1 );
     }
 
     // addShape( shape, color, x, y, z, rx, ry,rz, s );
