@@ -34,9 +34,9 @@ function Chart(table, filterVar)
 
     // Stacks
 
-    for( var f=0; f<grid.getFieldCount()-1; f++)
+    for( var f=0; f<grid.getFieldCount(); f++)
     {   
-        var f2 = f+1;
+        var f2 = ( f+1 == grid.getFieldCount() ) ? 0 : f+1;
         for( var op1=0; op1<this.data.getOptionsOfField(f).length; op1++ )
         {
             var startCoord = grid.markerLocation(f,op1);

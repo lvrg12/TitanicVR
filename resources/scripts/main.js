@@ -9,7 +9,7 @@ var ignoreFields;
 if( true )
 {
     startField = "pclass";
-    ignoreFields = ["parch"];
+    ignoreFields = ["parch","sibsp"];
     var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 }
 else
@@ -46,7 +46,7 @@ if( HIVE )
 else
     controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
 
-var chart = new Chart(table, null);
+var chart = ( HIVE ) ? new ChartHive(table, null) : new Chart(table, null);
 chart.addToScene();
 
 var chartTmp = null;

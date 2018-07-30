@@ -49,9 +49,6 @@ function StackHive(coord, newCoord, values, len, colors, isSteam, attributes, gr
         else
             theta = Math.acos( theta ) + Math.PI/2;
             
-        var a = new THREE.Vector3( x, 0, z );
-        var b = new THREE.Vector3( nX, 0, nZ );
-        //var theta = a.angleTo( b );
         console.log(theta * 57.296);
 
 
