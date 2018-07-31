@@ -9,7 +9,7 @@ var ignoreFields;
 if( true )
 {
     startField = "pclass";
-    ignoreFields = ["parch"];
+    ignoreFields = ["parch","sibsp"];
     var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 }
 else
