@@ -13,7 +13,12 @@ function GridHive( columns, len, fieldNames, optionNames, group)
 
     // drawing quadrants
     for( var i=0; i<columns.length; i++)
+    {
+        if( i == 1 )
+            continue;
+        
         addQuad( 2*Math.PI/(columns.length), i );
+    }
 
     // drawing text
     for( var f=0; f<columns.length; f++)
