@@ -1,6 +1,6 @@
 var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 const STEAM = false;
-const HIVE = false;
+const HIVE = true;
 var startField;
 var ignoreFields;
 
