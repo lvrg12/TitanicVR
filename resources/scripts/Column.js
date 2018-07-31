@@ -8,7 +8,8 @@ function Column( coord, values, len, colors, attributes, group)
 {
     this.type = "Column";
     var x = coord[0];
-    var z = coord[1];
+    var y = coord[1];
+    var z = coord[2];
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
@@ -35,7 +36,7 @@ function Column( coord, values, len, colors, attributes, group)
 
         var geometry = new THREE.CylinderGeometry( len/50, len/50, value, 32 );
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
-        cylinder.position.set( x, tempTopValue+value/2, z );
+        cylinder.position.set( x, tempTopValue+value/2 + y, z );
         cylinder.material.transparent = true;
         cylinder.attributes = attributes;
         group.add( cylinder );
