@@ -59,25 +59,25 @@ function ChartHive(table, filterVar)
                     }
                 }
             }
-            // else
-            // {
-            //     //connect last to first and field 0 to 2
-            //     if( f+1 == grid.getFieldCount() )
-            //         var f2 = 0;
-            //     else if ( f+1 == 1 )
-            //         var f2 = 2;
-            //     else
-            //         var f2 = f+1;
+            else
+            {
+                //connect last to first and field 0 to 2
+                if( f+1 == grid.getFieldCount() )
+                    var f2 = 0;
+                else if ( f+1 == 1 )
+                    var f2 = 2;
+                else
+                    var f2 = f+1;
 
-            //     var startCoord = grid.markerLocation(f,op1);
-            //     for( var op2=0; op2<this.data.getOptionsOfField(f2).length; op2++ )
-            //     {
-            //         var endCoord = grid.markerLocation(f2,op2);
-            //         var values = this.data.tallyStack(f,op1,f2,op2);
-            //         var attributes = { "field1": f, "option1": op1, "field2": f2, "option2": op2 };
-            //         new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, (f>1)?f-1:f, f3, grid.separation);
-            //     }
-            // }
+                var startCoord = grid.markerLocation(f,op1);
+                for( var op2=0; op2<this.data.getOptionsOfField(f2).length; op2++ )
+                {
+                    var endCoord = grid.markerLocation(f2,op2);
+                    var values = this.data.tallyStack(f,op1,f2,op2);
+                    var attributes = { "field1": f, "option1": op1, "field2": f2, "option2": op2 };
+                    new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, (f>1)?f-1:f, null, grid.separation);
+                }
+            }
 
         }
     }

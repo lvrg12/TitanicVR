@@ -10,7 +10,7 @@ if( true )
 {
     startField = "pclass";
     importantField = "survived";
-    ignoreFields = ["parch","sibsp"];
+    ignoreFields = ["parch"];
     var table = new ProcessedTable(startField, importantField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 }
 else
