@@ -5,7 +5,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
 {
     this.type = "GridHive";
     this.columns = columns.length;
-    this.separation = -2*Math.PI/columns.length;
+    this.separation = -2*Math.PI/(columns.length-1);
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
     var material_text = new THREE.MeshPhongMaterial( { color: 0x000000 } );
@@ -108,7 +108,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
             console.error("Field " + field + " does not contain option " + option);
         
         var separation = len / ( num_of_options - 1 );
-        var t = -2 * Math.PI/columns.length * field;
+        var t = this.separation * field;
         var x = len/5 + option * separation;
         
         if( field != 1 )
