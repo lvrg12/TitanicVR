@@ -37,6 +37,7 @@ function Column( coord, values, len, colors, attributes, group)
         var geometry = new THREE.CylinderGeometry( len/50, len/50, value, 32 );
         var cylinder = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
         cylinder.position.set( x, tempTopValue+value/2 + y, z );
+        if( HIVE & x==0 & y==0 ) cylinder.rotation.z = Math.PI/2;
         cylinder.material.transparent = true;
         cylinder.attributes = attributes;
         group.add( cylinder );
