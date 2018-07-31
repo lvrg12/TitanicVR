@@ -42,5 +42,6 @@ function Column( coord, values, len, colors, attributes, group)
         cylinder.material.transparent = true;
         cylinder.attributes = attributes;
         group.add( cylinder );
+        console.log("column");
     }
 }
