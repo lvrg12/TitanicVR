@@ -116,6 +116,7 @@ function ProcessedData( table, filterVar )
     // returns a tally of records with option1 and option2 of each start option
     function tallyStack(field1,option1,field2,option2)
     {
+        // console.log(field1 + "  " + option1 + "  " + field2 + "  " + option2);
         var option1Name = fieldOptions[field1][option1];
         var option2Name = fieldOptions[field2][option2];
         var totalValues;
