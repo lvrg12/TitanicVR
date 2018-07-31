@@ -35,7 +35,7 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
         console.error("Total tally cannot be negative");
     }
 
-    // addArch( value of arch, color of arch )
+    // addArch( value of arch, color of arch ) // no change
     function addArch(value, color)
     {
         var top = tempTopValue;
