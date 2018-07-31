@@ -1,4 +1,4 @@
-function Chart(table, filterVar)
+function ChartHive(table, filterVar)
 {
     this.data = new ProcessedData(table, filterVar);
     this.group = new THREE.Group();
