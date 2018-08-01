@@ -70,6 +70,7 @@ function onDocumentMouseDown( event )
     raycaster.setFromCamera( mouse, camera );
 
     var intersects;
+
     if( FILTERED )
         intersects = raycaster.intersectObjects( chartTmp.group.children );
     else
@@ -80,29 +81,27 @@ function onDocumentMouseDown( event )
         if ( INTERSECTED != intersects[ 0 ].object )
         {
             INTERSECTED = intersects[ 0 ].object;
-
-            var iXpos = INTERSECTED.position.x;
             var itype = INTERSECTED.geometry.type;
 
             
             if( FILTERED == 0 )
             {
-                if ( iXpos == 0 )                           // first field column selected
-                    filterByFirstColumn( INTERSECTED );
-                else if( itype == "CylinderGeometry" )      // column selected
-                    filterByColumn( INTERSECTED );
-                else                                        // stack selected
-                    filterByStack( INTERSECTED );
-
-                FILTERED = 1;
+                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
+                {
+                    filter( INTERSECTED );
+                    FILTERED = 1;
+                }
             }
 
         }
     }
     else
     {
-        filterReset();
-        FILTERED = 0;
+        if( FILTERED != 0 )
+        {
+            filterReset();
+            FILTERED = 0;
+        }
     }
 }
 

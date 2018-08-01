@@ -2,6 +2,8 @@ function Chart(p_table, filterVar)
 {
     this.data = new ProcessedData(p_table, filterVar);
     this.group = new THREE.Group();
+    var col;
+    var stack;
 
     // Grid
 
@@ -25,7 +27,7 @@ function Chart(p_table, filterVar)
                 var coord = grid.markerLocation(f,op2);
                 var values = this.data.tallyColumn(f,op2);
                 var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
-                new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
+                col = new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
             }
         }
     }
@@ -47,9 +49,9 @@ function Chart(p_table, filterVar)
                 var attributes = { "field1": f, "option1": op1, "field2": f2, "option2": op2 };
 
                 if( HIVE )
-                    new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, f, grid.separation);
+                    stack = new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, f, grid.separation);
                 else
-                    new Stack(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group);
+                    stack = new Stack(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group);
                 
             }
         }
@@ -67,12 +69,18 @@ function Chart(p_table, filterVar)
         for (var i = this.group.children.length - 1; i >= 0; i--)
         {
             scene.remove(this.group.children[i]);
+
+            this.group.children[i].geometry.dispose();
+            this.group.children[i].material.dispose();
+            //geometry.dispose();
         }
         scene.remove ( this.group );
 
         this.group = null;
         this.data = null;
-        p_table = null;
+        grid = null;
+        col = null;
+        stack = null;
     }
 
     this.addToScene = addToScene;

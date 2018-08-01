@@ -1,20 +1,16 @@
 var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 const STEAM = false;
-const HIVE = false;
+const HIVE = true;
 const CHART_RATIO = 2;
 const startField = "pclass";
 const ignoreFields = ["parch","sibsp"];
-var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
+var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));
+var chart;
+var chartTmp;
 
 // Read Input
 
-if( false )
-{
-    startField = "pclass";
-    ignoreFields = ["parch","sibsp","embarked"];
-    table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
-}
-else if (false)
+if (false)
 {
     var amount = 1500;
     var table = [["pclass","sex","continent","age"]];
@@ -48,10 +44,8 @@ if( HIVE )
 else
     controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
 
-var chart = new Chart(table, null);
+chart = new Chart(table, null);
 chart.addToScene();
-
-var chartTmp = null;
 
 
 // Animate
