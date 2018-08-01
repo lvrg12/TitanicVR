@@ -5,7 +5,7 @@
 // colors = colors of archs
 // attributes = options that the stack covers
 
-function StackHive(coord, newCoord, values, len, colors, attributes, group, fromField, toField, separation)
+function StackHive(coord, newCoord, values, len, colors, attributes, group, fromField, separation)
 {
     //console.log(coord + "  " + newCoord);
     this.type = "Stack";

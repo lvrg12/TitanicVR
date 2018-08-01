@@ -55,7 +55,7 @@ function ChartHive(table, filterVar)
                 var endCoord = grid.markerLocation(f2,op2);
                 var values = this.data.tallyStack(f,op1,f2,op2);
                 var attributes = { "field1": f, "option1": op1, "field2": f2, "option2": op2 };
-                new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, f, null, grid.separation);
+                new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, f, grid.separation);
             }
         }
     }

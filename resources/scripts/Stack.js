@@ -5,7 +5,7 @@
 // colors = colors of archs
 // attributes = options that the stack covers
 
-function Stack(coord, newCoord, values, len, colors, isSteam, attributes, group)
+function Stack(coord, newCoord, values, len, colors, attributes, group)
 {
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
@@ -20,7 +20,7 @@ function Stack(coord, newCoord, values, len, colors, isSteam, attributes, group)
 
     if ( totalValue >= 0 )
     {
-        var tempTopValue = ( isSteam ) ? totalValue/2 : totalValue;
+        var tempTopValue = ( STEAM ) ? totalValue/2 : totalValue;
 
         // drawing archs
         for( var v=0; v<values.length; v++)

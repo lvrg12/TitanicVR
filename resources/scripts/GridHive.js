@@ -15,7 +15,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
 
     // drawing quadrants
     addQuad( 0, true );
-    for( var i=0; i<columns.length-1; i++)
+    for( var i=0; i<columns.length; i++)
         addQuad( i );
 
     // drawing text
@@ -75,10 +75,8 @@ function GridHive( columns, len, fieldNames, optionNames, group)
         var y = coord[1];
         var z = coord[2];
 
-        if(y!=0) return 0;
-
         geometry = new THREE.Geometry();
-        geometry.vertices.push(new THREE.Vector3( x, 0, z ));
+        geometry.vertices.push(new THREE.Vector3( x, y, z ));
         geometry.vertices.push(new THREE.Vector3( x, (len/-4) + len/20, z ));
         var marker = new THREE.Line( geometry, material );
         group.add( marker );

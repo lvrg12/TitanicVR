@@ -24,19 +24,24 @@ function Chart(table, filterVar)
             {
                 var coord = grid.markerLocation(f,op2);
                 var values = this.data.tallyColumn(f,op2);
+                console.log("column");
+                console.log(values);
                 var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
                 new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
+                break;
             }
+            break;
         }
+        break;
     }
 
 
 
     // Stacks
 
-    for( var f=0; f<grid.getFieldCount()-1; f++)
+    for( var f=0; f<( ( HIVE ) ? grid.getFieldCount() : grid.getFieldCount()-1 ); f++)
     {   
-        var f2 = f+1;
+        var f2 = ( HIVE & f+1 == grid.getFieldCount() ) ? 0 : f+1;
         for( var op1=0; op1<this.data.getOptionsOfField(f).length; op1++ )
         {
             var startCoord = grid.markerLocation(f,op1);
@@ -44,16 +49,19 @@ function Chart(table, filterVar)
             {
                 var endCoord = grid.markerLocation(f2,op2);
                 var values = this.data.tallyStack(f,op1,f2,op2);
+                console.log("stack");
+                console.log(values);
                 var attributes = { "field1": f, "option1": op1, "field2": f2, "option2": op2 };
 
                 if( HIVE )
-                    new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), STEAM, attributes, this.group, f, grid.separation);
+                    new StackHive(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group, f, grid.separation);
                 else
-                    new Stack(startCoord,endCoord,values, LEN, this.data.getColors(), STEAM, attributes, this.group);
-
-                //break;
+                    new Stack(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group);
+                
             }
+            break;
         }
+        break;
     }
 
     //Function
