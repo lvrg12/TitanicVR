@@ -9,14 +9,9 @@ var ignoreFields;
 if( true )
 {
     startField = "pclass";
-<<<<<<< HEAD
     importantField = "survived";
     ignoreFields = ["parch"];
     var table = new ProcessedTable(startField, importantField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
-=======
-    ignoreFields = ["parch","sibsp"];
-    var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
->>>>>>> 9ffa53b6d4bcb6b357310c233ec5c1c2941af518
 }
 else
 {
