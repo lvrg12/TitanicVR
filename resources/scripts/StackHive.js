@@ -54,19 +54,6 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
 
         ry = Math.PI - separation * fromField + ry
         
-        if( x == 0 & z == 0 )
-        {
-            ry = -1*separation * ((toField>1)?toField-1:toField);
-
-            //if( nX<0)
-                rz = -1*Math.atan(y/Math.abs(nX));
-            //else
-                //rz = -1 * ( Math.PI/2 - Math.atan(Math.abs(nX)/y) ) ;
-            //rz = -Math.PI/8
-
-            console.log(rz * 57.296);
-            //console.log(nX/y);
-        }
         //console.log(theta * 57.296);
 
 
