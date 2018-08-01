@@ -7,7 +7,9 @@
 
 function StackHive(coord, newCoord, values, len, colors, attributes, group, fromField, separation)
 {
-    //console.log(coord + "  " + newCoord);
+    var ratio = 2; // archstack appears to be half the size of the column
+
+
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
     var x = coord[0] * 1.0;
@@ -19,7 +21,10 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
+    {
+        values[v] = values[v] * ratio;
         totalValue+=values[v];
+    }
 
     if ( totalValue >= 0 )
     {
