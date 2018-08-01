@@ -1,7 +1,7 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function ProcessedTable( startFieldName, importantFieldName, ignoreFields, table)
+function ProcessedTable( startFieldName, ignoreFields, table)
 {
     this.type = "ProcessedTable";
 
@@ -16,19 +16,6 @@ function ProcessedTable( startFieldName, importantFieldName, ignoreFields, table
 
     // moving startField to index 0
     if( startFieldName != table[0][0] )
-    {
-        var index = table[0].indexOf(startFieldName);
-        var tmp;
-        for( var r=0; r<table.length; r++ )
-        {
-            tmp = table[r][0];
-            table[r][0] = table[r][index];
-            table[r][index] = tmp;
-        }
-    }
-    
-    // moving importantField to index 1
-    if( importantFieldName != table[0][1] )
     {
         var index = table[0].indexOf(startFieldName);
         var tmp;

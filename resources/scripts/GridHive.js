@@ -6,7 +6,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
     this.type = "GridHive";
     this.columns = columns.length;
 
-    var separation = -2 * Math.PI / (columns.length-1);
+    var separation = -2 * Math.PI / (columns.length);
     this.separation = separation;
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
