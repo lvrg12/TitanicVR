@@ -1,19 +1,20 @@
 var container, camera, scene, renderer, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 const STEAM = false;
-const HIVE = true;
-const CHART_RATIO = 0.5;
-var startField;
-var ignoreFields;
+const HIVE = false;
+const CHART_RATIO = 2;
+const startField = "pclass";
+const ignoreFields = ["parch","sibsp"];
+var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 
 // Read Input
 
-if( true )
+if( false )
 {
     startField = "pclass";
     ignoreFields = ["parch","sibsp","embarked"];
-    var table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
+    table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));;
 }
-else
+else if (false)
 {
     var amount = 1500;
     var table = [["pclass","sex","continent","age"]];

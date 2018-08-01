@@ -1,38 +1,38 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function ProcessedData( table, filterVar )
+function ProcessedData( ptable, filterVar )
 {
     this.type = "ProcessedData";
     var fieldNames = [];
 
     // naming fields
-    for( var i=0; i<table[0].length; i++)
-        fieldNames.push(table[0][i]);
+    for( var i=0; i<ptable[0].length; i++)
+        fieldNames.push(ptable[0][i]);
 
     // intitializing arrays
-    var fieldOptions = new Array(table[0].length);
-    var fieldOptionCount = new Array(table[0].length);
+    var fieldOptions = new Array(ptable[0].length);
+    var fieldOptionCount = new Array(ptable[0].length);
 
     // counting options per field
-    for( var i=1; i<table.length; i++)
+    for( var i=1; i<ptable.length; i++)
     {
-        for( var j=0; j<table[0].length; j++)
+        for( var j=0; j<ptable[0].length; j++)
         {
             if( !fieldOptions[j] )
             {
-                fieldOptions[j] = [ table[i][j] ];
+                fieldOptions[j] = [ ptable[i][j] ];
                 fieldOptionCount[j] = [ 0 ];
             }
             else
             {
-                if( fieldOptions[j].includes( table[i][j] ) )
+                if( fieldOptions[j].includes( ptable[i][j] ) )
                 {
-                    fieldOptionCount[j][fieldOptions[j].indexOf(table[i][j])]++;
+                    fieldOptionCount[j][fieldOptions[j].indexOf(ptable[i][j])]++;
                 }
                 else
                 {
-                    fieldOptions[j].push( table[i][j] );
+                    fieldOptions[j].push( ptable[i][j] );
                     fieldOptionCount[j].push(0);
                 }
             }
@@ -49,13 +49,17 @@ function ProcessedData( table, filterVar )
         {
             var f2 = filterVar[2];
             var op2 = fieldOptions[f2][filterVar[3]];
-        }
 
-        for( var r=1; r<table.length; r++ )
-            if( filterVar[2] != null )
-                table[r].push( table[r][f1] != op1 && table[r][f2] != op2 );
-            else
-                table[r].push( table[r][f1] != op1 );
+            for( var r=1; r<ptable.length; r++ )
+                ptable[r].push( ptable[r][f1] != op1 | ptable[r][f2] != op2 );
+
+        }
+        else
+        {
+            for( var r=1; r<ptable.length; r++ )
+                ptable[r].push( ptable[r][f1] != op1 );
+        }
+                
     }
 
     //initializing start options values
@@ -69,7 +73,7 @@ function ProcessedData( table, filterVar )
     // returns record count
     function getNumberOfRecords()
     {
-        return table.length;
+        return ptable.length;
     }
 
     // returns array of count of options per field
@@ -127,9 +131,10 @@ function ProcessedData( table, filterVar )
         {
             totalValues[st] = 0;
             current_start_option = fieldOptions[startField][st];
-            for( var i=1; i<table.length; i++ )
-                if ( table[i][startField] == current_start_option && table[i][field1] == option1Name && table[i][field2] == option2Name )
-                    totalValues[st]++;
+            for( var i=1; i<ptable.length; i++ )
+                if ( ptable[i][startField] == current_start_option && ptable[i][field1] == option1Name && ptable[i][field2] == option2Name )
+                    if ( !ptable[i][ptable[0].length] )
+                        totalValues[st]++;
         }
 
         return totalValues;
@@ -146,9 +151,9 @@ function ProcessedData( table, filterVar )
         {
             totalValues[st] = 0;
             current_start_option = fieldOptions[startField][st];
-            for( var i=1; i<table.length; i++ )
-                if ( table[i][startField] == current_start_option && table[i][field2] == option2Name )
-                    if ( !table[i][table[0].length] )
+            for( var i=1; i<ptable.length; i++ )
+                if ( ptable[i][startField] == current_start_option && ptable[i][field2] == option2Name )
+                    if ( !ptable[i][ptable[0].length] )
                         totalValues[st]++;
         }
 

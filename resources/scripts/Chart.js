@@ -1,6 +1,6 @@
-function Chart(table, filterVar)
+function Chart(p_table, filterVar)
 {
-    this.data = new ProcessedData(table, filterVar);
+    this.data = new ProcessedData(p_table, filterVar);
     this.group = new THREE.Group();
 
     // Grid
@@ -26,11 +26,8 @@ function Chart(table, filterVar)
                 var values = this.data.tallyColumn(f,op2);
                 var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
                 new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
-                //break;
             }
-            //break;
         }
-        //break;
     }
 
 
@@ -55,9 +52,7 @@ function Chart(table, filterVar)
                     new Stack(startCoord,endCoord,values, LEN, this.data.getColors(), attributes, this.group);
                 
             }
-            //break;
         }
-        //break;
     }
 
     //Function
@@ -72,12 +67,12 @@ function Chart(table, filterVar)
         for (var i = this.group.children.length - 1; i >= 0; i--)
         {
             scene.remove(this.group.children[i]);
-            // console.log("children " + i + " removed");
         }
         scene.remove ( this.group );
 
         this.group = null;
         this.data = null;
+        p_table = null;
     }
 
     this.addToScene = addToScene;

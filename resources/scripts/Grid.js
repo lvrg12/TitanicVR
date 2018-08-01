@@ -34,7 +34,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
         }
         else
         {
-            var z = coord[1];
+            var z = coord[2];
         }
 
         var loader = new THREE.FontLoader();
@@ -66,7 +66,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
     function addMarker( coord )
     {
         var x = coord[0];
-        var z = coord[1];
+        var z = coord[2];
 
         geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
@@ -96,11 +96,11 @@ function Grid( columns, len, fieldNames, optionNames, group)
         if( option > num_of_options-1 || option < 0 )
             console.error("Column " + column + " does not contain option " + option);
 
-        var separation = len / ( num_of_options - 1 );
+        var separation_line = len / ( num_of_options - 1 );
         var x = column * len;
-        var z = option * separation;
+        var z = option * separation_line;
         
-        return [x,z];
+        return [x,0,z];
     }
 
     function getFieldCount()

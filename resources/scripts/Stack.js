@@ -7,16 +7,23 @@
 
 function Stack(coord, newCoord, values, len, colors, attributes, group)
 {
+    var ratio = 2; // archstack appears to be half the size of the column
+
     this.type = "Stack";
     var extrudeSettings = { depth: len/100, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 0.25 };
-    var x = coord[0] * 1.0;
-    var z = coord[1] * 1.0;
-    var nX = newCoord[0] * 1.0;
-    var nZ = newCoord[1] * 1.0;
+    var x = coord[0];
+    var y = coord[1];
+    var z = coord[2];
+    var nX = newCoord[0];
+    var nY = newCoord[1];
+    var nZ = newCoord[2];
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
+    {
+        values[v] = values[v] * ratio;
         totalValue+=values[v];
+    }
 
     if ( totalValue >= 0 )
     {

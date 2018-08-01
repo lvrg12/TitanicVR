@@ -25,7 +25,7 @@ function init()
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    //document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'resize', onWindowResize, false );
@@ -68,8 +68,13 @@ function onDocumentMouseDown( event )
 
     // find intersections
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects( chart.group.children );
-    console.log(scene.children);
+
+    var intersects;
+    if( FILTERED )
+        intersects = raycaster.intersectObjects( chartTmp.group.children );
+    else
+        intersects = raycaster.intersectObjects( chart.group.children );
+
     if ( intersects.length > 0 )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
@@ -80,12 +85,7 @@ function onDocumentMouseDown( event )
             var itype = INTERSECTED.geometry.type;
 
             
-            if( FILTERED == 1 )
-            {
-                filterReset();
-                FILTERED = 0;
-            }
-            else
+            if( FILTERED == 0 )
             {
                 if ( iXpos == 0 )                           // first field column selected
                     filterByFirstColumn( INTERSECTED );
