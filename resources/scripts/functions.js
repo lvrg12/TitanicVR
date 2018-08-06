@@ -72,7 +72,7 @@ function onDocumentMouseDown( event )
     var intersects;
 
     if( FILTERED )
-        intersects = raycaster.intersectObjects( chartTmp.group.children );
+        intersects = raycaster.intersectObjects( chart.group.children );
     else
         intersects = raycaster.intersectObjects( chart.group.children );
 
@@ -97,6 +97,7 @@ function onDocumentMouseDown( event )
     }
     else
     {
+        console.log("ntohing");
         if( FILTERED != 0 )
         {
             filterReset();
