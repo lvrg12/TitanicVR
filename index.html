@@ -22,7 +22,6 @@
 		<script src="resources/scripts/OrbitControls.js"></script>
 		<script src="resources/scripts/functions.js"></script>
 		<script src="resources/scripts/filter.js"></script>
-
 		<script src="resources/scripts/Chart.js"></script>
 		<script src="resources/scripts/ProcessedTable.js"></script>
 		<script src="resources/scripts/ProcessedData.js"></script>
@@ -31,7 +30,18 @@
 		<script src="resources/scripts/Column.js"></script>
 		<script src="resources/scripts/Stack.js"></script>
 		<script src="resources/scripts/StackHive.js"></script>
+
+		<div align="center">
+			<p>TITANIC: DATA VISUALIZATION</p>
+			<form>
+				Plot: 	<input checked type="checkbox" id="linear" onclick="changePlot(this.id)">Linear
+						<input type="checkbox" id="hive" onclick="changePlot(this.id)">Hive<br>
+				Steam: 	<input type="checkbox" id="steamTrue" onclick="changeSteam(this.id)">Yes
+						<input checked type="checkbox" id="steamFalse" onclick="changeSteam(this.id)">No<br>
+			</form>
+		</div>
+
 		<script src="resources/scripts/main.js"></script>
-		
+
 	</body>
 </html>

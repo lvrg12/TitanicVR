@@ -109,3 +109,88 @@ function render()
 {
 	renderer.render( scene, camera );
 }
+
+function changePlot( id )
+{
+    linear = document.getElementById("linear");
+    hive = document.getElementById("hive");
+
+    if( id == "linear" )
+    {
+        linear.checked = true;
+        hive.checked = false;
+    }
+
+    if( id == "hive" )
+    {
+        hive.checked = true;
+        linear.checked = false;
+    }
+
+    resetChart();
+
+}
+
+function changeSteam( id )
+{
+    steamTrue = document.getElementById("steamTrue");
+    steamFalse = document.getElementById("steamFalse");
+
+    if( id == "steamTrue" )
+    {
+        steamTrue.checked = true;
+        steamFalse.checked = false;
+    }
+
+    if( id == "steamFalse" )
+    {
+        steamFalse.checked = true;
+        steamTrue.checked = false;
+    }
+
+    resetChart();
+
+}
+
+function reload()
+{
+    window.location.href = window.location.href + "&plot=true&steam=true";
+    console.log(window.location);
+    window.location.reload();
+}
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+function resetChart()
+{
+    if( chart != null )
+        chart.removeFromScene();
+    if( chartTmp != null )
+        chartTmp.removeFromScene();
+
+    HIVE = document.getElementById("hive").checked;
+    STEAM = document.getElementById("steamTrue").checked;
+    FILTERED = 0;
+    CHART_RATIO = 2;
+    startField = "pclass";
+    ignoreFields = ["parch","sibsp"];
+    LEN = table.length / CHART_RATIO;
+
+
+    if( HIVE )
+        controls.target.set( 0, 0, 0 );
+    else
+        controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
+
+    chart = new Chart(table, null);
+    chart.addToScene();
+}
