@@ -49,7 +49,6 @@ function animate()
 {
     requestAnimationFrame( animate );
     controls.update();
-    //raycaster.setFromCamera( mouse, camera );
     render();
 }
 
@@ -72,9 +71,6 @@ function onDocumentMouseDown( event )
 
     var intersects;
 
-    console.log(scene.children);
-    console.log(raycaster.intersectObjects( chart.group.children ));
-
     //if( FILTERED )
      //   intersects = raycaster.intersectObjects( chartTmp.group.children );
     //else
@@ -86,16 +82,31 @@ function onDocumentMouseDown( event )
         {
             INTERSECTED = intersects[ 0 ].object;
             var itype = INTERSECTED.geometry.type;
-
-            INTERSECTED.material.color.set("black");
-
             
             if( FILTERED == 0 )
             {
                 if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
                 {
-                    filter( INTERSECTED );
+
+
                     FILTERED = 1;
+
+
+                    //for( var i=0; i<chart.group.children.length; i++ )
+                    //    chart.group.children[i].visible = false;
+
+                    var ifield1 = INTERSECTED.attributes.field1;
+                    var ifield2 = INTERSECTED.attributes.field2;
+                    var ioption1 = INTERSECTED.attributes.option1;
+                    var ioption2 = INTERSECTED.attributes.option2;
+
+                    INTERSECTED.material.color.set("black");
+                    console.log([ifield1,ioption1,ifield2,ioption2]);
+
+                    //chartTmp = new Chart( table, [ifield1,ioption1,ifield2,ioption2] );
+                    //chartTmp.addToScene();
+
+
                 }
             }
 
@@ -105,7 +116,7 @@ function onDocumentMouseDown( event )
     {
         if( FILTERED != 0 )
         {
-            filterReset();
+            //filterReset();
             FILTERED = 0;
         }
     }
