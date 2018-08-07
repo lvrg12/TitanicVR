@@ -63,17 +63,21 @@ function onWindowResize() {
 function onDocumentMouseDown( event )
 {
     event.preventDefault();
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
 
     // find intersections
     raycaster.setFromCamera( mouse, camera );
 
     var intersects;
 
-    if( FILTERED )
-        intersects = raycaster.intersectObjects( chart.group.children );
-    else
+    console.log(scene.children);
+    console.log(raycaster.intersectObjects( chart.group.children ));
+
+    //if( FILTERED )
+     //   intersects = raycaster.intersectObjects( chartTmp.group.children );
+    //else
         intersects = raycaster.intersectObjects( chart.group.children );
 
     if ( intersects.length > 0 )
@@ -82,6 +86,8 @@ function onDocumentMouseDown( event )
         {
             INTERSECTED = intersects[ 0 ].object;
             var itype = INTERSECTED.geometry.type;
+
+            INTERSECTED.material.color.set("black");
 
             
             if( FILTERED == 0 )
@@ -97,7 +103,6 @@ function onDocumentMouseDown( event )
     }
     else
     {
-        console.log("ntohing");
         if( FILTERED != 0 )
         {
             filterReset();
@@ -153,23 +158,23 @@ function changeSteam( id )
 
 }
 
-function reload()
-{
-    window.location.href = window.location.href + "&plot=true&steam=true";
-    console.log(window.location);
-    window.location.reload();
-}
+// function reload()
+// {
+//     window.location.href = window.location.href + "&plot=true&steam=true";
+//     console.log(window.location);
+//     window.location.reload();
+// }
 
-function getQueryVariable(variable)
-{
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-}
+// function getQueryVariable(variable)
+// {
+//        var query = window.location.search.substring(1);
+//        var vars = query.split("&");
+//        for (var i=0;i<vars.length;i++) {
+//                var pair = vars[i].split("=");
+//                if(pair[0] == variable){return pair[1];}
+//        }
+//        return(false);
+// }
 
 function resetChart()
 {
@@ -182,10 +187,6 @@ function resetChart()
     STEAM = document.getElementById("steamTrue").checked;
     FILTERED = 0;
     CHART_RATIO = 2;
-    startField = "pclass";
-    ignoreFields = ["parch","sibsp"];
-    LEN = table.length / CHART_RATIO;
-
 
     if( HIVE )
         controls.target.set( 0, 0, 0 );
