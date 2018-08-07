@@ -11,6 +11,6 @@ var LEN = table.length / CHART_RATIO;
 
 init();
 
-resetChart();
+resetChart(null);
 
 animate();

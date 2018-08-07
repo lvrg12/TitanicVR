@@ -69,12 +69,7 @@ function onDocumentMouseDown( event )
     // find intersections
     raycaster.setFromCamera( mouse, camera );
 
-    var intersects;
-
-    //if( FILTERED )
-     //   intersects = raycaster.intersectObjects( chartTmp.group.children );
-    //else
-        intersects = raycaster.intersectObjects( chart.group.children );
+    var intersects = raycaster.intersectObjects( chart.group.children );
 
     if ( intersects.length > 0 )
     {
@@ -88,24 +83,14 @@ function onDocumentMouseDown( event )
                 if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
                 {
 
-
                     FILTERED = 1;
-
-
-                    //for( var i=0; i<chart.group.children.length; i++ )
-                    //    chart.group.children[i].visible = false;
 
                     var ifield1 = INTERSECTED.attributes.field1;
                     var ifield2 = INTERSECTED.attributes.field2;
                     var ioption1 = INTERSECTED.attributes.option1;
                     var ioption2 = INTERSECTED.attributes.option2;
 
-                    INTERSECTED.material.color.set("black");
-                    console.log([ifield1,ioption1,ifield2,ioption2]);
-
-                    //chartTmp = new Chart( table, [ifield1,ioption1,ifield2,ioption2] );
-                    //chartTmp.addToScene();
-
+                    resetChart([ifield1,ioption1,ifield2,ioption2]);
 
                 }
             }
@@ -116,9 +101,10 @@ function onDocumentMouseDown( event )
     {
         if( FILTERED != 0 )
         {
-            //filterReset();
-            FILTERED = 0;
+            resetChart(null);
         }
+
+        FILTERED = 0;
     }
 }
 
@@ -144,7 +130,7 @@ function changePlot( id )
         linear.checked = false;
     }
 
-    resetChart();
+    resetChart(null);
 
 }
 
@@ -165,29 +151,11 @@ function changeSteam( id )
         steamTrue.checked = false;
     }
 
-    resetChart();
+    resetChart(null);
 
 }
 
-// function reload()
-// {
-//     window.location.href = window.location.href + "&plot=true&steam=true";
-//     console.log(window.location);
-//     window.location.reload();
-// }
-
-// function getQueryVariable(variable)
-// {
-//        var query = window.location.search.substring(1);
-//        var vars = query.split("&");
-//        for (var i=0;i<vars.length;i++) {
-//                var pair = vars[i].split("=");
-//                if(pair[0] == variable){return pair[1];}
-//        }
-//        return(false);
-// }
-
-function resetChart()
+function resetChart(filtration)
 {
     if( chart != null )
         chart.removeFromScene();
@@ -196,7 +164,6 @@ function resetChart()
 
     HIVE = document.getElementById("hive").checked;
     STEAM = document.getElementById("steamTrue").checked;
-    FILTERED = 0;
     CHART_RATIO = 2;
 
     if( HIVE )
@@ -204,6 +171,6 @@ function resetChart()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
 
-    chart = new Chart(table, null);
+    chart = new Chart(table, filtration);
     chart.addToScene();
 }
