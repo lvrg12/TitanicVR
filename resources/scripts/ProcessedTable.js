@@ -10,12 +10,12 @@ function ProcessedTable( startFieldName, ignoreFields, table)
 
 
     // removing ignoreFields from table
-    for( var i=0; i<ignoreFields.length; i++)
-    {
-        var index = table[0].indexOf(ignoreFields[i]);
-        for( var j=0; j<table.length; j++)
-            table[j].splice(index, 1);
-    }
+    // for( var i=0; i<ignoreFields.length; i++)
+    // {
+    //     var index = table[0].indexOf(ignoreFields[i]);
+    //     for( var j=0; j<table.length; j++)
+    //         table[j].splice(index, 1);
+    // }
 
 
     // moving startField to index 0
