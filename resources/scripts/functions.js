@@ -32,15 +32,34 @@ function init()
 
 }
 
-function loadFile( filepath )
+function loadFile( file )
 {
-    return $.csv.toArrays($.ajax({
-                url: filepath,
+    if( file )
+    {
+        var reader = new FileReader();
+        reader.onload = function(e)
+            {
+                document.getElementById("csvdata").value = e.target.result;
+                document.getElementById("csvdataready").value = "1";
+            };
+
+        reader.readAsText(file);
+
+        //while( document.getElementById("csvdata").value == null )
+        //    console.log(reader);
+
+        return $.csv.toArrays( document.getElementById("csvdata").value );
+    }
+    else
+    {
+        return $.csv.toArrays($.ajax({
+                url: "resources/datasets/titanic.csv",
                 async: false,
                 success: function (csvd) {
                     data = $.csv.toArrays(csvd);
                 }
             }).responseText)
+    }
 }
 
 

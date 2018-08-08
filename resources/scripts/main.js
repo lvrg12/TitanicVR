@@ -12,14 +12,19 @@ var LEN;
 
 function generateGraph()
 {
-    startField = document.getElementById("start_field").value;
+    startField = document.getElementById("start_field").value.toLowerCase();
     ignoreFields = document.getElementById("ignore_fields").value.split(",");
 
-    path = document.getElementById("csvfile").value;
-    if(path)
-        table = new ProcessedTable(startField, ignoreFields, loadFile(document.getElementById("csvfile")));
+    for(var i=0; i<ignoreFields.length; i++)
+        ignoreFields[i] = ignoreFields[i].trim().toLowerCase();
+
+    file = document.getElementById("csvfile").files[0];
+    //console.log(document.getElementById("csvdata").value)
+
+    if(file)
+        table = new ProcessedTable(startField, ignoreFields, loadFile(file));
     else
-        table = new ProcessedTable(startField, ignoreFields, loadFile("resources/datasets/titanic2.csv"));
+        table = new ProcessedTable(startField, ignoreFields, loadFile(null));
 
     CHART_RATIO = 2;
     LEN = table.length / CHART_RATIO;

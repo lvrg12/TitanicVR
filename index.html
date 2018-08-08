@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Titanic: Data Visualization</title>
+		<title>Data Visualization: Stacking</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -45,11 +45,13 @@
 
 		<div id="setting2" style="display: block">
 			<br>
-			CSV File:		<input type="file" id="csvfile" accept="csv"><br>
+			CSV File:		<input type="file" id="csvfile"><br>
 			Start Field:	<input type="text" id="start_field" value="pclass"><br>
 			Ignore Fields:	<input type="text" id="ignore_fields" value="parch,sibsp"> (separated by commas)<br><br>
 			<button onclick="generateGraph()">Create Graph</button>
 		</div>
+
+		<p id="csvdata" style="display: none" value=""></p>
 
 	</body>
 </html>

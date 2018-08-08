@@ -5,6 +5,10 @@ function ProcessedTable( startFieldName, ignoreFields, table)
 {
     this.type = "ProcessedTable";
 
+    for(var i=0; i<table[0].length; i++)
+        table[0][i] = table[0][i].toLowerCase();
+
+
     // removing ignoreFields from table
     for( var i=0; i<ignoreFields.length; i++)
     {
