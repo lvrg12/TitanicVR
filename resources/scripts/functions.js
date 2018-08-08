@@ -41,7 +41,6 @@ function loadFile( filepath )
                     data = $.csv.toArrays(csvd);
                 }
             }).responseText)
-
 }
 
 
@@ -164,7 +163,6 @@ function resetChart(filtration)
 
     HIVE = document.getElementById("hive").checked;
     STEAM = document.getElementById("steamTrue").checked;
-    CHART_RATIO = 2;
 
     if( HIVE )
         controls.target.set( 0, 0, 0 );

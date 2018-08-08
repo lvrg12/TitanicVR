@@ -5,6 +5,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
 {
     this.type = "GridHive";
     this.columns = columns.length;
+    var radius = len/1;
 
     var separation = -2 * Math.PI / (columns.length);
     this.separation = separation;
@@ -31,7 +32,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
         text = text.toUpperCase();
         var y = 0;
         var t = separation * field ;
-        var x = len + 2*len/5;
+        var x = radius + len + len/5;
 
         addText(text, [ x * Math.cos(t), y, x * Math.sin(t) ], true);
     }
@@ -49,7 +50,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
 
             var geometry = new THREE.TextGeometry( text, {
                 font: font,
-                size: len/20,
+                size: len/15,
                 height: 0.5,
                 curveSegments: 12,
                 bevelEnabled: false,
@@ -86,8 +87,8 @@ function GridHive( columns, len, fieldNames, optionNames, group)
     {
         var geometry = new THREE.Geometry();
 
-        geometry.vertices.push(new THREE.Vector3( len/5, 0, 0 ));
-        geometry.vertices.push(new THREE.Vector3( len+len/5, 0, 0 ));
+        geometry.vertices.push(new THREE.Vector3( radius, 0, 0 ));
+        geometry.vertices.push(new THREE.Vector3( len+radius, 0, 0 ));
         
         var quad = new THREE.Line( geometry, material.clone() );
         quad.rotation.set( 0, q * separation, 0);
@@ -104,7 +105,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
         var separation_line = len / ( num_of_options - 1 );
         
         var t = separation *  field ;
-        var x = len/5 + option * separation_line;
+        var x = radius + option * separation_line;
         
         return [ x * Math.cos(t), 0, x * Math.sin(t) ];
     }

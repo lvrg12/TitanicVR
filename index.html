@@ -21,7 +21,6 @@
 		<script src="resources/scripts/papaparse.min.js"></script>
 		<script src="resources/scripts/OrbitControls.js"></script>
 		<script src="resources/scripts/functions.js"></script>
-		<script src="resources/scripts/filter.js"></script>
 		<script src="resources/scripts/Chart.js"></script>
 		<script src="resources/scripts/ProcessedTable.js"></script>
 		<script src="resources/scripts/ProcessedData.js"></script>
@@ -30,18 +29,27 @@
 		<script src="resources/scripts/Column.js"></script>
 		<script src="resources/scripts/Stack.js"></script>
 		<script src="resources/scripts/StackHive.js"></script>
+		<script src="resources/scripts/main.js"></script>
 
-		<div align="center">
-			<p>TITANIC: DATA VISUALIZATION</p>
-			<form>
-				Plot: 	<input checked type="checkbox" id="linear" onclick="changePlot(this.id)">Linear
-						<input type="checkbox" id="hive" onclick="changePlot(this.id)">Hive<br>
-				Steam: 	<input type="checkbox" id="steamTrue" onclick="changeSteam(this.id)">Yes
-						<input checked type="checkbox" id="steamFalse" onclick="changeSteam(this.id)">No<br>
-			</form>
+		<div id="setting0" align="left" style="font-size: 15pt">
+			DATA VISUALIZATION: Linear and Hive Stacked Plot<br>
 		</div>
 
-		<script src="resources/scripts/main.js"></script>
+		<div id="setting1" style="display: none" align="center">
+				<br>
+				Plot: 			<input checked type="checkbox" id="linear" onclick="changePlot(this.id)">Linear
+								<input type="checkbox" id="hive" onclick="changePlot(this.id)">Hive<br>
+				Steam: 			<input type="checkbox" id="steamTrue" onclick="changeSteam(this.id)">Yes
+								<input checked type="checkbox" id="steamFalse" onclick="changeSteam(this.id)">No<br>
+		</div>
+
+		<div id="setting2" style="display: block">
+			<br>
+			CSV File:		<input type="file" id="csvfile" accept="csv"><br>
+			Start Field:	<input type="text" id="start_field" value="pclass"><br>
+			Ignore Fields:	<input type="text" id="ignore_fields" value="parch,sibsp"> (separated by commas)<br><br>
+			<button onclick="generateGraph()">Create Graph</button>
+		</div>
 
 	</body>
 </html>

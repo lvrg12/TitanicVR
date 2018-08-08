@@ -51,14 +51,20 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
         var ry = ( Math.sin(separation) * Math.sqrt( Math.pow(nX,2) + Math.pow(nZ,2) ) ) / dist;
         
         //cylinder.setRotationFromAxisAngle(new Vector3( 0, y, 0), Math.PI/2);
-        if( ry * 57.296 > -56.66 )
+        console.log(Math.PI/3.177);
+
+
+        if( ry > Math.PI/-3.177 )
             ry = Math.asin( ry );
         else
             ry = Math.acos( ry ) + Math.PI/2;
 
         ry = Math.PI - separation * fromField + ry
-        
-        //console.log(theta * 57.296);
+
+        var point1 = new THREE.Vector3(x,y,z);
+        var point2 = new THREE.Vector3(nX,nY,nZ);
+
+        //console.log(point1.angleTo(point2));
 
 
         // draw arch
