@@ -31,7 +31,7 @@ function generateGraph()
 
     document.getElementById("setting0").align = "center";
     document.getElementById("setting0").style.fontSize = "";
-    document.getElementById("setting1").style.display = "block";
+    document.getElementById("setting1").style.display = "none";
     document.getElementById("setting2").style.display = "none";
 
     init();
