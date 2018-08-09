@@ -25,9 +25,13 @@ function init()
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+    effect = new THREE.VREffect(renderer);
+    effect.setSize(window.innerWidth, window.innerHeight);
+    manager = new WebVRManager(renderer, effect);
 
     window.requestAnimationFrame( render );
+    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
 }

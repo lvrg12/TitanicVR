@@ -1,4 +1,6 @@
 Class,Age,Sex,Survived
+Crew,Adult,Male,Perished
+Third Class,Child,Female,Survived
 Second Class,Child,Female,Survived
 Second Class,Child,Female,Survived
 Second Class,Child,Female,Survived
@@ -1530,7 +1532,6 @@ Crew,Adult,Male,Survived
 Crew,Adult,Male,Survived
 Crew,Adult,Male,Survived
 Crew,Adult,Male,Survived
-Crew,Adult,Male,Perished
 Crew,Adult,Male,Perished
 Crew,Adult,Male,Perished
 Crew,Adult,Male,Perished
