@@ -26,9 +26,9 @@ function init()
     mouse = new THREE.Vector2();
 
 
-    effect = new THREE.VREffect(renderer);
-    effect.setSize(window.innerWidth, window.innerHeight);
-    manager = new WebVRManager(renderer, effect);
+    effect = new THREE.StereoEffect( renderer );
+    effect.setSize( window.innerWidth, window.innerHeight );
+    // manager = new WebVRManager( renderer, effect);
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -132,7 +132,7 @@ function onDocumentMouseDown( event )
 
 function render()
 {
-	renderer.render( scene, camera );
+	effect.render( scene, camera );
 }
 
 function changePlot( id )
