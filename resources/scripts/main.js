@@ -1,4 +1,4 @@
-var container, camera, scene, renderer, manager, effect, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
+var container, camera, scene, renderer, manager, effect, clock, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
 var STEAM;
 var HIVE;
 var CHART_RATIO;

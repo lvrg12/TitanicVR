@@ -12,7 +12,14 @@ function init()
     scene.add( camera );
 
     controls = new THREE.OrbitControls( camera );
+
+    window.addEventListener( 'deviceorientation', setOrientationControls, true );
+
+    controls = new THREE.DeviceOrientationControls( camera, true );
+    controls.connect();
     controls.update();
+
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
     
     var light = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( light );
@@ -24,6 +31,7 @@ function init()
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
+    clock = new THREE.Clock();
 
 
     effect = new THREE.StereoEffect( renderer );
@@ -34,6 +42,12 @@ function init()
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
+}
+
+function setOrientationControls(e)
+{
+    if (!e.alpha)
+      return;
 }
 
 function loadFile( file )
@@ -72,6 +86,8 @@ function animate()
     requestAnimationFrame( animate );
     controls.update();
     render();
+    // render(clock.getDelta());
+    
 }
 
 function onWindowResize() {
