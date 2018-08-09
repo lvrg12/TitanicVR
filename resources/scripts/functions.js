@@ -203,10 +203,10 @@ function resetChart(filtration)
     HIVE = document.getElementById("hive").checked;
     STEAM = document.getElementById("steamTrue").checked;
 
-    if( HIVE )
-        controls.target.set( 0, 0, 0 );
-    else
-        controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
+    //if( HIVE )
+     //   controls.target.set( 0, 0, 0 );
+    //else
+    //    controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
 
     chart = new Chart(table, filtration);
     chart.addToScene();
