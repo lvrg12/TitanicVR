@@ -8,6 +8,7 @@ var table;
 var chart;
 var chartTmp;
 var LEN;
+var ARCH;
 
 
 function generateGraph()
@@ -30,8 +31,7 @@ function generateGraph()
     LEN = table.length / CHART_RATIO;
 
     document.getElementById("setting0").align = "center";
-    document.getElementById("setting0").style.fontSize = "";
-    document.getElementById("setting1").style.display = "none";
+    document.getElementById("setting1").style.display = "block";
     document.getElementById("setting2").style.display = "none";
 
     init();

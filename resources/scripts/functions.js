@@ -34,8 +34,8 @@ function init()
     clock = new THREE.Clock();
 
 
-    effect = new THREE.StereoEffect( renderer );
-    effect.setSize( window.innerWidth, window.innerHeight );
+    //effect = new THREE.StereoEffect( renderer );
+    //effect.setSize( window.innerWidth, window.innerHeight );
     // manager = new WebVRManager( renderer, effect);
 
     window.requestAnimationFrame( render );
@@ -148,7 +148,8 @@ function onDocumentMouseDown( event )
 
 function render()
 {
-	effect.render( scene, camera );
+    //effect.render( scene, camera );
+    renderer.render( scene, camera );
 }
 
 function changePlot( id )
@@ -190,7 +191,26 @@ function changeSteam( id )
     }
 
     resetChart(null);
+}
 
+function changeArch( id )
+{
+    archTrue = document.getElementById("archTrue");
+    archFalse = document.getElementById("archFalse");
+
+    if( id == "archTrue" )
+    {
+        archTrue.checked = true;
+        archFalse.checked = false;
+    }
+
+    if( id == "archFalse" )
+    {
+        archFalse.checked = true;
+        archTrue.checked = false;
+    }
+
+    resetChart(null);
 }
 
 function resetChart(filtration)
@@ -202,11 +222,12 @@ function resetChart(filtration)
 
     HIVE = document.getElementById("hive").checked;
     STEAM = document.getElementById("steamTrue").checked;
+    ARCH = document.getElementById("archTrue").checked;
 
     if( HIVE )
-        controls.target.set( 0, 0, 0 );
+        controls.target.set( 0, LEN/2, 0 );
     else
-        controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
+        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
     chart = new Chart(table, filtration);
     chart.addToScene();

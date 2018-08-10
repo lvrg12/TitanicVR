@@ -53,9 +53,21 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
         //      (cpX,cpY) = vertex position
         //		(X,Y)	  = end position
         var arch = new THREE.Shape();
-        arch.moveTo( 0 , 0 );
-        arch.quadraticCurveTo(dist/2,top,dist,0);
-        arch.quadraticCurveTo(dist/2,down,0,0);
+
+        if( ARCH )
+        {
+            arch.moveTo( 0 , 0 );
+            arch.quadraticCurveTo(dist/2,top,dist,0);
+            arch.quadraticCurveTo(dist/2,down,0,0);
+        }
+        else
+        {
+            arch.moveTo(0,down/2)
+            arch.lineTo(0,top/2);
+            arch.lineTo(dist,top/2);
+            arch.lineTo(dist,down/2);
+            arch.lineTo(0,down/2);
+        }
         addShape( arch, extrudeSettings, color, x, 0, z, 0, theta, 0, 1 );
     }
 
