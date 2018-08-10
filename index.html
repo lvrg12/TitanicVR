@@ -17,7 +17,6 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="resources/scripts/three.min.js"></script>
-		<!-- <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script> -->
 		<script src="resources/scripts/StereoEffect.js"></script>
 		<script src="resources/scripts/DeviceOrientationControls.js"></script>
 		<script src="resources/scripts/jquery.csv.min.js"></script>
@@ -44,7 +43,8 @@
 								<input checked type="checkbox" id="steamFalse" onclick="changeSteam(this.id)">No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				Figure: 		<input checked type="checkbox" id="archTrue" onclick="changeArch(this.id)">Arch
 								<input type="checkbox" id="archFalse" onclick="changeArch(this.id)">Rectangule&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				Rotation:		<p>ROTATEDDD ALL</p>
+								<button id="onVR" onclick="onVR()" style="display: inline;">VR</button>
+								<button id="offVR" onclick="offVR()" style="display: none">ESC</button>
 		</div>
 
 		<div id="setting2" style="display: block">
@@ -52,7 +52,7 @@
 			CSV File:		<input type="file" id="csvfile"><br>
 			Start Field:	<input type="text" id="start_field" value="class"><br>
 			Ignore Fields:	<input type="text" id="ignore_fields" value=""> (separated by commas)<br><br>
-			<button onclick="generateGraph()">Create Graph</button>
+							<button onclick="generateGraph()">Create Graph</button>
 		</div>
 
 		<p id="csvdata" style="display: none" value=""></p>

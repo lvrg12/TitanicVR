@@ -32,10 +32,6 @@ function init()
     // manager = new WebVRManager( renderer, effect);
 
     controls = new THREE.OrbitControls( camera );
-
-
-    controls = new THREE.DeviceOrientationControls( camera, true );
-    controls.connect();
     controls.update();
 
     window.requestAnimationFrame( render );
@@ -215,6 +211,36 @@ function changeArch( id )
     resetChart(null);
 }
 
+function onVR()
+{
+    controls = new THREE.DeviceOrientationControls( camera, true );
+    controls.connect();
+
+    document.getElementById("onVR").style.display = "none";
+    document.getElementById("offVR").style.display = "inline";
+    document.getElementById("setting0").style.display = "none";
+    toggleFullScreen()
+
+    console.log("onVR");
+}
+
+function offVR()
+{
+    controls = new THREE.OrbitControls( camera );
+
+    if( HIVE )
+        controls.target.set( 0, LEN/2, 0 );
+    else
+        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+
+    document.getElementById("onVR").style.display = "inline";
+    document.getElementById("offVR").style.display = "none";
+    document.getElementById("setting0").style.display = "block";
+    toggleFullScreen()
+
+    console.log("offVR");
+}
+
 function resetChart(filtration)
 {
     if( chart != null )
@@ -233,14 +259,29 @@ function resetChart(filtration)
         else
             controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
     }
-    else
-    {
-        scene.rotation.x = Math.PI;
-        scene.rotation.y = Math.PI;
-        scene.rotation.z = Math.PI;
-        console.log(scene);
-    }
 
     chart = new Chart(table, filtration);
     chart.addToScene();
 }
+
+function toggleFullScreen()
+{
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+      if (document.documentElement.requestFullScreen) {  
+        document.documentElement.requestFullScreen();  
+      } else if (document.documentElement.mozRequestFullScreen) {  
+        document.documentElement.mozRequestFullScreen();  
+      } else if (document.documentElement.webkitRequestFullScreen) {  
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+      }  
+    } else {  
+      if (document.cancelFullScreen) {  
+        document.cancelFullScreen();  
+      } else if (document.mozCancelFullScreen) {  
+        document.mozCancelFullScreen();  
+      } else if (document.webkitCancelFullScreen) {  
+        document.webkitCancelFullScreen();  
+      }  
+    }  
+  }
