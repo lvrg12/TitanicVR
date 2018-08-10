@@ -37,8 +37,6 @@ function init()
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
-    window.addEventListener( 'deviceorientation', setOrientationControls, true );
-    window.removeEventListener('deviceorientation', setOrientationControls, true);
 
 }
 
@@ -215,6 +213,9 @@ function onVR()
 {
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
+
+    window.addEventListener( 'deviceorientation', setOrientationControls, true );
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
 
     document.getElementById("onVR").style.display = "none";
     document.getElementById("offVR").style.display = "inline";
