@@ -10,7 +10,7 @@ function init()
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     //camera.position.set( LEN, -LEN, LEN * 4 );
     camera.position.set( LEN, LEN, LEN * 4 );
-    camera.rotation.set( 0, Math.PI, 0 );
+    camera.rotation.y = Math.PI;
     scene.add( camera );
 
     
@@ -153,7 +153,8 @@ function render()
 {
     //effect.render( scene, camera );
     renderer.render( scene, camera );
-    document.getElementById("position").value = camera.position.y;
+    camera.rotation.y = Math.PI;
+    document.getElementById("info").value = camera.rotation.y;
 }
 
 function changePlot( id )
