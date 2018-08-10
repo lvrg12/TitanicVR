@@ -9,7 +9,7 @@ function init()
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     //camera.position.set( LEN, -LEN, LEN * 4 );
-    camera.position.set(0,0,0);
+    camera.position.set(1828.13,5737,853);
     scene.add( camera );
 
     
@@ -152,6 +152,7 @@ function render()
 {
     //effect.render( scene, camera );
     renderer.render( scene, camera );
+    console.log(camera.position);
 }
 
 function changePlot( id )
