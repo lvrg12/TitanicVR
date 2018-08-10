@@ -9,7 +9,8 @@ function init()
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     //camera.position.set( LEN, -LEN, LEN * 4 );
-    camera.position.set( LEN, 300, LEN * 4 );
+    camera.position.set( LEN, -200, LEN * 4 );
+    camera.rotation.set( 0, Math.PI, 0 );
     scene.add( camera );
 
     
