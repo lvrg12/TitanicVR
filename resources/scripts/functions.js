@@ -236,6 +236,13 @@ function resetChart(filtration)
         else
             controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
     }
+    else
+    {
+        if( HIVE )
+            camera.lookAt( 0, LEN/2, 0 );
+        else
+            camera.lookAt( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    }
 
     chart = new Chart(table, filtration);
     chart.addToScene();
