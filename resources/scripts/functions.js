@@ -10,7 +10,6 @@ function init()
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     //camera.position.set( LEN, -LEN, LEN * 4 );
     camera.position.set( LEN, LEN, LEN * 4 );
-    camera.rotation.y = Math.PI;
     scene.add( camera );
 
     
@@ -153,8 +152,6 @@ function render()
 {
     //effect.render( scene, camera );
     renderer.render( scene, camera );
-    camera.rotation.y = Math.PI;
-    document.getElementById("info").value = camera.rotation.y;
 }
 
 function changePlot( id )
@@ -238,10 +235,8 @@ function resetChart(filtration)
     }
     else
     {
-        if( HIVE )
-            camera.lookAt( 0, LEN/2, 0 );
-        else
-            camera.lookAt( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+        scene.rotation.y = Math.PI;
+        console.log(scene);
     }
 
     chart = new Chart(table, filtration);
