@@ -235,7 +235,9 @@ function resetChart(filtration)
     }
     else
     {
+        scene.rotation.x = Math.PI;
         scene.rotation.y = Math.PI;
+        scene.rotation.z = Math.PI;
         console.log(scene);
     }
 
