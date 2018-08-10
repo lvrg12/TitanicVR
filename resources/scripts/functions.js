@@ -11,15 +11,6 @@ function init()
     camera.position.set( LEN, LEN, LEN * 4 );
     scene.add( camera );
 
-    controls = new THREE.OrbitControls( camera );
-
-    window.addEventListener( 'deviceorientation', setOrientationControls, true );
-
-    //controls = new THREE.DeviceOrientationControls( camera, true );
-    //controls.connect();
-    controls.update();
-
-    window.removeEventListener('deviceorientation', setOrientationControls, true);
     
     var light = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( light );
@@ -34,13 +25,23 @@ function init()
     clock = new THREE.Clock();
 
 
-    //effect = new THREE.StereoEffect( renderer );
-    //effect.setSize( window.innerWidth, window.innerHeight );
+    effect = new THREE.StereoEffect( renderer );
+    effect.eyeSeparation = 10;
+    effect.setSize( window.innerWidth, window.innerHeight );
     // manager = new WebVRManager( renderer, effect);
+
+    controls = new THREE.OrbitControls( camera );
+
+
+    controls = new THREE.DeviceOrientationControls( camera, true );
+    controls.connect();
+    controls.update();
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener( 'deviceorientation', setOrientationControls, true );
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
 
 }
 
@@ -224,10 +225,13 @@ function resetChart(filtration)
     STEAM = document.getElementById("steamTrue").checked;
     ARCH = document.getElementById("archTrue").checked;
 
-    if( HIVE )
-        controls.target.set( 0, LEN/2, 0 );
-    else
-        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    if( controls.alpha == null )
+    {
+        if( HIVE )
+            controls.target.set( 0, LEN/2, 0 );
+        else
+            controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    }
 
     chart = new Chart(table, filtration);
     chart.addToScene();

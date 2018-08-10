@@ -69,9 +69,20 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
 
         // draw arch
         var arch = new THREE.Shape();
-        arch.moveTo( 0 , 0 );
-        arch.quadraticCurveTo(dist/2,top,dist,0);
-        arch.quadraticCurveTo(dist/2,down,0,0);
+        if( ARCH )
+        {
+            arch.moveTo( 0 , 0 );
+            arch.quadraticCurveTo(dist/2,top,dist,0);
+            arch.quadraticCurveTo(dist/2,down,0,0);
+        }
+        else
+        {
+            arch.moveTo(0,down/2)
+            arch.lineTo(0,top/2);
+            arch.lineTo(dist,top/2);
+            arch.lineTo(dist,down/2);
+            arch.lineTo(0,down/2);
+        }
         addShape( arch, extrudeSettings, color, x, y, z, 0, ry, rz, 1 );
     }
 

@@ -10,6 +10,7 @@ var chartTmp;
 var LEN;
 var ARCH;
 
+// generateGraph()
 
 function generateGraph()
 {
