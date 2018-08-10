@@ -8,8 +8,8 @@ function init()
     scene.background = new THREE.Color( 0xf0f0f0 );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-    //camera.position.set( LEN, -LEN, LEN * 4 );
-    camera.position.set(1828.13,5737,853);
+    camera.position.set( LEN, -LEN, LEN * 4 );
+    //camera.position.set(1828.13,500,853);
     scene.add( camera );
 
     
@@ -152,8 +152,8 @@ function render()
 {
     //effect.render( scene, camera );
     renderer.render( scene, camera );
-    document.getElementById("position").value = camera.position.x + ", " + camera.position.y + ", " + camera.position.z;
-    document.getElementById("rotation").value = camera.rotation.x + ", " + camera.rotation.y + ", " + camera.rotation.z;
+    document.getElementById("position").innerHTML = camera.position.x + ", " + camera.position.y + ", " + camera.position.z;
+    document.getElementById("rotation").innerHTML = camera.rotation.x + ", " + camera.rotation.y + ", " + camera.rotation.z;
 }
 
 function changePlot( id )
