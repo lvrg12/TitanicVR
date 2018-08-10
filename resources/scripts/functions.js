@@ -152,8 +152,7 @@ function render()
 {
     //effect.render( scene, camera );
     renderer.render( scene, camera );
-    document.getElementById("position").innerHTML = camera.position.x + ", " + camera.position.y + ", " + camera.position.z;
-    document.getElementById("rotation").innerHTML = camera.rotation.x + ", " + camera.rotation.y + ", " + camera.rotation.z;
+    document.getElementById("position").value = camera.position.y;
 }
 
 function changePlot( id )
