@@ -8,7 +8,8 @@ function init()
     scene.background = new THREE.Color( 0xf0f0f0 );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-    camera.position.set( LEN, LEN, LEN * 4 );
+    //camera.position.set( LEN, -LEN, LEN * 4 );
+    camera.position.set(0,0,0);
     scene.add( camera );
 
     
