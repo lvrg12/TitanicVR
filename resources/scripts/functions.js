@@ -29,7 +29,7 @@ function init()
     effect = new THREE.StereoEffect( renderer );
     effect.eyeSeparation = 10;
     effect.setSize( window.innerWidth, window.innerHeight );
-    manager = new WebVRManager( renderer, effect);
+    //manager = new WebVRManager( renderer, effect );
 
     controls = new THREE.OrbitControls( camera );
     controls.update();
@@ -144,8 +144,8 @@ function onDocumentMouseDown( event )
 
 function render()
 {
-    effect.render( scene, camera );
-    //renderer.render( scene, camera );
+    //effect.render( scene, camera );
+    renderer.render( scene, camera );
 }
 
 function changePlot( id )
