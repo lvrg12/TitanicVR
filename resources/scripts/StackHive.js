@@ -51,21 +51,38 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
         var ry = ( Math.sin(separation) * Math.sqrt( Math.pow(nX,2) + Math.pow(nZ,2) ) ) / dist;
         
         //cylinder.setRotationFromAxisAngle(new Vector3( 0, y, 0), Math.PI/2);
-        if( ry * 57.296 > -56.66 )
+        console.log(Math.PI/3.177);
+
+
+        if( ry > Math.PI/-3.177 )
             ry = Math.asin( ry );
         else
             ry = Math.acos( ry ) + Math.PI/2;
 
         ry = Math.PI - separation * fromField + ry
-        
-        //console.log(theta * 57.296);
+
+        var point1 = new THREE.Vector3(x,y,z);
+        var point2 = new THREE.Vector3(nX,nY,nZ);
+
+        //console.log(point1.angleTo(point2));
 
 
         // draw arch
         var arch = new THREE.Shape();
-        arch.moveTo( 0 , 0 );
-        arch.quadraticCurveTo(dist/2,top,dist,0);
-        arch.quadraticCurveTo(dist/2,down,0,0);
+        if( ARCH )
+        {
+            arch.moveTo( 0 , 0 );
+            arch.quadraticCurveTo(dist/2,top,dist,0);
+            arch.quadraticCurveTo(dist/2,down,0,0);
+        }
+        else
+        {
+            arch.moveTo(0,down/2)
+            arch.lineTo(0,top/2);
+            arch.lineTo(dist,top/2);
+            arch.lineTo(dist,down/2);
+            arch.lineTo(0,down/2);
+        }
         addShape( arch, extrudeSettings, color, x, y, z, 0, ry, rz, 1 );
     }
 

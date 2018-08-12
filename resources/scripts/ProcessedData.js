@@ -1,10 +1,14 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function ProcessedData( ptable, filterVar )
+function ProcessedData( table, filterVar )
 {
     this.type = "ProcessedData";
     var fieldNames = [];
+    
+    var ptable = table.map(function(arr) {
+        return arr.slice();
+    });
 
     // naming fields
     for( var i=0; i<ptable[0].length; i++)

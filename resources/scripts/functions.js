@@ -8,11 +8,10 @@ function init()
     scene.background = new THREE.Color( 0xf0f0f0 );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
+    //camera.position.set( LEN, -LEN, LEN * 4 );
     camera.position.set( LEN, LEN, LEN * 4 );
     scene.add( camera );
 
-    controls = new THREE.OrbitControls( camera );
-    controls.update();
     
     var light = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( light );
@@ -24,24 +23,57 @@ function init()
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
+    clock = new THREE.Clock();
 
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+    effect = new THREE.StereoEffect( renderer );
+    effect.eyeSeparation = 10;
+    effect.setSize( window.innerWidth, window.innerHeight );
+    manager = new WebVRManager( renderer, effect);
+
+    controls = new THREE.OrbitControls( camera );
+    controls.update();
 
     window.requestAnimationFrame( render );
+    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
 }
 
-function loadFile( filepath )
+function setOrientationControls(e)
 {
-    return $.csv.toArrays($.ajax({
-                url: filepath,
+    if (!e.alpha)
+      return;
+}
+
+function loadFile( file )
+{
+    if( file )
+    {
+        var reader = new FileReader();
+        reader.onload = function(e)
+            {
+                document.getElementById("csvdata").value = e.target.result;
+                document.getElementById("csvdataready").value = "1";
+            };
+
+        reader.readAsText(file);
+
+        //while( document.getElementById("csvdata").value == null )
+        //    console.log(reader);
+
+        return $.csv.toArrays( document.getElementById("csvdata").value );
+    }
+    else
+    {
+        return $.csv.toArrays($.ajax({
+                url: "resources/datasets/titanic.csv",
                 async: false,
                 success: function (csvd) {
                     data = $.csv.toArrays(csvd);
                 }
             }).responseText)
-
+    }
 }
 
 
@@ -49,8 +81,9 @@ function animate()
 {
     requestAnimationFrame( animate );
     controls.update();
-    //raycaster.setFromCamera( mouse, camera );
     render();
+    // render(clock.getDelta());
+    
 }
 
 function onWindowResize() {
@@ -63,18 +96,14 @@ function onWindowResize() {
 function onDocumentMouseDown( event )
 {
     event.preventDefault();
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
 
     // find intersections
     raycaster.setFromCamera( mouse, camera );
 
-    var intersects;
-
-    if( FILTERED )
-        intersects = raycaster.intersectObjects( chart.group.children );
-    else
-        intersects = raycaster.intersectObjects( chart.group.children );
+    var intersects = raycaster.intersectObjects( chart.group.children );
 
     if ( intersects.length > 0 )
     {
@@ -82,14 +111,21 @@ function onDocumentMouseDown( event )
         {
             INTERSECTED = intersects[ 0 ].object;
             var itype = INTERSECTED.geometry.type;
-
             
             if( FILTERED == 0 )
             {
                 if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
                 {
-                    filter( INTERSECTED );
+
                     FILTERED = 1;
+
+                    var ifield1 = INTERSECTED.attributes.field1;
+                    var ifield2 = INTERSECTED.attributes.field2;
+                    var ioption1 = INTERSECTED.attributes.option1;
+                    var ioption2 = INTERSECTED.attributes.option2;
+
+                    resetChart([ifield1,ioption1,ifield2,ioption2]);
+
                 }
             }
 
@@ -97,18 +133,19 @@ function onDocumentMouseDown( event )
     }
     else
     {
-        console.log("ntohing");
         if( FILTERED != 0 )
         {
-            filterReset();
-            FILTERED = 0;
+            resetChart(null);
         }
+
+        FILTERED = 0;
     }
 }
 
 function render()
 {
-	renderer.render( scene, camera );
+    effect.render( scene, camera );
+    //renderer.render( scene, camera );
 }
 
 function changePlot( id )
@@ -128,7 +165,7 @@ function changePlot( id )
         linear.checked = false;
     }
 
-    resetChart();
+    resetChart(null);
 
 }
 
@@ -149,29 +186,63 @@ function changeSteam( id )
         steamTrue.checked = false;
     }
 
-    resetChart();
-
+    resetChart(null);
 }
 
-function reload()
+function changeArch( id )
 {
-    window.location.href = window.location.href + "&plot=true&steam=true";
-    console.log(window.location);
-    window.location.reload();
+    archTrue = document.getElementById("archTrue");
+    archFalse = document.getElementById("archFalse");
+
+    if( id == "archTrue" )
+    {
+        archTrue.checked = true;
+        archFalse.checked = false;
+    }
+
+    if( id == "archFalse" )
+    {
+        archFalse.checked = true;
+        archTrue.checked = false;
+    }
+
+    resetChart(null);
 }
 
-function getQueryVariable(variable)
+function onVR()
 {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+    controls = new THREE.DeviceOrientationControls( camera, true );
+    controls.connect();
+
+    window.addEventListener( 'deviceorientation', setOrientationControls, true );
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
+
+    document.getElementById("onVR").style.display = "none";
+    document.getElementById("offVR").style.display = "inline";
+    document.getElementById("setting0").style.display = "none";
+    toggleFullScreen()
+
+    console.log("onVR");
 }
 
-function resetChart()
+function offVR()
+{
+    controls = new THREE.OrbitControls( camera );
+
+    if( HIVE )
+        controls.target.set( 0, LEN/2, 0 );
+    else
+        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+
+    document.getElementById("onVR").style.display = "inline";
+    document.getElementById("offVR").style.display = "none";
+    document.getElementById("setting0").style.display = "block";
+    toggleFullScreen()
+
+    console.log("offVR");
+}
+
+function resetChart(filtration)
 {
     if( chart != null )
         chart.removeFromScene();
@@ -180,18 +251,38 @@ function resetChart()
 
     HIVE = document.getElementById("hive").checked;
     STEAM = document.getElementById("steamTrue").checked;
-    FILTERED = 0;
-    CHART_RATIO = 2;
-    startField = "pclass";
-    ignoreFields = ["parch","sibsp"];
-    LEN = table.length / CHART_RATIO;
+    ARCH = document.getElementById("archTrue").checked;
 
+    if( controls.alpha == null )
+    {
+        if( HIVE )
+            controls.target.set( 0, LEN/2, 0 );
+        else
+            controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    }
 
-    if( HIVE )
-        controls.target.set( 0, 0, 0 );
-    else
-        controls.target.set( (LEN/2) * (table[0].length-1), 0, LEN/2 );
-
-    chart = new Chart(table, null);
+    chart = new Chart(table, filtration);
     chart.addToScene();
 }
+
+function toggleFullScreen()
+{
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+      if (document.documentElement.requestFullScreen) {  
+        document.documentElement.requestFullScreen();  
+      } else if (document.documentElement.mozRequestFullScreen) {  
+        document.documentElement.mozRequestFullScreen();  
+      } else if (document.documentElement.webkitRequestFullScreen) {  
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+      }  
+    } else {  
+      if (document.cancelFullScreen) {  
+        document.cancelFullScreen();  
+      } else if (document.mozCancelFullScreen) {  
+        document.mozCancelFullScreen();  
+      } else if (document.webkitCancelFullScreen) {  
+        document.webkitCancelFullScreen();  
+      }  
+    }  
+  }

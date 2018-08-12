@@ -17,17 +17,19 @@ function Chart(p_table, filterVar)
 
     // Columns
 
-
-    for( var op1=0; op1<this.data.getOptionsOfField(0).length; op1++)
+    if( ARCH )
     {
-        for( var f=0; f<grid.getFieldCount(); f++)
+        for( var op1=0; op1<this.data.getOptionsOfField(0).length; op1++)
         {
-            for( var op2=0; op2<this.data.getOptionsOfField(f).length; op2++ )
+            for( var f=0; f<grid.getFieldCount(); f++)
             {
-                var coord = grid.markerLocation(f,op2);
-                var values = this.data.tallyColumn(f,op2);
-                var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
-                col = new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
+                for( var op2=0; op2<this.data.getOptionsOfField(f).length; op2++ )
+                {
+                    var coord = grid.markerLocation(f,op2);
+                    var values = this.data.tallyColumn(f,op2);
+                    var attributes = { "field1": f, "option1": op2, "field2": null, "option2": null }
+                    col = new Column(coord,values, LEN, this.data.getColors(), attributes, this.group);
+                }
             }
         }
     }
