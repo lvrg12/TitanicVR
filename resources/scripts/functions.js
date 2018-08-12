@@ -220,6 +220,12 @@ function onVR()
     document.getElementById("onVR").style.display = "none";
     document.getElementById("offVR").style.display = "inline";
     document.getElementById("setting0").style.display = "none";
+
+    // rotate chart 180
+
+    camera.lookAt(0,0,0);
+
+
     toggleFullScreen()
 
     console.log("onVR");
