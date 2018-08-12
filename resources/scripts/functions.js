@@ -26,10 +26,10 @@ function init()
     clock = new THREE.Clock();
 
 
-    effect = new THREE.StereoEffect( renderer );
-    effect.eyeSeparation = 10;
-    effect.setSize( window.innerWidth, window.innerHeight );
-    //manager = new WebVRManager( renderer, effect );
+    // effect = new THREE.StereoEffect( renderer );
+    // effect.eyeSeparation = 10;
+    // effect.setSize( window.innerWidth, window.innerHeight );
+    // manager = new WebVRManager( renderer, effect );
 
     controls = new THREE.OrbitControls( camera );
     controls.update();
