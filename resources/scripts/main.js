@@ -31,7 +31,7 @@ function generateGraph()
     CHART_RATIO = 2;
     LEN = table.length / CHART_RATIO;
 
-    document.getElementById("setting0").align = "center";
+    document.getElementById("setting0").style.display = "none";
     document.getElementById("setting1").style.display = "block";
     document.getElementById("setting2").style.display = "none";
 
