@@ -16,7 +16,7 @@ function init()
     camera.add( light );
 
     raycaster = new THREE.Raycaster();
-    // mouse = new THREE.Vector2();
+    mouse = new THREE.Vector2();
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
@@ -30,11 +30,11 @@ function init()
     // effect.setSize( window.innerWidth, window.innerHeight );
     // manager = new WebVRManager( renderer, effect );
 
-    // controls = new THREE.OrbitControls( camera );
-    // controls.update();
+    controls = new THREE.OrbitControls( camera );
+    controls.update();
 
-    // window.requestAnimationFrame( render );
-    // window.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    window.requestAnimationFrame( render );
+    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
     window.addEventListener( 'vrdisplaypointerrestricted', onPointerRestricted, false );
     window.addEventListener( 'vrdisplaypointerunrestricted', onPointerUnrestricted, false );
