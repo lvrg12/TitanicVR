@@ -1,5 +1,6 @@
 function init()
 {
+    clock = new THREE.Clock();
 
     container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -16,13 +17,14 @@ function init()
     scene.background = new THREE.Color( 0xf0f0f0 );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-    //camera.position.set( LEN, -LEN, LEN * 4 );
     camera.position.set( LEN, LEN, LEN * 4 );
     scene.add( camera );
 
-    
     var light = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( light );
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
@@ -30,25 +32,21 @@ function init()
     renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
 
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-    clock = new THREE.Clock();
-
 
     // effect = new THREE.StereoEffect( renderer );
     // effect.eyeSeparation = 10;
     // effect.setSize( window.innerWidth, window.innerHeight );
     // manager = new WebVRManager( renderer, effect );
 
-    controls = new THREE.OrbitControls( camera );
-    controls.update();
+    // controls = new THREE.OrbitControls( camera );
+    // controls.update();
 
-    window.requestAnimationFrame( render );
-    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    // window.requestAnimationFrame( render );
+    // window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
-
     window.addEventListener( 'vrdisplaypointerrestricted', onPointerRestricted, false );
-	window.addEventListener( 'vrdisplaypointerunrestricted', onPointerUnrestricted, false );
+    window.addEventListener( 'vrdisplaypointerunrestricted', onPointerUnrestricted, false );
+    
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 }
@@ -106,10 +104,10 @@ function loadFile( file )
 
 function animate()
 {
-    requestAnimationFrame( animate );
+    //requestAnimationFrame( animate );
     renderer.setAnimationLoop( render );
-    controls.update();
-    render();
+    //controls.update();
+    //render();
     // render(clock.getDelta());
     
 }
@@ -175,13 +173,7 @@ function render()
     // effect.render( scene, camera );
     // renderer.render( scene, camera );
 
-    var delta = clock.getDelta() * 60;
-
     renderer.render( scene, camera );
-
-
-
-
 }
 
 function changePlot( id )
@@ -245,38 +237,38 @@ function changeArch( id )
     resetChart(null);
 }
 
-function onVR()
-{
-    controls = new THREE.DeviceOrientationControls( camera, true );
-    controls.connect();
+// function onVR()
+// {
+//     controls = new THREE.DeviceOrientationControls( camera, true );
+//     controls.connect();
 
-    window.addEventListener( 'deviceorientation', setOrientationControls, true );
-    window.removeEventListener('deviceorientation', setOrientationControls, true);
+//     window.addEventListener( 'deviceorientation', setOrientationControls, true );
+//     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
-    document.getElementById("onVR").style.display = "none";
-    document.getElementById("offVR").style.display = "inline";
-    document.getElementById("setting0").style.display = "none";
+//     document.getElementById("onVR").style.display = "none";
+//     document.getElementById("offVR").style.display = "inline";
+//     document.getElementById("setting0").style.display = "none";
 
-    // rotate chart 180
-    camera.lookAt(0,0,0);
+//     // rotate chart 180
+//     camera.lookAt(0,0,0);
 
-    toggleFullScreen()
-}
+//     toggleFullScreen()
+// }
 
-function offVR()
-{
-    controls = new THREE.OrbitControls( camera );
+// function offVR()
+// {
+//     controls = new THREE.OrbitControls( camera );
 
-    if( HIVE )
-        controls.target.set( 0, LEN/2, 0 );
-    else
-        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+//     if( HIVE )
+//         controls.target.set( 0, LEN/2, 0 );
+//     else
+//         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
-    document.getElementById("onVR").style.display = "inline";
-    document.getElementById("offVR").style.display = "none";
-    document.getElementById("setting0").style.display = "block";
-    toggleFullScreen()
-}
+//     document.getElementById("onVR").style.display = "inline";
+//     document.getElementById("offVR").style.display = "none";
+//     document.getElementById("setting0").style.display = "block";
+//     toggleFullScreen()
+// }
 
 function resetChart(filtration)
 {
@@ -289,13 +281,13 @@ function resetChart(filtration)
     STEAM = document.getElementById("steamTrue").checked;
     ARCH = document.getElementById("archTrue").checked;
 
-    if( controls.alpha == null )
-    {
-        if( HIVE )
-            controls.target.set( 0, LEN/2, 0 );
-        else
-            controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
-    }
+    // if( controls.alpha == null )
+    // {
+    //     if( HIVE )
+    //         controls.target.set( 0, LEN/2, 0 );
+    //     else
+    //         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    // }
 
     chart = new Chart(table, filtration);
     chart.addToScene();
