@@ -100,7 +100,11 @@ function animate()
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+
+    if( effect == null )
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    else
+        effect.setSize( window.innerWidth, window.innerHeight );
   }
 
 
@@ -228,7 +232,6 @@ function onVR()
     controls.connect();
 
     effect = new THREE.StereoEffect( renderer );
-    effect.eyeSeparation = 0;
     effect.setSize( window.innerWidth, window.innerHeight );
 
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
