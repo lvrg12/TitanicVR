@@ -23,12 +23,6 @@ function init()
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
 
-
-    effect = new THREE.StereoEffect( renderer );
-    effect.eyeSeparation = 10;
-    effect.setSize( window.innerWidth, window.innerHeight );
-    // manager = new WebVRManager( renderer, effect );
-
     controls = new THREE.OrbitControls( camera );
     controls.update();
 
@@ -161,8 +155,10 @@ function onDocumentMouseDown( event )
 
 function render()
 {
-    effect.render( scene, camera );
-    // renderer.render( scene, camera );
+    if( effect == null )
+        renderer.render( scene, camera );
+    else
+        effect.render( scene, camera );
 }
 
 function changePlot( id )
@@ -231,6 +227,10 @@ function onVR()
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
+    effect = new THREE.StereoEffect( renderer );
+    effect.eyeSeparation = 0;
+    effect.setSize( window.innerWidth, window.innerHeight );
+
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
@@ -246,6 +246,8 @@ function onVR()
 
 function offVR()
 {
+    effect = null;
+
     controls = new THREE.OrbitControls( camera );
 
     if( HIVE )
