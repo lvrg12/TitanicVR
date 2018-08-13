@@ -4,6 +4,14 @@ function init()
     container = document.createElement( 'div' );
     document.body.appendChild( container );
 
+    var info = document.createElement( 'div' );
+    info.style.position = 'absolute';
+    info.style.top = '10px';
+    info.style.width = '100%';
+    info.style.textAlign = 'center';
+    info.innerHTML = '<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes';
+    container.appendChild( info );
+
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xf0f0f0 );
 
@@ -19,6 +27,7 @@ function init()
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
 
     raycaster = new THREE.Raycaster();
@@ -38,12 +47,30 @@ function init()
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
+    window.addEventListener( 'vrdisplaypointerrestricted', onPointerRestricted, false );
+	window.addEventListener( 'vrdisplaypointerunrestricted', onPointerUnrestricted, false );
+	document.body.appendChild( WEBVR.createButton( renderer ) );
+
 }
 
 function setOrientationControls(e)
 {
     if (!e.alpha)
       return;
+}
+
+function onPointerRestricted() {
+    var pointerLockElement = renderer.domElement;
+    if ( pointerLockElement && typeof(pointerLockElement.requestPointerLock) === 'function' ) {
+        pointerLockElement.requestPointerLock();
+    }
+}
+function onPointerUnrestricted() {
+    var currentPointerLockElement = document.pointerLockElement;
+    var expectedPointerLockElement = renderer.domElement;
+    if ( currentPointerLockElement && currentPointerLockElement === expectedPointerLockElement && typeof(document.exitPointerLock) === 'function' ) {
+        document.exitPointerLock();
+    }
 }
 
 function loadFile( file )
@@ -80,6 +107,7 @@ function loadFile( file )
 function animate()
 {
     requestAnimationFrame( animate );
+    renderer.setAnimationLoop( render );
     controls.update();
     render();
     // render(clock.getDelta());
@@ -144,8 +172,16 @@ function onDocumentMouseDown( event )
 
 function render()
 {
-    //effect.render( scene, camera );
+    // effect.render( scene, camera );
+    // renderer.render( scene, camera );
+
+    var delta = clock.getDelta() * 60;
+
     renderer.render( scene, camera );
+
+
+
+
 }
 
 function changePlot( id )
@@ -222,13 +258,9 @@ function onVR()
     document.getElementById("setting0").style.display = "none";
 
     // rotate chart 180
-
     camera.lookAt(0,0,0);
 
-
     toggleFullScreen()
-
-    console.log("onVR");
 }
 
 function offVR()
@@ -244,8 +276,6 @@ function offVR()
     document.getElementById("offVR").style.display = "none";
     document.getElementById("setting0").style.display = "block";
     toggleFullScreen()
-
-    console.log("offVR");
 }
 
 function resetChart(filtration)
