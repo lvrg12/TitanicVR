@@ -5,14 +5,6 @@ function init()
     container = document.createElement( 'div' );
     document.body.appendChild( container );
 
-    var info = document.createElement( 'div' );
-    info.style.position = 'absolute';
-    info.style.top = '10px';
-    info.style.width = '100%';
-    info.style.textAlign = 'center';
-    info.innerHTML = '<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes';
-    container.appendChild( info );
-
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xf0f0f0 );
 
@@ -24,7 +16,7 @@ function init()
     camera.add( light );
 
     raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
+    // mouse = new THREE.Vector2();
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
