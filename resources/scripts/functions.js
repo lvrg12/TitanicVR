@@ -96,12 +96,10 @@ function loadFile( file )
 
 function animate()
 {
-    //requestAnimationFrame( animate );
+    requestAnimationFrame( animate );
     renderer.setAnimationLoop( render );
-    //controls.update();
-    //render();
-    // render(clock.getDelta());
-    
+    controls.update();
+    render();
 }
 
 function onWindowResize() {
@@ -273,13 +271,13 @@ function resetChart(filtration)
     STEAM = document.getElementById("steamTrue").checked;
     ARCH = document.getElementById("archTrue").checked;
 
-    // if( controls.alpha == null )
-    // {
-    //     if( HIVE )
-    //         controls.target.set( 0, LEN/2, 0 );
-    //     else
-    //         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
-    // }
+    if( controls.alpha == null )
+    {
+        if( HIVE )
+            controls.target.set( 0, LEN/2, 0 );
+        else
+            controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+    }
 
     chart = new Chart(table, filtration);
     chart.addToScene();
