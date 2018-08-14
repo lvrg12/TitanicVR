@@ -30,139 +30,6 @@ function init()
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
-    // WEBVR Plug-In
-    // renderer.vr.enabled = true;
-    // window.addEventListener( 'vrdisplaypointerrestricted', onPointerRestricted, false );
-    // window.addEventListener( 'vrdisplaypointerunrestricted', onPointerUnrestricted, false );
-	// document.body.appendChild( WEBVR.createButton( renderer ) );
-
-}
-
-function setOrientationControls(e)
-{
-    if (!e.alpha)
-      return;
-}
-
-function onPointerRestricted() {
-    var pointerLockElement = renderer.domElement;
-    if ( pointerLockElement && typeof(pointerLockElement.requestPointerLock) === 'function' ) {
-        pointerLockElement.requestPointerLock();
-    }
-}
-function onPointerUnrestricted() {
-    var currentPointerLockElement = document.pointerLockElement;
-    var expectedPointerLockElement = renderer.domElement;
-    if ( currentPointerLockElement && currentPointerLockElement === expectedPointerLockElement && typeof(document.exitPointerLock) === 'function' ) {
-        document.exitPointerLock();
-    }
-}
-
-function loadFile( file )
-{
-    if( file )
-    {
-        var reader = new FileReader();
-        reader.onload = function(e)
-            {
-                document.getElementById("csvdata").value = e.target.result;
-                document.getElementById("csvdataready").value = "1";
-            };
-
-        reader.readAsText(file);
-
-        //while( document.getElementById("csvdata").value == null )
-        //    console.log(reader);
-
-        return $.csv.toArrays( document.getElementById("csvdata").value );
-    }
-    else
-    {
-        return $.csv.toArrays($.ajax({
-                url: "resources/datasets/titanic.csv",
-                async: false,
-                success: function (csvd) {
-                    data = $.csv.toArrays(csvd);
-                }
-            }).responseText)
-    }
-}
-
-
-function animate()
-{
-    requestAnimationFrame( animate );
-    renderer.setAnimationLoop( render );
-    controls.update();
-    render();
-}
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    if( effect == null )
-        renderer.setSize( window.innerWidth, window.innerHeight );
-    else
-        effect.setSize( window.innerWidth, window.innerHeight );
-  }
-
-
-function onDocumentMouseDown( event )
-{
-    event.preventDefault();
-    var rect = renderer.domElement.getBoundingClientRect();
-    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
-    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
-
-    // find intersections
-    raycaster.setFromCamera( mouse, camera );
-
-    var intersects = raycaster.intersectObjects( chart.group.children );
-
-    if ( intersects.length > 0 )
-    {
-        if ( INTERSECTED != intersects[ 0 ].object )
-        {
-            INTERSECTED = intersects[ 0 ].object;
-            var itype = INTERSECTED.geometry.type;
-            
-            if( FILTERED == 0 )
-            {
-                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
-                {
-
-                    FILTERED = 1;
-
-                    var ifield1 = INTERSECTED.attributes.field1;
-                    var ifield2 = INTERSECTED.attributes.field2;
-                    var ioption1 = INTERSECTED.attributes.option1;
-                    var ioption2 = INTERSECTED.attributes.option2;
-
-                    resetChart([ifield1,ioption1,ifield2,ioption2]);
-
-                }
-            }
-
-        }
-    }
-    else
-    {
-        if( FILTERED != 0 )
-        {
-            resetChart(null);
-        }
-
-        FILTERED = 0;
-    }
-}
-
-function render()
-{
-    if( effect == null )
-        renderer.render( scene, camera );
-    else
-        effect.render( scene, camera );
 }
 
 function changePlot( id )
@@ -228,7 +95,10 @@ function changeArch( id )
 
 function onVR()
 {
+    VR = true;
+
     controls = new THREE.DeviceOrientationControls( camera, true );
+    controls.autoForward = true;
     controls.connect();
 
     effect = new THREE.StereoEffect( renderer );
@@ -248,6 +118,8 @@ function onVR()
 
 function offVR()
 {
+    VR = false;
+
     effect = null;
 
     controls = new THREE.OrbitControls( camera );
@@ -273,7 +145,7 @@ function resetChart(filtration)
     STEAM = document.getElementById("steamTrue").checked;
     ARCH = document.getElementById("archTrue").checked;
 
-    if( controls.alpha == null )
+    if( !VR )
     {
         if( HIVE )
             controls.target.set( 0, LEN/2, 0 );
@@ -283,6 +155,36 @@ function resetChart(filtration)
 
     chart = new Chart(table, filtration);
     chart.addToScene();
+}
+
+function loadFile( file )
+{
+    if( file )
+    {
+        var reader = new FileReader();
+        reader.onload = function(e)
+            {
+                document.getElementById("csvdata").value = e.target.result;
+                document.getElementById("csvdataready").value = "1";
+            };
+
+        reader.readAsText(file);
+
+        //while( document.getElementById("csvdata").value == null )
+        //    console.log(reader);
+
+        return $.csv.toArrays( document.getElementById("csvdata").value );
+    }
+    else
+    {
+        return $.csv.toArrays($.ajax({
+                url: "resources/datasets/titanic.csv",
+                async: false,
+                success: function (csvd) {
+                    data = $.csv.toArrays(csvd);
+                }
+            }).responseText)
+    }
 }
 
 function toggleFullScreen()
@@ -305,4 +207,89 @@ function toggleFullScreen()
         document.webkitCancelFullScreen();  
       }  
     }  
-  }
+}
+
+// Events
+
+function setOrientationControls(e)
+{
+    if (!e.alpha)
+      return;
+}
+
+function onWindowResize()
+{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    if( !VR )
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    else
+        effect.setSize( window.innerWidth, window.innerHeight );
+}
+
+function onDocumentMouseDown( event )
+{
+    event.preventDefault();
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+    // find intersections
+    raycaster.setFromCamera( mouse, camera );
+
+    var intersects = raycaster.intersectObjects( chart.group.children );
+
+    if ( intersects.length > 0 )
+    {
+        if ( INTERSECTED != intersects[ 0 ].object )
+        {
+            INTERSECTED = intersects[ 0 ].object;
+            var itype = INTERSECTED.geometry.type;
+            
+            if( FILTERED == 0 )
+            {
+                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
+                {
+
+                    FILTERED = 1;
+
+                    var ifield1 = INTERSECTED.attributes.field1;
+                    var ifield2 = INTERSECTED.attributes.field2;
+                    var ioption1 = INTERSECTED.attributes.option1;
+                    var ioption2 = INTERSECTED.attributes.option2;
+
+                    resetChart([ifield1,ioption1,ifield2,ioption2]);
+
+                }
+            }
+
+        }
+    }
+    else
+    {
+        if( FILTERED != 0 )
+        {
+            resetChart(null);
+        }
+        FILTERED = 0;
+    }
+}
+
+// Animate & Render
+
+function animate()
+{
+    requestAnimationFrame( animate );
+    renderer.setAnimationLoop( render );
+    controls.update();
+    render();
+}
+
+function render()
+{
+    if( effect == null )
+        renderer.render( scene, camera );
+    else
+        effect.render( scene, camera );
+}

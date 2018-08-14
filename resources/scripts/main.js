@@ -1,4 +1,7 @@
-var container, camera, scene, renderer, manager, effect, clock, controls, group, raycaster, mouse, INTERSECTED, FILTERED = 0;
+var container, camera, scene, renderer, manager, effect, clock, controls, group
+var raycaster, mouse, havePointerLock, INTERSECTED
+var FILTERED = 0;
+var VR = false;
 var STEAM;
 var HIVE;
 var CHART_RATIO;
