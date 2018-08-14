@@ -112,7 +112,7 @@ function onVR()
     // rotate chart 180
     // camera.lookAt(0,0,0);
 
-    onFullScreen()
+    toggleFullScreen();
 }
 
 function offVR()
@@ -129,6 +129,8 @@ function offVR()
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
     document.getElementById("onVR").style.display = "inline";
+
+    toggleFullScreen();
 }
 
 function resetChart(filtration)
@@ -184,7 +186,7 @@ function loadFile( file )
     }
 }
 
-function onFullScreen()
+function toggleFullScreen()
 {
     if( (document.fullScreenElement && document.fullScreenElement !== null) ||
         (!document.mozFullScreen && !document.webkitIsFullScreen) )
@@ -200,6 +202,24 @@ function onFullScreen()
         else if (document.documentElement.webkitRequestFullScreen)
         {
             document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    }
+    else
+    {
+        if(document.cancelFullScreen)
+        {  
+            document.cancelFullScreen();
+            offVR();
+        }
+        else if (document.mozCancelFullScreen)
+        {  
+            document.mozCancelFullScreen();
+            offVR();
+        }
+        else if (document.webkitCancelFullScreen)
+        {  
+            document.webkitCancelFullScreen();
+            offVR();
         }
     }
 }
@@ -287,21 +307,4 @@ function render()
         renderer.render( scene, camera );
     else
         effect.render( scene, camera );
-
-    // revert vr if needed
-    if(document.cancelFullScreen)
-    {  
-        document.cancelFullScreen();
-        offVR();
-    }
-    else if (document.mozCancelFullScreen)
-    {  
-        document.mozCancelFullScreen();
-        offVR();
-    }
-    else if (document.webkitCancelFullScreen)
-    {  
-        document.webkitCancelFullScreen();
-        offVR();
-    }
 }
