@@ -108,6 +108,7 @@ function onVR()
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
     document.getElementById("onVR").style.display = "none";
+    document.getElementById("offVR").style.display = "inline";
 
     // rotate chart 180
     camera.lookAt(0,0,0);
@@ -129,6 +130,7 @@ function offVR()
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
     document.getElementById("onVR").style.display = "inline";
+    document.getElementById("offVR").style.display = "none";
 
     toggleFullScreen();
 }
