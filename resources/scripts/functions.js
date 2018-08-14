@@ -98,7 +98,7 @@ function onVR()
     VR = true;
 
     controls = new THREE.DeviceOrientationControls( camera, true );
-    controls.autoForward = true;
+    //controls.autoForward = true;
     controls.connect();
 
     effect = new THREE.StereoEffect( renderer );
@@ -110,7 +110,7 @@ function onVR()
     document.getElementById("onVR").style.display = "none";
 
     // rotate chart 180
-    // camera.lookAt(0,0,0);
+    camera.lookAt(0,0,0);
 
     toggleFullScreen();
 }
