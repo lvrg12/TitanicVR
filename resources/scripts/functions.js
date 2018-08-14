@@ -111,9 +111,9 @@ function onVR()
     document.getElementById("offVR").style.display = "inline";
 
     // rotate chart 180
-    camera.lookAt(0,0,0);
+    // camera.lookAt(0,0,0);
 
-    toggleFullScreen()
+    onFullScreen()
 }
 
 function offVR()
@@ -131,7 +131,7 @@ function offVR()
 
     document.getElementById("onVR").style.display = "inline";
     document.getElementById("offVR").style.display = "none";
-    toggleFullScreen()
+
 }
 
 function resetChart(filtration)
@@ -187,26 +187,24 @@ function loadFile( file )
     }
 }
 
-function toggleFullScreen()
+function onFullScreen()
 {
-    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-      if (document.documentElement.requestFullScreen) {  
-        document.documentElement.requestFullScreen();  
-      } else if (document.documentElement.mozRequestFullScreen) {  
-        document.documentElement.mozRequestFullScreen();  
-      } else if (document.documentElement.webkitRequestFullScreen) {  
-        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-      }  
-    } else {  
-      if (document.cancelFullScreen) {  
-        document.cancelFullScreen();  
-      } else if (document.mozCancelFullScreen) {  
-        document.mozCancelFullScreen();  
-      } else if (document.webkitCancelFullScreen) {  
-        document.webkitCancelFullScreen();  
-      }  
-    }  
+    if( (document.fullScreenElement && document.fullScreenElement !== null) ||
+        (!document.mozFullScreen && !document.webkitIsFullScreen) )
+    {
+        if (document.documentElement.requestFullScreen)
+        {
+            document.documentElement.requestFullScreen();
+        }
+        else if (document.documentElement.mozRequestFullScreen)
+        {
+            document.documentElement.mozRequestFullScreen();
+        }
+        else if (document.documentElement.webkitRequestFullScreen)
+        {
+            document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    }
 }
 
 // Events
@@ -292,4 +290,21 @@ function render()
         renderer.render( scene, camera );
     else
         effect.render( scene, camera );
+
+    // revert vr if needed
+    if(document.cancelFullScreen)
+    {  
+        document.cancelFullScreen();
+        offVR();
+    }
+    else if (document.mozCancelFullScreen)
+    {  
+        document.mozCancelFullScreen();
+        offVR();
+    }
+    else if (document.webkitCancelFullScreen)
+    {  
+        document.webkitCancelFullScreen();
+        offVR();
+    }
 }
