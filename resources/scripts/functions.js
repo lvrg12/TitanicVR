@@ -14,6 +14,7 @@ function init()
     pointer = new Pointer( "resources/media/circled-dot.png" );
     camera.add( pointer );
     pointer.position.set(0,0,-1000);
+    pointer.visible = false;
 
     scene.add( camera );
 
@@ -100,6 +101,7 @@ function changeArch( id )
 
 function onVR()
 {
+    pointer.visible = true;
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
@@ -109,8 +111,8 @@ function onVR()
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
-    document.getElementById("onVR").style.display = "none";
-    // document.getElementById("offVR").style.display = "inline";
+    //document.getElementById("onVR").style.display = "none";
+    document.getElementById("setting1").style.display = "none";
 
     // rotate chart 180
     // camera.lookAt(0,0,0);
@@ -235,8 +237,6 @@ function onWindowResize()
 
 function onDocumentMouseDown( event )
 {
-    console.log(camera);
-    console.log(pointer);
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
