@@ -3,10 +3,6 @@ function Chart(p_table, filterVar)
     this.data = new ProcessedData(p_table, filterVar);
     this.group = new THREE.Group();
 
-    // Pointer
-
-    pointer = new Pointer( "resources/media/circled-dot.png", this.group );
-
     // Grid
 
     var grid;

@@ -10,6 +10,11 @@ function init()
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
+
+    pointer = new Pointer( "resources/media/circled-dot.png" );
+    camera.add( pointer );
+    pointer.position.set(0,0,-1000);
+
     scene.add( camera );
 
     var light = new THREE.PointLight( 0xffffff, 0.8 );
@@ -230,6 +235,8 @@ function onWindowResize()
 
 function onDocumentMouseDown( event )
 {
+    console.log(camera);
+    console.log(pointer);
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
@@ -283,7 +290,7 @@ function animate()
     requestAnimationFrame( animate );
     renderer.setAnimationLoop( render );
     controls.update();
-    pointer.updatePosition();
+    // pointer.updatePosition();
     render();
 }
 
