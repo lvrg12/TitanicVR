@@ -239,11 +239,14 @@ function onDocumentMouseDown( event )
 {
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
+
     mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
     mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
 
-    // find intersections
-    raycaster.setFromCamera( mouse, camera );
+    if( !VR )
+        raycaster.setFromCamera( mouse, camera );
+    else
+        raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
 
     var intersects = raycaster.intersectObjects( chart.group.children );
 
