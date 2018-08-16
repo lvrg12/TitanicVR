@@ -85,7 +85,7 @@ THREE.DeviceOrientationControls = function(object) {
   var v0 = new THREE.Vector3(0, 0, 0);
   var euler = new THREE.Euler();
   var q0 = new THREE.Quaternion(); // - PI/2 around the x-axis
-  var q1 = new THREE.Quaternion(- Math.sqrt(0.5), 0, 0, Math.sqrt(0.5));
+  var q1 = new THREE.Quaternion(Math.sqrt(0.5), 0, 0, Math.sqrt(0.5));
 
 
   this.update = (function(delta) {
@@ -124,7 +124,7 @@ THREE.DeviceOrientationControls = function(object) {
       else this.orientationQuaternion.copy(quaternionLerp);
 
       // camera looks out the back of the device, not the top
-      //this.orientationQuaternion.multiply(q1);
+      this.orientationQuaternion.multiply(q1);
 
       // adjust for screen orientation
       this.orientationQuaternion.multiply(q0.setFromAxisAngle(zee, - this.orient));
