@@ -282,6 +282,11 @@ function onDocumentMouseDown( event )
         {
             resetChart(null);
         }
+        else
+        {
+            if( VR )
+                camera.translateZ( -200 );
+        }
         FILTERED = 0;
     }
 }
