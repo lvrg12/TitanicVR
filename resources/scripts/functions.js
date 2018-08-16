@@ -100,8 +100,6 @@ function changeArch( id )
 
 function onVR()
 {
-    VR = true;
-
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
@@ -112,18 +110,18 @@ function onVR()
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
     document.getElementById("onVR").style.display = "none";
-    document.getElementById("offVR").style.display = "inline";
+    // document.getElementById("offVR").style.display = "inline";
 
     // rotate chart 180
     // camera.lookAt(0,0,0);
 
     toggleFullScreen();
+
+    VR = true;
 }
 
 function offVR()
 {
-    VR = false;
-
     effect = null;
 
     controls = new THREE.OrbitControls( camera );
@@ -137,6 +135,8 @@ function offVR()
     document.getElementById("offVR").style.display = "none";
 
     toggleFullScreen();
+
+    VR = false;
 }
 
 function resetChart(filtration)
