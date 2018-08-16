@@ -53,8 +53,6 @@ THREE.DeviceOrientationControls = function(object) {
 
   this.object = object;
 
-  console.log(object);
-
   this.object.rotation.reorder('YXZ');
 
   this.freeze = true;
@@ -85,7 +83,7 @@ THREE.DeviceOrientationControls = function(object) {
   var v0 = new THREE.Vector3(0, 0, 0);
   var euler = new THREE.Euler();
   var q0 = new THREE.Quaternion(); // - PI/2 around the x-axis
-  var q1 = new THREE.Quaternion(Math.sqrt(0.5), 0, 0, Math.sqrt(0.5));
+  var q1 = new THREE.Quaternion(- Math.sqrt(0.5), 0, 0, Math.sqrt(0.5));
 
 
   this.update = (function(delta) {
