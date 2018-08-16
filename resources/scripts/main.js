@@ -12,6 +12,7 @@ var chart;
 var chartTmp;
 var LEN;
 var ARCH;
+var pointer;
 
 // generateGraph()
 

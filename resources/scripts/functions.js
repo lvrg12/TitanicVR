@@ -111,7 +111,7 @@ function onVR()
     document.getElementById("offVR").style.display = "inline";
 
     // rotate chart 180
-    camera.lookAt(0,0,0);
+    // camera.lookAt(0,0,0);
 
     toggleFullScreen();
 }
@@ -190,40 +190,24 @@ function loadFile( file )
 
 function toggleFullScreen()
 {
-    if( (document.fullScreenElement && document.fullScreenElement !== null) ||
-        (!document.mozFullScreen && !document.webkitIsFullScreen) )
-    {
-        if (document.documentElement.requestFullScreen)
-        {
-            document.documentElement.requestFullScreen();
-        }
-        else if (document.documentElement.mozRequestFullScreen)
-        {
-            document.documentElement.mozRequestFullScreen();
-        }
-        else if (document.documentElement.webkitRequestFullScreen)
-        {
-            document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    }
-    else
-    {
-        if(document.cancelFullScreen)
-        {  
-            document.cancelFullScreen();
-            offVR();
-        }
-        else if (document.mozCancelFullScreen)
-        {  
-            document.mozCancelFullScreen();
-            offVR();
-        }
-        else if (document.webkitCancelFullScreen)
-        {  
-            document.webkitCancelFullScreen();
-            offVR();
-        }
-    }
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+      if (document.documentElement.requestFullScreen) {  
+        document.documentElement.requestFullScreen();  
+      } else if (document.documentElement.mozRequestFullScreen) {  
+        document.documentElement.mozRequestFullScreen();  
+      } else if (document.documentElement.webkitRequestFullScreen) {  
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+      }  
+    } else {  
+      if (document.cancelFullScreen) {  
+        document.cancelFullScreen();  
+      } else if (document.mozCancelFullScreen) {  
+        document.mozCancelFullScreen();  
+      } else if (document.webkitCancelFullScreen) {  
+        document.webkitCancelFullScreen();  
+      }  
+    }  
 }
 
 // Events
