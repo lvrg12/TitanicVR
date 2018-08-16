@@ -53,6 +53,8 @@ THREE.DeviceOrientationControls = function(object) {
 
   this.object = object;
 
+  console.log(object);
+
   this.object.rotation.reorder('YXZ');
 
   this.freeze = true;
@@ -122,7 +124,7 @@ THREE.DeviceOrientationControls = function(object) {
       else this.orientationQuaternion.copy(quaternionLerp);
 
       // camera looks out the back of the device, not the top
-      this.orientationQuaternion.multiply(q1);
+      //this.orientationQuaternion.multiply(q1);
 
       // adjust for screen orientation
       this.orientationQuaternion.multiply(q0.setFromAxisAngle(zee, - this.orient));

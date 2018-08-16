@@ -1,16 +1,12 @@
 function Pointer(sprite_png, group)
 {
     this.type = "Pointer";
-    var x = window.innerWidth/2;
-    x = 0
-    var y = 0;
-    var z = window.innerHeight/2;
-    z = 0;
+    var sprite;
 
     addSprite();
     updatePosition();
-
-    var sprite;
+    sprite.position.x = camera.position.x;
+    sprite.position.y = camera.position.y;
 
     function addSprite()
     {
@@ -24,7 +20,7 @@ function Pointer(sprite_png, group)
 
     function updatePosition()
     {
-        sprite.rotation = camera.rotation;
+        //sprite.rotation = controls.object.rotation;
         sprite.position.x = camera.position.x;
         sprite.position.y = camera.position.y;
         sprite.position.z = camera.position.z - 1000;

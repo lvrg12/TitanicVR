@@ -51,7 +51,7 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
         var ry = ( Math.sin(separation) * Math.sqrt( Math.pow(nX,2) + Math.pow(nZ,2) ) ) / dist;
         
         //cylinder.setRotationFromAxisAngle(new Vector3( 0, y, 0), Math.PI/2);
-        console.log(Math.PI/3.177);
+        // console.log(Math.PI/3.177);
 
 
         if( ry > Math.PI/-3.177 )
