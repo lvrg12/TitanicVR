@@ -284,6 +284,7 @@ function animate()
     requestAnimationFrame( animate );
     renderer.setAnimationLoop( render );
     controls.update();
+    pointer.updatePosition();
     render();
 }
 

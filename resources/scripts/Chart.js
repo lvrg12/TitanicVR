@@ -5,7 +5,7 @@ function Chart(p_table, filterVar)
 
     // Pointer
 
-    // pointer = new Pointer( "resources/media/circled-dot.png", this.group );
+    pointer = new Pointer( "resources/media/circled-dot.png", this.group );
 
     // Grid
 
@@ -74,8 +74,8 @@ function Chart(p_table, filterVar)
         {
             scene.remove(this.group.children[i]);
 
-            this.group.children[i].geometry.dispose();
-            this.group.children[i].material.dispose();
+            //this.group.children[i].geometry.dispose();
+            //this.group.children[i].material.dispose();
             //geometry.dispose();
         }
         scene.remove ( this.group );
