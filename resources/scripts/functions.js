@@ -34,7 +34,9 @@ function init()
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    window.addEventListener( 'mouseup', onDocumentMouseUp, false )
     window.addEventListener( 'resize', onWindowResize, false );
+
 
 }
 
@@ -237,6 +239,7 @@ function onWindowResize()
 
 function onDocumentMouseDown( event )
 {
+    console.log(event.type);
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
 
@@ -272,11 +275,6 @@ function onDocumentMouseDown( event )
                     resetChart([ifield1,ioption1,ifield2,ioption2]);
 
                 }
-                else if( itype == "SphereGeometry" )
-                {
-                    camera.position = INTERSECTED.position;
-                    console.log("clicked");
-                }
             }
 
         }
@@ -289,11 +287,16 @@ function onDocumentMouseDown( event )
         }
         else
         {
-            // if( VR )
-            //    camera.translateZ( -200 );
+            if( VR )
+                TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
         }
         FILTERED = 0;
     }
+}
+
+function onDocumentMouseUp( event )
+{
+    if(TIMER) clearInterval(TIMER)
 }
 
 // Animate & Render

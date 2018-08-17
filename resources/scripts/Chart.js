@@ -5,7 +5,7 @@ function Chart(p_table, filterVar)
 
     // CameraPositions
 
-    cameraPositions = new CameraPositions( this.group );
+    // cameraPositions = new CameraPositions( this.group );
 
     // Grid
 

@@ -15,6 +15,7 @@ var chartTmp;
 var LEN;
 var ARCH;
 var pointer;
+var TIMER;
 
 // generateGraph()
 
