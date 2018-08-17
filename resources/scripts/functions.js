@@ -310,7 +310,7 @@ function onDocumentTouchStart( event )
 
 function onDocumentTouchEnd( event )
 {
-    if( VR & TIMER ) clearInterval(TIMER)
+    if( TIMER ) clearInterval(TIMER)
 }
 
 // Animate & Render
