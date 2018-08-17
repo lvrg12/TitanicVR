@@ -288,7 +288,8 @@ function onDocumentMouseDown( event )
         else
         {
             if( VR )
-                TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
+                // TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
+                camera.translateZ(-100)
         }
         FILTERED = 0;
     }
