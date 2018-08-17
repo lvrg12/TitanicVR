@@ -33,8 +33,9 @@ function init()
     controls.update();
 
     window.requestAnimationFrame( render );
-    window.addEventListener( 'touchstart', onDocumentMouseDown, false );
-    window.addEventListener( 'touchend', onDocumentMouseUp, false )
+    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.addEventListener( 'touched', onDocumentTouchEnd, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
 
@@ -239,7 +240,6 @@ function onWindowResize()
 
 function onDocumentMouseDown( event )
 {
-    console.log(event.type);
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
 
@@ -276,7 +276,6 @@ function onDocumentMouseDown( event )
 
                 }
             }
-
         }
     }
     else
@@ -285,17 +284,27 @@ function onDocumentMouseDown( event )
         {
             resetChart(null);
         }
-        else
-        {
-            if( VR )
-                TIMER = setInterval(function(){camera.translateZ( -10 );}, 1);
-                // camera.translateZ(-100)
-        }
         FILTERED = 0;
     }
 }
 
-function onDocumentMouseUp( event )
+function onDocumentTouchStart( event )
+{
+    event.preventDefault();
+    var rect = renderer.domElement.getBoundingClientRect();
+
+    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+    raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
+
+    var intersects = raycaster.intersectObjects( chart.group.children );
+
+    if ( ! intersects.length > 0 )
+        TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
+}
+
+function onDocumentTouchEnd( event )
 {
     if(TIMER) clearInterval(TIMER)
 }
