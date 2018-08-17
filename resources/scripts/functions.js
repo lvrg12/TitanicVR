@@ -272,6 +272,11 @@ function onDocumentMouseDown( event )
                     resetChart([ifield1,ioption1,ifield2,ioption2]);
 
                 }
+                else if( itype == "SphereGeometry" )
+                {
+                    camera.position = INTERSECTED.position;
+                    console.log("clicked");
+                }
             }
 
         }
@@ -284,8 +289,8 @@ function onDocumentMouseDown( event )
         }
         else
         {
-            if( VR )
-                camera.translateZ( -200 );
+            // if( VR )
+            //    camera.translateZ( -200 );
         }
         FILTERED = 0;
     }

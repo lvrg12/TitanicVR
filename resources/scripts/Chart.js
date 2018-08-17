@@ -3,9 +3,11 @@ function Chart(p_table, filterVar)
     this.data = new ProcessedData(p_table, filterVar);
     this.group = new THREE.Group();
 
-    // Grid
+    // CameraPositions
 
-    var grid;
+    cameraPositions = new CameraPositions( this.group );
+
+    // Grid
 
     if( HIVE )
         grid = new GridHive(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), this.group);
@@ -81,6 +83,7 @@ function Chart(p_table, filterVar)
         grid = null;
         col = null;
         stack = null;
+        cameraPositions = null;
     }
 
     this.addToScene = addToScene;
