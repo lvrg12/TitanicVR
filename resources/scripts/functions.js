@@ -35,7 +35,7 @@ function init()
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    window.addEventListener( 'touched', onDocumentTouchEnd, false )
+    window.addEventListener( 'touchend', onDocumentTouchEnd, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
 
@@ -310,7 +310,7 @@ function onDocumentTouchStart( event )
 
 function onDocumentTouchEnd( event )
 {
-    if( TIMER ) clearInterval(TIMER)
+    if( TIMER ) clearInterval(TIMER);
 }
 
 // Animate & Render
