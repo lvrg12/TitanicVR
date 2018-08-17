@@ -33,8 +33,8 @@ function init()
     controls.update();
 
     window.requestAnimationFrame( render );
-    window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    window.addEventListener( 'mouseup', onDocumentMouseUp, false )
+    window.addEventListener( 'touchstart', onDocumentMouseDown, false );
+    window.addEventListener( 'touchend', onDocumentMouseUp, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
 
