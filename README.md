@@ -17,6 +17,7 @@ The application was largely based on the Stacked Parallel Coordinate Plot descri
 
 ### Tools Used
 - Three.Js
+- WebGL
 - VS Code
 - Google Cardboard
 
@@ -57,3 +58,7 @@ There is a VR button to enter VR mode. Once clicked, an ESC button will appear t
 - http://datavizproject.com/data-type/hive-plot/
 - http://www.visualisingdata.com/2010/08/making-sense-of-streamgraphs/
 - https://threejs.org
+- http://mrdoob.com
+- http://alteredqualia.com/
+- https://w3c.github.io/deviceorientation/
+- http://myweb.ttu.edu/tnhondan/iDVL/index.php
