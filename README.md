@@ -15,6 +15,13 @@ The application was largely based on the Stacked Parallel Coordinate Plot descri
 
 ## TitanicVR
 
+### Tools Used
+- Three.Js
+- VS Code
+- Google Cardboard
+
+### Functionality
+
 The starting stage of the application asks the user to provide a CSV file, the start field, and the fields that should be ignore. The user's file must be a CSV file. If no file is provided the application will use the local titanic csv file. The start field will be the field that the graph will be based on. The color code of the graph will depend on the start field's options. For some datasets there are fields that contain many different options. An example could be the age of the passenger, where the field's options will be many and will vary greatly. To ignore such fields, the field names are typed in the corresponding input box separated by commas.
 
 Once the Generate Graph button is clicked an stacked graph will be generated. At the top of the screen there are several options from the user to choose from to change the graph settings.
