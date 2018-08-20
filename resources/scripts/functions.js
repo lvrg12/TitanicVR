@@ -293,18 +293,7 @@ function onDocumentTouchStart( event )
     if( VR )
     {
         event.preventDefault();
-        var rect = renderer.domElement.getBoundingClientRect();
-
-        mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
-        mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
-
-        raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
-
-        var intersects = raycaster.intersectObjects( chart.group.children );
-
-        if ( ! intersects.length > 0 )
-            TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
-
+        TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
     }
 }
 
