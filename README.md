@@ -34,7 +34,7 @@ There is a VR button to enter VR mode. Once clicked, an ESC button will appear t
 - Click on a blank space in the scene to reset the graph.
 
 ### VR Mode Controls
-- Rotate your head
+- Rotate your head to look at scene.
 - Click on an arch to show only records containing the fields represented by the arch.
 - Click on a column to show only the records containing the field represented by the column.
 - Click on a blank space in the scene to reset the graph.
