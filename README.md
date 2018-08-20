@@ -17,9 +17,30 @@ The application was largely based on the Stacked Parallel Coordinate Plot descri
 
 The starting stage of the application asks the user to provide a CSV file, the start field, and the fields that should be ignore. The user's file must be a CSV file. If no file is provided the application will use the local titanic csv file. The start field will be the field that the graph will be based on. The color code of the graph will depend on the start field's options. For some datasets there are fields that contain many different options. An example could be the age of the passenger, where the field's options will be many and will vary greatly. To ignore such fields, the field names are typed in the corresponding input box separated by commas.
 
-PICTURE HERE
+Once the Generate Graph button is clicked an stacked graph will be generated. At the top of the screen there are several options from the user to choose from to change the graph settings.
 
+The plot could be either Linear or Hive. The linear plot shows the relation between two adjacent fields, whereas the hive plot shows the relations between two adjacent fields and the first and last fields.
 
+The graph could also by Steam (Symmetric) or not. A symmetric graph is intended to visualize the graph quantities better. In this case, the height of the archs represent tallies.
+
+The grap can be represented through archs or rectangles for the tally representation.
+
+There is a VR button to enter VR mode. Once clicked, an ESC button will appear to exit VR mode.
+
+### Controls
+
+3D Mode
+- Click anywhere in the scene to rotate scene.
+- Click on an arch to show only records containing the fields represented by the arch.
+- Click on a column to show only the records containing the field represented by the column.
+- Click on a blank space in the scene to reset the graph.
+
+VR Mode
+- Rotate your head
+- Click on an arch to show only records containing the fields represented by the arch.
+- Click on a column to show only the records containing the field represented by the column.
+- Click on a blank space in the scene to reset the graph.
+- Hold a click to move forward
 
 ## Use Case
 
