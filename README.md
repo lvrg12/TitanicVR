@@ -27,15 +27,13 @@ The grap can be represented through archs or rectangles for the tally representa
 
 There is a VR button to enter VR mode. Once clicked, an ESC button will appear to exit VR mode.
 
-### Controls
-
-3D Mode
+### 3D Mode Controls
 - Click anywhere in the scene to rotate scene.
 - Click on an arch to show only records containing the fields represented by the arch.
 - Click on a column to show only the records containing the field represented by the column.
 - Click on a blank space in the scene to reset the graph.
 
-VR Mode
+### VR Mode Controls
 - Rotate your head
 - Click on an arch to show only records containing the fields represented by the arch.
 - Click on a column to show only the records containing the field represented by the column.
@@ -47,4 +45,7 @@ VR Mode
 ## Conclusion
 
 ## References
-
+- http://www.myweb.ttu.edu/tnhondan/file/Stacking.pdf
+- https://www.jasondavies.com/parallel-sets/
+- http://datavizproject.com/data-type/hive-plot/
+- http://www.visualisingdata.com/2010/08/making-sense-of-streamgraphs/
