@@ -104,6 +104,7 @@ function changeArch( id )
 
 function onVR()
 {
+    scene.visible = true;
     pointer.visible = true;
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
@@ -114,8 +115,11 @@ function onVR()
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
-    //document.getElementById("onVR").style.display = "none";
-    document.getElementById("setting1").style.display = "none";
+    document.getElementById("setting1").style.display = "block";
+    document.getElementById("onVR").style.display = "none";
+    document.getElementById("on3D").style.display = "inline";
+    document.getElementById("on2D").style.display = "inline";
+    document.getElementById("vis").style.display = "none";
 
     // rotate chart 180
     // camera.lookAt(0,0,0);
@@ -125,8 +129,10 @@ function onVR()
     VR = true;
 }
 
-function offVR()
+function on3D()
 {
+    scene.visible = true;
+    pointer.visible = false;
     effect = null;
 
     controls = new THREE.OrbitControls( camera );
@@ -136,12 +142,46 @@ function offVR()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
+    document.getElementById("setting1").style.display = "block";
     document.getElementById("onVR").style.display = "inline";
-    document.getElementById("offVR").style.display = "none";
+    document.getElementById("on3D").style.display = "none";
+    document.getElementById("on2D").style.display = "inline";
+    document.getElementById("vis").style.display = "none";
 
-    toggleFullScreen();
 
-    VR = false;
+    if( VR )
+    {
+        toggleFullScreen();
+        VR = false;
+    }
+
+}
+
+function on2D()
+{
+    scene.visible = false;
+    pointer.visible = false;
+    effect = null;
+
+    controls = new THREE.OrbitControls( camera );
+
+    if( HIVE )
+        controls.target.set( 0, LEN/2, 0 );
+    else
+        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+
+    document.getElementById("setting1").style.display = "none";
+    document.getElementById("onVR").style.display = "inline";
+    document.getElementById("on3D").style.display = "inline";
+    document.getElementById("on2D").style.display = "none";
+    document.getElementById("vis").style.display = "block";
+
+    if( VR )
+    {
+        toggleFullScreen();
+        VR = false;
+    }
+
 }
 
 function resetChart(filtration)
@@ -309,7 +349,6 @@ function animate()
     requestAnimationFrame( animate );
     renderer.setAnimationLoop( render );
     controls.update();
-    // pointer.updatePosition();
     render();
 }
 
