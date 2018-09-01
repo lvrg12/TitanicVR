@@ -115,7 +115,7 @@ function onVR()
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
-    document.getElementById("setting1").style.display = "block";
+    document.getElementById("setting1").style.display = "none";
     document.getElementById("onVR").style.display = "none";
     document.getElementById("on3D").style.display = "inline";
     document.getElementById("on2D").style.display = "inline";
