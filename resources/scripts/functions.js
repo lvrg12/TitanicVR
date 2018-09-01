@@ -124,7 +124,7 @@ function onVR()
     // rotate chart 180
     // camera.lookAt(0,0,0);
 
-    toggleFullScreen();
+    // toggleFullScreen();
 
     VR = true;
 }
@@ -151,7 +151,7 @@ function on3D()
 
     if( VR )
     {
-        toggleFullScreen();
+        // toggleFullScreen();
         VR = false;
     }
 
@@ -178,7 +178,7 @@ function on2D()
 
     if( VR )
     {
-        toggleFullScreen();
+        // toggleFullScreen();
         VR = false;
     }
 

@@ -19,6 +19,8 @@ var TIMER;
 
 function generateVisualization()
 {
+    //toggleFullScreen();
+
     generate2DGraph();
     generate3DGraph();
 }
