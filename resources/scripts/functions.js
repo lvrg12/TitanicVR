@@ -1,5 +1,6 @@
 function init()
 {
+    clock = new THREE.Clock();
 
     container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -8,147 +9,36 @@ function init()
     scene.background = new THREE.Color( 0xf0f0f0 );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-    //camera.position.set( LEN, -LEN, LEN * 4 );
-    camera.position.set( LEN, LEN, LEN * 4 );
+    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
+
+    pointer = new Pointer( "resources/media/circled-dot.png" );
+    camera.add( pointer );
+    pointer.position.set(0,0,-1000);
+    pointer.visible = false;
+
     scene.add( camera );
 
-    
     var light = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( light );
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
 
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-    clock = new THREE.Clock();
-
-
-    // effect = new THREE.StereoEffect( renderer );
-    // effect.eyeSeparation = 10;
-    // effect.setSize( window.innerWidth, window.innerHeight );
-    // manager = new WebVRManager( renderer, effect );
-
     controls = new THREE.OrbitControls( camera );
     controls.update();
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.addEventListener( 'touchend', onDocumentTouchEnd, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
-}
 
-function setOrientationControls(e)
-{
-    console.log(e.alpha);
-
-    if (!e.alpha)
-      return;
-}
-
-function loadFile( file )
-{
-    if( file )
-    {
-        var reader = new FileReader();
-        reader.onload = function(e)
-            {
-                document.getElementById("csvdata").value = e.target.result;
-                document.getElementById("csvdataready").value = "1";
-            };
-
-        reader.readAsText(file);
-
-        //while( document.getElementById("csvdata").value == null )
-        //    console.log(reader);
-
-        return $.csv.toArrays( document.getElementById("csvdata").value );
-    }
-    else
-    {
-        return $.csv.toArrays($.ajax({
-                url: "resources/datasets/titanic.csv",
-                async: false,
-                success: function (csvd) {
-                    data = $.csv.toArrays(csvd);
-                }
-            }).responseText)
-    }
-}
-
-
-function animate()
-{
-    requestAnimationFrame( animate );
-    controls.update();
-    render();
-    // render(clock.getDelta());
-    
-}
-
-function onWindowResize()
-{
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-  }
-
-
-function onDocumentMouseDown( event )
-{
-    event.preventDefault();
-    var rect = renderer.domElement.getBoundingClientRect();
-    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
-    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
-
-    // find intersections
-    raycaster.setFromCamera( mouse, camera );
-
-    var intersects = raycaster.intersectObjects( chart.group.children );
-
-    if ( intersects.length > 0 )
-    {
-        if ( INTERSECTED != intersects[ 0 ].object )
-        {
-            INTERSECTED = intersects[ 0 ].object;
-            var itype = INTERSECTED.geometry.type;
-            
-            if( FILTERED == 0 )
-            {
-                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
-                {
-
-                    FILTERED = 1;
-
-                    var ifield1 = INTERSECTED.attributes.field1;
-                    var ifield2 = INTERSECTED.attributes.field2;
-                    var ioption1 = INTERSECTED.attributes.option1;
-                    var ioption2 = INTERSECTED.attributes.option2;
-
-                    resetChart([ifield1,ioption1,ifield2,ioption2]);
-
-                }
-            }
-
-        }
-    }
-    else
-    {
-        if( FILTERED != 0 )
-        {
-            resetChart(null);
-        }
-
-        FILTERED = 0;
-    }
-}
-
-function render()
-{
-    //effect.render( scene, camera );
-    renderer.render( scene, camera );
 }
 
 function changePlot( id )
@@ -214,29 +104,37 @@ function changeArch( id )
 
 function onVR()
 {
-    console.log(camera.rotation);
+    scene.visible = true;
+    pointer.visible = true;
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
+
+    effect = new THREE.StereoEffect( renderer );
+    effect.setSize( window.innerWidth, window.innerHeight );
 
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
+    document.getElementById("setting1").style.display = "block";
     document.getElementById("onVR").style.display = "none";
-    document.getElementById("offVR").style.display = "inline";
-    document.getElementById("setting0").style.display = "none";
+    document.getElementById("on3D").style.display = "inline";
+    document.getElementById("on2D").style.display = "inline";
+    document.getElementById("vis").style.display = "none";
 
     // rotate chart 180
+    // camera.lookAt(0,0,0);
 
-    camera.target;
+    toggleFullScreen();
 
-
-    toggleFullScreen()
-
-    console.log("onVR");
+    VR = true;
 }
 
-function offVR()
+function on3D()
 {
+    scene.visible = true;
+    pointer.visible = false;
+    effect = null;
+
     controls = new THREE.OrbitControls( camera );
 
     if( HIVE )
@@ -244,12 +142,46 @@ function offVR()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
+    document.getElementById("setting1").style.display = "block";
     document.getElementById("onVR").style.display = "inline";
-    document.getElementById("offVR").style.display = "none";
-    document.getElementById("setting0").style.display = "block";
-    toggleFullScreen()
+    document.getElementById("on3D").style.display = "none";
+    document.getElementById("on2D").style.display = "inline";
+    document.getElementById("vis").style.display = "none";
 
-    console.log("offVR");
+
+    if( VR )
+    {
+        toggleFullScreen();
+        VR = false;
+    }
+
+}
+
+function on2D()
+{
+    scene.visible = false;
+    pointer.visible = false;
+    effect = null;
+
+    controls = new THREE.OrbitControls( camera );
+
+    if( HIVE )
+        controls.target.set( 0, LEN/2, 0 );
+    else
+        controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+
+    document.getElementById("setting1").style.display = "none";
+    document.getElementById("onVR").style.display = "inline";
+    document.getElementById("on3D").style.display = "inline";
+    document.getElementById("on2D").style.display = "none";
+    document.getElementById("vis").style.display = "block";
+
+    if( VR )
+    {
+        toggleFullScreen();
+        VR = false;
+    }
+
 }
 
 function resetChart(filtration)
@@ -263,7 +195,7 @@ function resetChart(filtration)
     STEAM = document.getElementById("steamTrue").checked;
     ARCH = document.getElementById("archTrue").checked;
 
-    if( controls.alpha == null )
+    if( !VR )
     {
         if( HIVE )
             controls.target.set( 0, LEN/2, 0 );
@@ -273,6 +205,36 @@ function resetChart(filtration)
 
     chart = new Chart(table, filtration);
     chart.addToScene();
+}
+
+function loadFile( file )
+{
+    if( file )
+    {
+        var reader = new FileReader();
+        reader.onload = function(e)
+            {
+                document.getElementById("csvdata").value = e.target.result;
+                document.getElementById("csvdataready").value = "1";
+            };
+
+        reader.readAsText(file);
+
+        //while( document.getElementById("csvdata").value == null )
+        //    console.log(reader);
+
+        return $.csv.toArrays( document.getElementById("csvdata").value );
+    }
+    else
+    {
+        return $.csv.toArrays($.ajax({
+                url: "resources/datasets/titanic.csv",
+                async: false,
+                success: function (csvd) {
+                    data = $.csv.toArrays(csvd);
+                }
+            }).responseText)
+    }
 }
 
 function toggleFullScreen()
@@ -295,4 +257,105 @@ function toggleFullScreen()
         document.webkitCancelFullScreen();  
       }  
     }  
-  }
+}
+
+// Events
+
+function setOrientationControls(e)
+{
+    if (!e.alpha)
+      return;
+}
+
+function onWindowResize()
+{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    if( !VR )
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    else
+        effect.setSize( window.innerWidth, window.innerHeight );
+}
+
+function onDocumentMouseDown( event )
+{
+    event.preventDefault();
+    var rect = renderer.domElement.getBoundingClientRect();
+
+    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+    if( !VR )
+        raycaster.setFromCamera( mouse, camera );
+    else
+        raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
+
+    var intersects = raycaster.intersectObjects( chart.group.children );
+
+    if ( intersects.length > 0 )
+    {
+        if ( INTERSECTED != intersects[ 0 ].object )
+        {
+            INTERSECTED = intersects[ 0 ].object;
+            var itype = INTERSECTED.geometry.type;
+            
+            if( FILTERED == 0 )
+            {
+                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
+                {
+
+                    FILTERED = 1;
+
+                    var ifield1 = INTERSECTED.attributes.field1;
+                    var ifield2 = INTERSECTED.attributes.field2;
+                    var ioption1 = INTERSECTED.attributes.option1;
+                    var ioption2 = INTERSECTED.attributes.option2;
+
+                    resetChart([ifield1,ioption1,ifield2,ioption2]);
+
+                }
+            }
+        }
+    }
+    else
+    {
+        if( FILTERED != 0 )
+        {
+            resetChart(null);
+        }
+        FILTERED = 0;
+    }
+}
+
+function onDocumentTouchStart( event )
+{
+    if( VR )
+    {
+        event.preventDefault();
+        TIMER = setInterval(function(){camera.translateZ( -10 );}, 10);
+    }
+}
+
+function onDocumentTouchEnd( event )
+{
+    if( TIMER ) clearInterval(TIMER);
+}
+
+// Animate & Render
+
+function animate()
+{
+    requestAnimationFrame( animate );
+    renderer.setAnimationLoop( render );
+    controls.update();
+    render();
+}
+
+function render()
+{
+    if( effect == null )
+        renderer.render( scene, camera );
+    else
+        effect.render( scene, camera );
+}

@@ -2,12 +2,12 @@ function Chart(p_table, filterVar)
 {
     this.data = new ProcessedData(p_table, filterVar);
     this.group = new THREE.Group();
-    var col;
-    var stack;
+
+    // CameraPositions
+
+    // cameraPositions = new CameraPositions( this.group );
 
     // Grid
-
-    var grid;
 
     if( HIVE )
         grid = new GridHive(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), this.group);
@@ -72,8 +72,8 @@ function Chart(p_table, filterVar)
         {
             scene.remove(this.group.children[i]);
 
-            this.group.children[i].geometry.dispose();
-            this.group.children[i].material.dispose();
+            //this.group.children[i].geometry.dispose();
+            //this.group.children[i].material.dispose();
             //geometry.dispose();
         }
         scene.remove ( this.group );
@@ -83,6 +83,7 @@ function Chart(p_table, filterVar)
         grid = null;
         col = null;
         stack = null;
+        cameraPositions = null;
     }
 
     this.addToScene = addToScene;
