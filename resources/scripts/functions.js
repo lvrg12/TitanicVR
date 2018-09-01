@@ -42,6 +42,8 @@ function init()
 
 function setOrientationControls(e)
 {
+    console.log(e.alpha);
+
     if (!e.alpha)
       return;
 }
@@ -86,7 +88,8 @@ function animate()
     
 }
 
-function onWindowResize() {
+function onWindowResize()
+{
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -211,6 +214,7 @@ function changeArch( id )
 
 function onVR()
 {
+    console.log(camera.rotation);
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
@@ -223,7 +227,7 @@ function onVR()
 
     // rotate chart 180
 
-    camera.lookAt(0,0,0);
+    camera.target;
 
 
     toggleFullScreen()
