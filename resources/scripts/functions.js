@@ -109,8 +109,8 @@ function onVR()
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
-    effect = new THREE.StereoEffect( renderer );
-    effect.setSize( window.innerWidth, window.innerHeight );
+    //effect = new THREE.StereoEffect( renderer );
+    //effect.setSize( window.innerWidth, window.innerHeight );
 
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
