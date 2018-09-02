@@ -27,6 +27,7 @@ function init()
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera );
@@ -37,6 +38,8 @@ function init()
     window.addEventListener( 'touchstart', onDocumentTouchStart, false );
     window.addEventListener( 'touchend', onDocumentTouchEnd, false )
     window.addEventListener( 'resize', onWindowResize, false );
+
+    document.body.appendChild( WEBVR.createButton( renderer ) );
 
 
 }
