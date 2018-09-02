@@ -128,8 +128,6 @@ function onVR()
     // rotate chart 180
     // camera.lookAt(0,0,0);
 
-    toggleFullScreen();
-
     VR = true;
 }
 
@@ -152,12 +150,7 @@ function on3D()
     document.getElementById("on2D").style.display = "inline";
     document.getElementById("vis").style.display = "none";
 
-
-    if( VR )
-    {
-        toggleFullScreen();
-        VR = false;
-    }
+    VR = false;
 
 }
 
@@ -180,11 +173,7 @@ function on2D()
     document.getElementById("on2D").style.display = "none";
     document.getElementById("vis").style.display = "block";
 
-    if( VR )
-    {
-        toggleFullScreen();
-        VR = false;
-    }
+    VR = false;
 
 }
 
