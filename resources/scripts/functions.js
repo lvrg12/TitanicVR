@@ -27,7 +27,8 @@ function init()
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.vr.enabled = true;
+    //renderer.vr.enabled = true;
+    //camera.lookAt(100,100,100);
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera );
@@ -39,7 +40,7 @@ function init()
     window.addEventListener( 'touchend', onDocumentTouchEnd, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
-    document.body.appendChild( WEBVR.createButton( renderer ) );
+    //document.body.appendChild( WEBVR.createButton( renderer ) );
 
 
 }
@@ -112,8 +113,8 @@ function onVR()
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();
 
-    //effect = new THREE.StereoEffect( renderer );
-    //effect.setSize( window.innerWidth, window.innerHeight );
+    effect = new THREE.StereoEffect( renderer );
+    effect.setSize( window.innerWidth, window.innerHeight );
 
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
@@ -127,7 +128,7 @@ function onVR()
     // rotate chart 180
     // camera.lookAt(0,0,0);
 
-    // toggleFullScreen();
+    toggleFullScreen();
 
     VR = true;
 }
@@ -154,7 +155,7 @@ function on3D()
 
     if( VR )
     {
-        // toggleFullScreen();
+        toggleFullScreen();
         VR = false;
     }
 
@@ -181,7 +182,7 @@ function on2D()
 
     if( VR )
     {
-        // toggleFullScreen();
+        toggleFullScreen();
         VR = false;
     }
 
