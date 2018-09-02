@@ -6,7 +6,7 @@ function init()
     document.body.appendChild( container );
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xf0f0f0 );
+    scene.background = new THREE.Color( 0xffffff );
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
