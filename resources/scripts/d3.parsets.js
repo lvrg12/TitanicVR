@@ -425,7 +425,7 @@
         .style("display", "none")
         .attr("class", "parsets tooltip");
 
-    return d3.rebind(parsets, event, "on").value(1).width(960).height(600);
+    return d3.rebind(parsets, event, "on").value(1).width(window.innerWidth).height(window.innerHeight);
 
     function dimensionFormatName(d, i) {
       return dimensionFormat.call(this, d.name, i);
