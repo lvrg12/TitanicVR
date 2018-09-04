@@ -35,9 +35,9 @@ function init()
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    // window.addEventListener( 'touchend', onDocumentTouchEnd, false )
-    window.addEventListener( 'keypressed', onkeypress, false )
+    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.addEventListener( 'touchend', onDocumentTouchEnd, false )
+    // window.addEventListener( 'keypressed', onkeypress, false )
     window.addEventListener( 'resize', onWindowResize, false );
 
     //document.body.appendChild( WEBVR.createButton( renderer ) );
