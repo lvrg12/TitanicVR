@@ -17,7 +17,7 @@ var ARCH;
 var pointer;
 var TIMER;
 var CURRENT_DVD = 0;
-var DV_ORDER = ["2D","3D","VR"];
+var DV_ORDER = ["3D","2D","VR"];
 var CURRENT_Q = 0;
 var QUESTION = ["Which class was the least populated?",
                 "Which class had the most survivors?",
@@ -33,7 +33,7 @@ var QUESTION = ["Which class was the least populated?",
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
