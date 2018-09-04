@@ -54,6 +54,7 @@ function generate3DGraph()
     document.getElementById("setting1").style.display = "block";
     document.getElementById("buttons").style.display = "block";
     document.getElementById("setting2").style.display = "none";
+    document.getElementById("question").style.display = "block";
 
     init();
 
