@@ -7,6 +7,7 @@ function init()
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff );
+    scene.visible = false;
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
     camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
@@ -106,6 +107,28 @@ function changeArch( id )
     resetChart(null);
 }
 
+function nextQ()
+{
+    var current_dvd = document.getElementById("dvd").innerHTML;
+    
+    if( current_dvd == "2D:" )
+    {
+        document.getElementById("dvd").innerHTML = "3D:";
+        on3D();
+    }
+    else if( current_dvd == "3D:" )
+    {
+        document.getElementById("dvd").innerHTML = "VR:";
+        onVR();
+    }
+    else if( current_dvd == "VR:" )
+    {
+        document.getElementById("dvd").innerHTML = "2D:";
+        document.getElementById("question").innerHTML = QUESTION[++CURRENT_Q];
+        on2D();
+    }
+}
+
 function onVR()
 {
     scene.visible = true;
@@ -119,7 +142,7 @@ function onVR()
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
-    document.getElementById("setting1").style.display = "none";
+    document.getElementById("checkboxes").style.display = "none";
     document.getElementById("onVR").style.display = "none";
     document.getElementById("on3D").style.display = "inline";
     document.getElementById("on2D").style.display = "inline";
@@ -144,7 +167,7 @@ function on3D()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
-    document.getElementById("setting1").style.display = "block";
+    document.getElementById("checkboxes").style.display = "block";
     document.getElementById("onVR").style.display = "inline";
     document.getElementById("on3D").style.display = "none";
     document.getElementById("on2D").style.display = "inline";
@@ -167,7 +190,7 @@ function on2D()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
-    document.getElementById("setting1").style.display = "none";
+    document.getElementById("checkboxes").style.display = "none";
     document.getElementById("onVR").style.display = "inline";
     document.getElementById("on3D").style.display = "inline";
     document.getElementById("on2D").style.display = "none";

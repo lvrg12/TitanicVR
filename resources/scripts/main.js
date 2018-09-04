@@ -16,6 +16,9 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
+var DV_ORVER = ["2D","3D","VR"];
+var CURRENT_Q = 0;
+var QUESTION = ["q1?","q2?","q3?","q4?","q5?","q6?","q7?","q8?"];
 
 function generateVisualization()
 {
@@ -50,13 +53,14 @@ function generate3DGraph()
     CHART_RATIO = 2;
     LEN = table.length / CHART_RATIO;
 
-    document.getElementById("setting0").style.display = "none";
-    document.getElementById("setting1").style.display = "block";
-    document.getElementById("buttons").style.display = "block";
-    document.getElementById("setting2").style.display = "none";
-    document.getElementById("question").style.display = "block";
+    document.getElementById("title").style.display = "none";
+    document.getElementById("inputs").style.display = "none";
+    //document.getElementById("settings").style.display = "block";
+    document.getElementById("prompt").style.display = "block";
 
     init();
+
+    on2D();
 
     resetChart(null);
 
