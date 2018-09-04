@@ -67,9 +67,9 @@ function generate3DGraph()
     document.getElementById("title").style.display = "none";
     document.getElementById("inputs").style.display = "none";
 
-    //document.getElementById("settings").style.display = "block";
+    document.getElementById("settings").style.display = "block";
 
-    document.getElementById("prompt").style.display = "block";
+    //document.getElementById("prompt").style.display = "block";
     document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
     document.getElementById("question").innerHTML = QUESTION[0];
 
