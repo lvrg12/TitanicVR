@@ -158,6 +158,8 @@ function onVR()
 
 function on3D()
 {
+    clearInterval(TIMER);
+
     scene.visible = true;
     pointer.visible = false;
     effect = null;
@@ -183,6 +185,8 @@ function on3D()
 
 function on2D()
 {
+    clearInterval(TIMER);
+    
     scene.visible = false;
     pointer.visible = false;
     effect = null;
