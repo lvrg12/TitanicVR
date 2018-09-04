@@ -28,8 +28,6 @@ function init()
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    //renderer.vr.enabled = true;
-    //camera.lookAt(100,100,100);
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera );
@@ -163,6 +161,8 @@ function on3D()
     scene.visible = true;
     pointer.visible = false;
     effect = null;
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
 
     controls = new THREE.OrbitControls( camera );
 

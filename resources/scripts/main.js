@@ -17,9 +17,19 @@ var ARCH;
 var pointer;
 var TIMER;
 var CURRENT_DVD = 0;
-var DV_ORDER = ["3D","2D","VR"];
+var DV_ORDER = ["2D","3D","VR"];
 var CURRENT_Q = 0;
-var QUESTION = ["q1?","q2?","q3?","q4?","q5?","q6?","q7?","q8?"];
+var QUESTION = ["Which class was the least populated?",
+                "Which class had the most survivors?",
+                "Which sex suffered the most deaths?",
+                "Which class suffered the most deaths?",
+                "Which class had the most children?",
+                "Which class had the most adult male survivors?",
+                "Did the second class children perished or survived?",
+                "Did most adult female perished or survived?",
+                "Which class had the most male survivors?",
+                "Which class had more female perished than female survivors?",
+                "How confident were you in answering the questions for this visualization?"];
 
 function generateVisualization()
 {
@@ -56,9 +66,12 @@ function generate3DGraph()
 
     document.getElementById("title").style.display = "none";
     document.getElementById("inputs").style.display = "none";
+
     //document.getElementById("settings").style.display = "block";
+
     document.getElementById("prompt").style.display = "block";
     document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
+    document.getElementById("question").innerHTML = QUESTION[0];
 
     init();
 
