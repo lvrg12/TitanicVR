@@ -16,7 +16,8 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORVER = ["2D","3D","VR"];
+var CURRENT_DVD = 0;
+var DV_ORDER = ["3D","2D","VR"];
 var CURRENT_Q = 0;
 var QUESTION = ["q1?","q2?","q3?","q4?","q5?","q6?","q7?","q8?"];
 
@@ -57,10 +58,11 @@ function generate3DGraph()
     document.getElementById("inputs").style.display = "none";
     //document.getElementById("settings").style.display = "block";
     document.getElementById("prompt").style.display = "block";
+    document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
 
     init();
 
-    on2D();
+    runDV(DV_ORDER[CURRENT_DVD]);
 
     resetChart(null);
 

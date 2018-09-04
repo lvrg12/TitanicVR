@@ -108,25 +108,29 @@ function changeArch( id )
 }
 
 function nextQ()
-{
-    var current_dvd = document.getElementById("dvd").innerHTML;
-    
-    if( current_dvd == "2D:" )
+{   
+    if( CURRENT_DVD == 2 )
     {
-        document.getElementById("dvd").innerHTML = "3D:";
-        on3D();
-    }
-    else if( current_dvd == "3D:" )
-    {
-        document.getElementById("dvd").innerHTML = "VR:";
-        onVR();
-    }
-    else if( current_dvd == "VR:" )
-    {
-        document.getElementById("dvd").innerHTML = "2D:";
+        document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
         document.getElementById("question").innerHTML = QUESTION[++CURRENT_Q];
-        on2D();
+        CURRENT_DVD = 0;
+        runDV(DV_ORDER[CURRENT_DVD]);
     }
+    else
+    {
+        document.getElementById("dvd").innerHTML = DV_ORDER[++CURRENT_DVD]+":";
+        runDV(DV_ORDER[CURRENT_DVD]);
+    }
+}
+
+function runDV( dvd )
+{
+    if( dvd == "2D" )
+        on2D();
+    else if( dvd == "3D" )
+        on3D();
+    else
+        onVR();
 }
 
 function onVR()
