@@ -16,7 +16,7 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["2D","VR","2D"];
+var DV_ORDER = ["VR","VR","2D"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -34,7 +34,7 @@ var CURRENT_Q = QUESTION.length-1;
 
 function generateVisualization()
 {
-    // toggleFullScreen();
+    toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
