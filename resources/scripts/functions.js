@@ -107,18 +107,37 @@ function changeArch( id )
 
 function nextQ()
 {   
-    if( CURRENT_DVD == 2 )
+    document.getElementById("qtime").innerHTML = "0:0";
+    clearInterval(Q_TIMER);
+
+    if( CURRENT_Q == null | CURRENT_Q == QUESTION.length-1 )
     {
-        document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
-        document.getElementById("question").innerHTML = QUESTION[++CURRENT_Q];
-        CURRENT_DVD = 0;
-        runDV(DV_ORDER[CURRENT_DVD]);
+        CURRENT_Q = 1;
+        document.getElementById("qn").innerHTML = "Q"+CURRENT_Q+":";
+        document.getElementById("question").innerHTML = QUESTION[CURRENT_Q-1];
+        if( CURRENT_DVD == DV_ORDER.length-1 )
+            runDV(DV_ORDER[0]);
+        else
+            runDV(DV_ORDER[++CURRENT_DVD]);
     }
     else
     {
-        document.getElementById("dvd").innerHTML = DV_ORDER[++CURRENT_DVD]+":";
-        runDV(DV_ORDER[CURRENT_DVD]);
+        document.getElementById("qn").innerHTML = "Q"+ ++CURRENT_Q +":";
+        document.getElementById("question").innerHTML = QUESTION[CURRENT_Q];
     }
+
+    var m = 0;
+    var s = 0;
+
+    Q_TIMER = setInterval( function()
+                            {
+                                if( s == 60 )
+                                {
+                                    m++;
+                                    s = 0;
+                                }
+                                document.getElementById("qtime").innerHTML = m + ":" + s++;
+                            } , 1000);
 }
 
 function runDV( dvd )
@@ -356,14 +375,14 @@ function onDocumentTouchStart( event )
         TIMER = setInterval( function()
                                 {
                                     camera.translateZ( -10 );
-                                    console.log("walking");
+                                    // console.log("walking");
                                 } , 10);
     }
 }
 
 function onDocumentTouchEnd( event )
 {
-    if( TIMER ) console.log("stop");
+    // if( TIMER ) console.log("stop");
     if( TIMER ) clearInterval(TIMER);
 }
 

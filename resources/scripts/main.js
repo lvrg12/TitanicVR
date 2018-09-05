@@ -16,9 +16,9 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var CURRENT_DVD = 0;
-var DV_ORDER = ["3D","2D","VR"];
-var CURRENT_Q = 0;
+var DV_ORDER = ["2D","3D","VR"];
+var CURRENT_DVD = DV_ORDER.length-1;
+var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
                 "Which class had the most survivors?",
                 "Which sex suffered the most deaths?",
@@ -30,10 +30,11 @@ var QUESTION = ["Which class was the least populated?",
                 "Which class had the most male survivors?",
                 "Which class had more female perished than female survivors?",
                 "How confident were you in answering the questions for this visualization?"];
+var CURRENT_Q = QUESTION.length-1;
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    //toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
@@ -66,16 +67,16 @@ function generate3DGraph()
 
     document.getElementById("title").style.display = "none";
     document.getElementById("inputs").style.display = "none";
-
     // document.getElementById("settings").style.display = "block";
-
     document.getElementById("prompt").style.display = "block";
-    document.getElementById("dvd").innerHTML = DV_ORDER[0]+":";
-    document.getElementById("question").innerHTML = QUESTION[0];
+
+
+
+
 
     init();
 
-    runDV(DV_ORDER[CURRENT_DVD]);
+    nextQ();
 
     resetChart(null);
 
