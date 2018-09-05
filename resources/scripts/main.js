@@ -33,7 +33,7 @@ var QUESTION = ["Which class was the least populated?",
 
 function generateVisualization()
 {
-    // toggleFullScreen();
+    toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
