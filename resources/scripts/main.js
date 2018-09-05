@@ -16,7 +16,7 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["2D","3D","VR"];
+var DV_ORDER = ["VR","3D","2D"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
