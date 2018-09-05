@@ -34,7 +34,7 @@ var CURRENT_Q = QUESTION.length-1;
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }

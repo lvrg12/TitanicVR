@@ -2,8 +2,8 @@ function init()
 {
     clock = new THREE.Clock();
 
-    container = document.createElement( 'div' );
-    document.body.appendChild( container );
+    // container = document.createElement( 'div' );
+    // document.body.appendChild( container );
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff );
@@ -28,7 +28,7 @@ function init()
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    container.appendChild( renderer.domElement );
+    document.getElementById("container").appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls( camera );
     controls.update();
@@ -158,7 +158,7 @@ function onVR()
     scene.visible = true;
     pointer.visible = true;
     controls = new THREE.DeviceOrientationControls( camera, true );
-    controls.connect();
+    controls.connect();         
 
     effect = new THREE.StereoEffect( renderer );
     effect.setSize( window.innerWidth, window.innerHeight );
