@@ -27,7 +27,7 @@
             total,
             ribbon;
 
-        d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
+        //d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
 
         if (tension0 == null) tension0 = tension;
         g.selectAll(".ribbon, .ribbon-mouse")
@@ -213,7 +213,7 @@
           var mouse = g.select(".ribbon-mouse").selectAll("path")
               .data(nodes, function(d) { return d.path; });
           mouse.enter().append("path")
-              .on("mousemove.parsets", function(d) {
+              .on("mousedown.parsets", function(d) {
                 ribbon.classed("active", false);
                 if (dragging) return;
                 highlight(d = d.node, true);
@@ -285,14 +285,14 @@
               .attr("transform", function(d) { return "translate(" + d.x + ")"; });
           category.exit().remove();
           category
-              .on("mousemove.parsets", function(d) {
-                ribbon.classed("active", false);
-                if (dragging) return;
-                d.nodes.forEach(function(d) { highlight(d); });
-                showTooltip(categoryTooltip.call(this, d));
-                d3.event.stopPropagation();
-              })
-              .on("mouseout.parsets", unhighlight)
+              // .on("mousemove.parsets", function(d) {
+              //   ribbon.classed("active", false);
+              //   if (dragging) return;
+              //   d.nodes.forEach(function(d) { highlight(d); });
+              //   showTooltip(categoryTooltip.call(this, d));
+              //   d3.event.stopPropagation();
+              // })
+              // .on("mouseout.parsets", unhighlight)
               .on("mousedown.parsets", cancelEvent)
               .call(d3.behavior.drag()
                 .origin(identity)
