@@ -110,13 +110,16 @@ function nextQ()
     document.getElementById("qtime").innerHTML = "0:0";
     clearInterval(Q_TIMER);
 
-    if( CURRENT_Q == null | CURRENT_Q == QUESTION.length-1 )
+    if( CURRENT_Q == QUESTION.length-1 )
     {
         CURRENT_Q = 1;
         document.getElementById("qn").innerHTML = "Q"+CURRENT_Q+":";
         document.getElementById("question").innerHTML = QUESTION[CURRENT_Q-1];
         if( CURRENT_DVD == DV_ORDER.length-1 )
-            runDV(DV_ORDER[0]);
+        {   
+            CURRENT_DVD = 0;
+            runDV(DV_ORDER[CURRENT_DVD]);
+        }
         else
             runDV(DV_ORDER[++CURRENT_DVD]);
     }
