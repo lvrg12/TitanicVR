@@ -163,6 +163,8 @@ function onVR()
     effect = new THREE.StereoEffect( renderer );
     effect.setSize( window.innerWidth, window.innerHeight );
 
+    camera.rotateX(Math.PI);
+
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
