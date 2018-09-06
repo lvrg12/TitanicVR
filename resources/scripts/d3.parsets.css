@@ -11,7 +11,7 @@
 .dimension > rect { display: none; }
 .category:hover rect { fill-opacity: .3; }
 .dimension:hover > rect { fill-opacity: .3; }
-.ribbon path { stroke-opacity: 0; fill-opacity: .5; }
+.ribbon path { stroke-opacity: 0; fill-opacity: .2; }
 .ribbon path.active { fill-opacity: .9; }
 .ribbon-mouse path { fill-opacity: 0; }
 

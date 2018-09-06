@@ -2,6 +2,7 @@
 // Functionality based on http://eagereyes.org/parallel-sets
 (function() {
   d3.parsets = function() {
+    var clicked = false;
     var event = d3.dispatch("sortDimensions", "sortCategories"),
         dimensions_ = autoDimensions,
         dimensionFormat = String,
@@ -27,7 +28,7 @@
             total,
             ribbon;
 
-        //d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
+        // d3.select(window).on("mousemove.parsets." + ++parsetsId, unhighlight);
 
         if (tension0 == null) tension0 = tension;
         g.selectAll(".ribbon, .ribbon-mouse")
@@ -213,12 +214,22 @@
           var mouse = g.select(".ribbon-mouse").selectAll("path")
               .data(nodes, function(d) { return d.path; });
           mouse.enter().append("path")
-              .on("mousedown.parsets", function(d) {
-                ribbon.classed("active", false);
-                if (dragging) return;
-                highlight(d = d.node, true);
-                showTooltip(tooltip_.call(this, d));
-                d3.event.stopPropagation();
+              .on("mousedown.parsets", function(d)
+              {
+                if( clicked == false )
+                {
+                  ribbon.classed("active", false);
+                  if (dragging) return;
+                  highlight(d = d.node, true);
+                  showTooltip(tooltip_.call(this, d));
+                  d3.event.stopPropagation();
+                  clicked = true;
+                }
+                else
+                {
+                  unhighlight();
+                  clicked = false;
+                }
               });
           mouse
               .sort(function(a, b) { return b.count - a.count; })
