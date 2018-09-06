@@ -115,7 +115,7 @@ function nextQ( x )
     }
     else
     {
-        console.log("new user");
+        console.log("---------> USER " + document.getElementById("user_number").value + " <---------");
     }
 
     document.getElementById("answer").value = "";

@@ -16,7 +16,7 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","3D","2D"];
+var DV_ORDER = ["2D","3D","VR"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -29,12 +29,12 @@ var QUESTION = ["Which class was the least populated?",
                 "Did most adult female perished or survived?",
                 "Which class had the most male survivors?",
                 "Which class had more female perished than female survivors?",
-                "How confident were you in answering the questions for this visualization?"];
+                "How confident were you in answering the questions for this visualization (1-10)? 10 = most confident"];
 var CURRENT_Q = QUESTION.length-1;
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
