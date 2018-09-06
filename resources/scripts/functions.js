@@ -35,6 +35,7 @@ function init()
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.addEventListener( 'ondblclick', movereverse, false );
     window.addEventListener( 'touchend', onDocumentTouchEnd, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
@@ -393,6 +394,19 @@ function onDocumentTouchStart( event )
         TIMER = setInterval( function()
                                 {
                                     camera.translateZ( -10 );
+                                    // console.log("walking");
+                                } , 10);
+    }
+}
+
+function movereverse( event )
+{
+    if( VR )
+    {
+        event.preventDefault();
+        TIMER = setInterval( function()
+                                {
+                                    camera.translateZ( 10 );
                                     // console.log("walking");
                                 } , 10);
     }
