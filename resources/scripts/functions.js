@@ -387,49 +387,14 @@ function onDocumentMouseDown( event )
 
 function onDocumentTouchStart( event )
 {
-
     if( VR )
     {
-
-        var currentTime = new Date().getTime();
-        var tapLength = currentTime - lastTap;
-        clearTimeout(timeout);
-
-        if (tapLength < 500 && tapLength > 0)
-        {
-            event.preventDefault();
-
-            TIMER = setInterval( function()
-                                {
-                                    camera.translateZ( 10 );
-                                } , 10);
-        }
-        else
-        {
-
-            timeout = setTimeout(function() {
-                clearTimeout(timeout);
-            }, 500);
-
-            TIMER = setInterval( function()
+        event.preventDefault();
+        TIMER = setInterval( function()
                                 {
                                     camera.translateZ( -10 );
                                 } , 10);
-        }
-
-        lastTap = currentTime;
-
     }
-
-
-    // if( VR )
-    // {
-    //     event.preventDefault();
-    //     TIMER = setInterval( function()
-    //                             {
-    //                                 camera.translateZ( -10 );
-    //                             } , 10);
-    // }
 }
 
 function onDocumentTouchEnd( event )
