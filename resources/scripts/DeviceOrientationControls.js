@@ -25,8 +25,10 @@
   }
   window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
 
-  function getOrientation() {
-    switch (window.screen.orientation || window.screen.mozOrientation) {
+  function getOrientation()
+  {
+    switch (window.screen.orientation || window.screen.mozOrientation)
+    {
       case 'landscape-primary':
         return 90;
       case 'landscape-secondary':
@@ -36,6 +38,7 @@
       case 'portrait-primary':
         return 0;
     }
+
     // this returns 90 if width is greater then height
     // and window orientation is undefined OR 0
     // if (!window.orientation && window.innerWidth > window.innerHeight)
@@ -43,15 +46,19 @@
     return window.orientation || 0;
   }
 
-  function onScreenOrientationChangeEvent() {
+  function onScreenOrientationChangeEvent()
+  {
     screenOrientation = getOrientation();
   }
   window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
 
 
-THREE.DeviceOrientationControls = function(object) {
+THREE.DeviceOrientationControls = function(object)
+{
 
   this.object = object;
+
+  this.object.rotateX(Math.PI);
 
   this.object.rotation.reorder('YXZ');
 
@@ -86,9 +93,11 @@ THREE.DeviceOrientationControls = function(object) {
   var q1 = new THREE.Quaternion(- Math.sqrt(0.5), 0, 0, Math.sqrt(0.5));
 
 
-  this.update = (function(delta) {
+  this.update = (function(delta)
+  {
 
-    return function(delta) {
+    return function(delta)
+    {
 
       if (this.freeze) return;
 
