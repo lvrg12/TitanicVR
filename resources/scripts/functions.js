@@ -34,9 +34,6 @@ function init()
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    window.addEventListener( 'touchend', onDocumentTouchEnd, false );
-    window.addEventListener( 'resize', onWindowResize, false );
 
     //document.body.appendChild( WEBVR.createButton( renderer ) );
 
@@ -164,9 +161,6 @@ function onVR()
     effect = new THREE.StereoEffect( renderer );
     effect.setSize( window.innerWidth, window.innerHeight );
 
-    window.addEventListener( 'deviceorientation', setOrientationControls, true );
-    window.removeEventListener('deviceorientation', setOrientationControls, true);
-
     document.getElementById("checkboxes").style.display = "none";
     document.getElementById("onVR").style.display = "none";
     document.getElementById("on3D").style.display = "inline";
@@ -174,6 +168,12 @@ function onVR()
     document.getElementById("vis").style.display = "none";
 
     VR = true;
+
+    window.addEventListener( 'deviceorientation', setOrientationControls, true );
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
+    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.addEventListener( 'touchend', onDocumentTouchEnd, false );
+    window.removeEventListener( 'resize', onWindowResize, false );
 }
 
 function on3D()
@@ -200,6 +200,10 @@ function on3D()
     document.getElementById("vis").style.display = "none";
 
     VR = false;
+
+    window.addEventListener( 'resize', onWindowResize, false );
+    window.removeEventListener( 'touchstart', onDocumentTouchStart, false );
+    window.removeEventListener( 'touchend', onDocumentTouchEnd, false );
 
 }
 
