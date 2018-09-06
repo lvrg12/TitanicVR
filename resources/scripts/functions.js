@@ -154,9 +154,10 @@ function runDV( dvd )
 
 function onVR()
 {
+    clearInterval(TIMER);
     scene.visible = true;
     pointer.visible = true;
-    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
+    //camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();         
 
@@ -179,6 +180,7 @@ function onVR()
 
 function on3D()
 {
+    clearInterval(TIMER);
     scene.visible = true;
     pointer.visible = false;
     effect = null;
