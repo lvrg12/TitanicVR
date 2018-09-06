@@ -397,24 +397,24 @@ function onDocumentTouchStart( event )
 
         if (tapLength < 500 && tapLength > 0)
         {
+            event.preventDefault();
+
             TIMER = setInterval( function()
                                 {
                                     camera.translateZ( 10 );
                                 } , 10);
-
-            event.preventDefault();
         }
         else
         {
+
+            timeout = setTimeout(function() {
+                clearTimeout(timeout);
+            }, 500);
+
             TIMER = setInterval( function()
                                 {
                                     camera.translateZ( -10 );
                                 } , 10);
-
-            timeout = setTimeout(function() {
-                elm2.innerHTML = 'Single Tap (timeout)';
-                clearTimeout(timeout);
-            }, 500);
         }
 
         lastTap = currentTime;
