@@ -10,7 +10,6 @@ function init()
     scene.visible = false;
 
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
 
     pointer = new Pointer( "resources/media/circled-dot.png" );
     camera.add( pointer );
@@ -157,6 +156,7 @@ function onVR()
 {
     scene.visible = true;
     pointer.visible = true;
+    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();         
 
@@ -172,8 +172,7 @@ function onVR()
     document.getElementById("on2D").style.display = "inline";
     document.getElementById("vis").style.display = "none";
 
-    // rotate chart 180
-    // camera.lookAt(0,0,0);
+    scene.rotateY(Math.PI);
 
     VR = true;
 }
@@ -186,6 +185,7 @@ function on3D()
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
+    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
     controls = new THREE.OrbitControls( camera );
 
     if( HIVE )

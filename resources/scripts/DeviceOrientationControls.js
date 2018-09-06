@@ -58,10 +58,6 @@ THREE.DeviceOrientationControls = function(object)
 
   this.object = object;
 
-  this.object.rotateX(Math.PI);
-  this.object.rotateY(Math.PI);
-  this.object.rotateZ(Math.PI);
-
   this.object.rotation.reorder('YXZ');
 
   this.freeze = true;
@@ -141,7 +137,8 @@ THREE.DeviceOrientationControls = function(object)
       this.object.quaternion.copy(this.alignQuaternion);
       this.object.quaternion.multiply(this.orientationQuaternion);
 
-      if (this.autoForward) {
+      if (this.autoForward)
+      {
 
         tempVector3
           .set(0, 0, -1)
@@ -152,7 +149,8 @@ THREE.DeviceOrientationControls = function(object)
 
       }
 
-      if (this.autoAlign && this.alpha !== 0) {
+      if (this.autoAlign && this.alpha !== 0)
+      {
 
         this.autoAlign = false;
 
