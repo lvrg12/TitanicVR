@@ -169,7 +169,7 @@ function onVR()
 {
     scene.visible = true;
     pointer.visible = true;
-    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 4 );
+    camera.position.set( (LEN/2) * (table[0].length-1), LEN, LEN * 6 );
     controls = new THREE.DeviceOrientationControls( camera, true );
     controls.connect();         
 
