@@ -173,8 +173,6 @@ function onVR()
     document.getElementById("on2D").style.display = "inline";
     document.getElementById("vis").style.display = "none";
 
-    scene.rotateY(Math.PI);
-
     VR = true;
 }
 
