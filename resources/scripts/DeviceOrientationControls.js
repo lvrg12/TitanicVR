@@ -59,6 +59,8 @@ THREE.DeviceOrientationControls = function(object)
   this.object = object;
 
   this.object.rotateX(Math.PI);
+  this.object.rotateY(Math.PI);
+  this.object.rotateZ(Math.PI);
 
   this.object.rotation.reorder('YXZ');
 
