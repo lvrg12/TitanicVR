@@ -16,7 +16,7 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","2D","3D"];
+var DV_ORDER = ["VR","3D","2D"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -67,16 +67,13 @@ function generate3DGraph()
 
     document.getElementById("title").style.display = "none";
     document.getElementById("inputs").style.display = "none";
-    // document.getElementById("settings").style.display = "block";
+    //document.getElementById("settings").style.display = "block";
     document.getElementById("prompt").style.display = "block";
-
-
-
 
 
     init();
 
-    nextQ();
+    nextQ(1);
 
     resetChart(null);
 

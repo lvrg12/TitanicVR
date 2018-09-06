@@ -221,7 +221,7 @@
                   ribbon.classed("active", false);
                   if (dragging) return;
                   highlight(d = d.node, true);
-                  showTooltip(tooltip_.call(this, d));
+                  //showTooltip(tooltip_.call(this, d));
                   d3.event.stopPropagation();
                   clicked = true;
                 }

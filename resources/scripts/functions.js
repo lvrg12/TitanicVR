@@ -104,8 +104,21 @@ function changeArch( id )
     resetChart(null);
 }
 
-function nextQ()
+function nextQ( x )
 {   
+    if( !x )
+    {
+        var answer = DV_ORDER[CURRENT_DVD] + " Q" + CURRENT_Q + " "
+        answer = answer + "Time: " + document.getElementById("qtime").innerHTML;
+        answer = answer + " Answer: " + document.getElementById("answer").value;
+        console.log(answer);
+    }
+    else
+    {
+        console.log("new user");
+    }
+
+    document.getElementById("answer").value = "";
     document.getElementById("qtime").innerHTML = "0:0";
     clearInterval(Q_TIMER);
 
@@ -167,6 +180,7 @@ function onVR()
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
     document.getElementById("checkboxes").style.display = "none";
+    document.getElementById("prompt").style.display = "none";
     document.getElementById("onVR").style.display = "none";
     document.getElementById("on3D").style.display = "inline";
     document.getElementById("on2D").style.display = "inline";
@@ -193,6 +207,7 @@ function on3D()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
+    document.getElementById("prompt").style.display = "block";
     document.getElementById("checkboxes").style.display = "block";
     document.getElementById("onVR").style.display = "inline";
     document.getElementById("on3D").style.display = "none";
