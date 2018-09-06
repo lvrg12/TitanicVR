@@ -35,7 +35,6 @@ function init()
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    window.addEventListener( 'ondblclick', movereverse, false );
     window.addEventListener( 'touchend', onDocumentTouchEnd, false );
     window.addEventListener( 'resize', onWindowResize, false );
 
@@ -388,33 +387,53 @@ function onDocumentMouseDown( event )
 
 function onDocumentTouchStart( event )
 {
-    if( VR )
-    {
-        event.preventDefault();
-        TIMER = setInterval( function()
-                                {
-                                    camera.translateZ( -10 );
-                                    // console.log("walking");
-                                } , 10);
-    }
-}
 
-function movereverse( event )
-{
     if( VR )
     {
-        event.preventDefault();
-        TIMER = setInterval( function()
+
+        var currentTime = new Date().getTime();
+        var tapLength = currentTime - lastTap;
+        clearTimeout(timeout);
+
+        if (tapLength < 500 && tapLength > 0)
+        {
+            TIMER = setInterval( function()
                                 {
                                     camera.translateZ( 10 );
-                                    // console.log("walking");
                                 } , 10);
+
+            event.preventDefault();
+        }
+        else
+        {
+            TIMER = setInterval( function()
+                                {
+                                    camera.translateZ( -10 );
+                                } , 10);
+
+            timeout = setTimeout(function() {
+                elm2.innerHTML = 'Single Tap (timeout)';
+                clearTimeout(timeout);
+            }, 500);
+        }
+
+        lastTap = currentTime;
+
     }
+
+
+    // if( VR )
+    // {
+    //     event.preventDefault();
+    //     TIMER = setInterval( function()
+    //                             {
+    //                                 camera.translateZ( -10 );
+    //                             } , 10);
+    // }
 }
 
 function onDocumentTouchEnd( event )
 {
-    // if( TIMER ) console.log("stop");
     if( TIMER ) clearInterval(TIMER);
 }
 
