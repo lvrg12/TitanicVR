@@ -436,7 +436,7 @@
         .style("display", "none")
         .attr("class", "parsets tooltip");
 
-    return d3.rebind(parsets, event, "on").value(1).width(window.innerWidth).height(window.innerHeight-24);
+    return d3.rebind(parsets, event, "on").value(1).width(window.innerWidth-150).height(window.innerHeight-100);
 
     
 

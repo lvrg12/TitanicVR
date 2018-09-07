@@ -122,7 +122,7 @@ function nextQ( x )
     document.getElementById("qtime").innerHTML = "0:0";
     clearInterval(Q_TIMER);
 
-    if( CURRENT_Q == QUESTION.length-1 )
+    if( CURRENT_Q == QUESTION.length )
     {
         CURRENT_Q = 1;
         document.getElementById("qn").innerHTML = "Q"+CURRENT_Q+":";
@@ -138,7 +138,7 @@ function nextQ( x )
     else
     {
         document.getElementById("qn").innerHTML = "Q"+ ++CURRENT_Q +":";
-        document.getElementById("question").innerHTML = QUESTION[CURRENT_Q];
+        document.getElementById("question").innerHTML = QUESTION[CURRENT_Q-1];
     }
 
     var m = 0;
