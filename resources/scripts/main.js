@@ -12,11 +12,12 @@ var grid;
 var chart;
 var cameraPositions;
 var chartTmp;
+var isTraining = false;
 var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","3D","VR"];
+var DV_ORDER = ["3D","2D","VR"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -34,7 +35,7 @@ var CURRENT_Q = QUESTION.length;
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
@@ -67,8 +68,11 @@ function generate3DGraph()
 
     document.getElementById("title").style.display = "none";
     document.getElementById("inputs").style.display = "none";
-    //document.getElementById("settings").style.display = "block";
-    document.getElementById("prompt").style.display = "block";
+
+    if( isTraining )
+        document.getElementById("settings").style.display = "block";
+    else
+        document.getElementById("prompt").style.display = "block";
 
 
     init();

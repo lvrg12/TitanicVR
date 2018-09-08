@@ -179,8 +179,10 @@ function onVR()
     window.addEventListener( 'deviceorientation', setOrientationControls, true );
     window.removeEventListener('deviceorientation', setOrientationControls, true);
 
+    if( !isTraining )
+        document.getElementById("prompt").style.display = "none";
+
     document.getElementById("checkboxes").style.display = "none";
-    document.getElementById("prompt").style.display = "none";
     document.getElementById("onVR").style.display = "none";
     document.getElementById("on3D").style.display = "inline";
     document.getElementById("on2D").style.display = "inline";
@@ -207,7 +209,9 @@ function on3D()
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
 
-    document.getElementById("prompt").style.display = "block";
+    if( !isTraining )
+        document.getElementById("prompt").style.display = "block";
+
     document.getElementById("checkboxes").style.display = "block";
     document.getElementById("onVR").style.display = "inline";
     document.getElementById("on3D").style.display = "none";
@@ -230,6 +234,9 @@ function on2D()
         controls.target.set( 0, LEN/2, 0 );
     else
         controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
+
+    if( !isTraining )
+        document.getElementById("prompt").style.display = "block";
 
     document.getElementById("checkboxes").style.display = "none";
     document.getElementById("onVR").style.display = "inline";
