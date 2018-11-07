@@ -12,12 +12,12 @@ var grid;
 var chart;
 var cameraPositions;
 var chartTmp;
-var isTraining = false;
+var isTraining = true;
 var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","3D","VR"];
+var DV_ORDER = ["2D","3D","VR"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -32,19 +32,22 @@ var QUESTION = ["Which class was the least populated?",
                 "Which class had more female perished than female survivors?",
                 "How confident were you in answering the questions for this visualization (1-10)? 10 = most confident"];
 var CURRENT_Q = QUESTION.length;
+var CSV_FILE = "resources/datasets/cars.csv";
+var features = [ "origin","mpg","cylinders","displacement","horsepower","weight","acceleration","year" ];
 
 function generateVisualization()
 {
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
 
 function generate2DGraph()
 {
-    var chart = d3.parsets().dimensions( [ "Class", "Age", "Sex", "Survived" ]);
+    var chart = d3.parsets().dimensions( features );
+    // var chart = d3.parsets().dimensions( [ "Class", "Age", "Sex", "Survived" ]);
 	var vis = d3.select( "#vis" ).append( "svg" ).attr( "width" , chart.width() ).attr( "height", chart.height() );
-	d3.csv( "resources/datasets/titanic.csv", function(error, csv) { vis.datum( csv ).call( chart ); } );
+	d3.csv( CSV_FILE, function(error, csv) { vis.datum( csv ).call( chart ); } );
 }
 
 function generate3DGraph()
@@ -58,10 +61,13 @@ function generate3DGraph()
     file = document.getElementById("csvfile").files[0];
     //console.log(document.getElementById("csvdata").value)
 
-    if(file)
-        table = new ProcessedTable(startField, ignoreFields, loadFile(file));
-    else
-        table = new ProcessedTable(startField, ignoreFields, loadFile(null));
+    var binFields = [ ["mpg",5], ["displacement",100], ["horsepower",50], ["weight",1000], ["acceleration",5] ];
+
+    var csv = (file) ? loadFile(file) : loadFile(null);
+
+    console.log(csv);
+
+    table = new ProcessedTable(startField, ignoreFields, binFields, csv);
 
     CHART_RATIO = 2;
     LEN = table.length / CHART_RATIO;

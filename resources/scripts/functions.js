@@ -292,7 +292,7 @@ function loadFile( file )
     else
     {
         return $.csv.toArrays($.ajax({
-                url: "resources/datasets/titanic.csv",
+                url: CSV_FILE,
                 async: false,
                 success: function (csvd) {
                     data = $.csv.toArrays(csvd);
