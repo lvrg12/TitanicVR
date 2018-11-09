@@ -291,13 +291,16 @@ function loadFile( file )
     }
     else
     {
-        return $.csv.toArrays($.ajax({
-                url: CSV_FILE,
-                async: false,
-                success: function (csvd) {
-                    data = $.csv.toArrays(csvd);
-                }
-            }).responseText)
+        var tmp = $.csv.toArrays($.ajax({
+            url: CSV_FILE,
+            async: false,
+            success: function (csvd) { data = $.csv.toArrays(csvd); },
+            dataType: "text",
+        }).responseText);
+
+        // console.log(tmp);
+
+        return tmp;
     }
 }
 
