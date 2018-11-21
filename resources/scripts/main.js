@@ -12,12 +12,12 @@ var grid;
 var chart;
 var cameraPositions;
 var chartTmp;
-var isTraining = false;
+var isTraining = true;
 var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["2D","3D","VR"];
+var DV_ORDER = ["VR","2D","3D"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -32,22 +32,9 @@ var QUESTION = ["Which class was the least populated?",
                 "Which class had more female perished than female survivors?",
                 "How confident were you in answering the questions for this visualization (1-10)? 10 = most confident"];
 var CURRENT_Q = QUESTION.length;
+var CSV_FILE = "resources/datasets/iris.csv";
 
 function generateVisualization()
-{
-    // toggleFullScreen();
-    generate2DGraph();
-    generate3DGraph();
-}
-
-function generate2DGraph()
-{
-    var chart = d3.parsets().dimensions( [ "Class", "Age", "Sex", "Survived" ]);
-	var vis = d3.select( "#vis" ).append( "svg" ).attr( "width" , chart.width() ).attr( "height", chart.height() );
-	d3.csv( "resources/datasets/titanic.csv", function(error, csv) { vis.datum( csv ).call( chart ); } );
-}
-
-function generate3DGraph()
 {
     startField = document.getElementById("start_field").value.toLowerCase();
     ignoreFields = document.getElementById("ignore_fields").value.split(",");
@@ -55,13 +42,31 @@ function generate3DGraph()
     for(var i=0; i<ignoreFields.length; i++)
         ignoreFields[i] = ignoreFields[i].trim().toLowerCase();
 
-    file = document.getElementById("csvfile").files[0];
-    //console.log(document.getElementById("csvdata").value)
+    var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
+    // binFields = [];
 
-    if(file)
-        table = new ProcessedTable(startField, ignoreFields, loadFile(file));
-    else
-        table = new ProcessedTable(startField, ignoreFields, loadFile(null));
+    file = document.getElementById("csvfile").files[0];
+    var csv = (file) ? loadFile(file) : loadFile(null);
+
+    table = new ProcessedTable( startField, ignoreFields, binFields, csv );
+
+    console.log(table);
+
+    toggleFullScreen();
+    generate2DGraph();
+    generate3DGraph();
+}
+
+function generate2DGraph()
+{
+    var chart = d3.parsets().dimensions( table[0] );
+	var vis = d3.select( "#vis" ).append( "svg" ).attr( "width" , chart.width() ).attr( "height", chart.height() );
+	d3.csv( CSV_FILE, function(error, csv) { vis.datum( csv ).call( chart ); } );
+}
+
+function generate3DGraph()
+{
+    //console.log(document.getElementById("csvdata").value)
 
     CHART_RATIO = 2;
     LEN = table.length / CHART_RATIO;
