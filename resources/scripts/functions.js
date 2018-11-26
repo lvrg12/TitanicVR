@@ -5,32 +5,13 @@ function init()
     // container = document.createElement( 'div' );
     // document.body.appendChild( container );
 
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xffffff );
-    scene.visible = false;
+    initScene();
+    initCamera();
+    initLight();
+    initInteractions();
 
-    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, LEN * 10 );
-
-    pointer = new Pointer( "resources/media/circled-dot.png" );
-    camera.add( pointer );
-    pointer.position.set(0,0,-1000);
-    pointer.visible = false;
-
-    scene.add( camera );
-
-    var light = new THREE.PointLight( 0xffffff, 0.8 );
-    camera.add( light );
-
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-
-    renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    document.getElementById("container").appendChild( renderer.domElement );
-
-    controls = new THREE.OrbitControls( camera );
-    controls.update();
+    // controls = new THREE.OrbitControls( camera );
+    // controls.update();
 
     window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -39,8 +20,42 @@ function init()
     window.addEventListener( 'resize', onWindowResize, false );
 
     //document.body.appendChild( WEBVR.createButton( renderer ) );
+}
 
+function initCamera()
+{
+    cameraHolder = document.querySelector('a-entity').object3D;
+    cameraHolder.name = "cameraHolder";
 
+    document.querySelector('a-camera').object3D.name = "hppc_camera_group";
+    camera = document.querySelector('a-camera').object3D.children[1];
+    camera.name = "camera";
+
+    pointer = camera.el.lastElementChild.object3D.children[0];
+
+    pointer.material.depthTest = false;
+    pointer.name = "pointer";
+}
+
+// inits
+
+function initScene()
+{
+    scene = document.querySelector('a-scene').object3D;
+    scene.background = new THREE.Color( 0xffffff );
+}
+
+function initLight()
+{
+    document.querySelector('a-light').object3D.name = "hpcc_light_group";
+    light = document.querySelector('a-light').object3D.children[0];
+    light.name = "hpcc_light";
+}
+
+function initInteractions()
+{
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
 }
 
 function changePlot( id )
@@ -255,18 +270,6 @@ function resetChart(filtration)
     if( chartTmp != null )
         chartTmp.removeFromScene();
 
-    HIVE = document.getElementById("hive").checked;
-    STEAM = document.getElementById("steamTrue").checked;
-    ARCH = document.getElementById("archTrue").checked;
-
-    if( !VR )
-    {
-        if( HIVE )
-            controls.target.set( 0, LEN/2, 0 );
-        else
-            controls.target.set( (LEN/2) * (table[0].length-1), LEN/2, LEN/2 );
-    }
-
     chart = new Chart(table, filtration);
     chart.addToScene();
 }
@@ -298,65 +301,26 @@ function loadFile( file )
             dataType: "text",
         }).responseText);
 
-        // console.log(tmp);
-
         return tmp;
     }
 }
 
-function toggleFullScreen()
-{
-    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-      if (document.documentElement.requestFullScreen) {  
-        document.documentElement.requestFullScreen();  
-      } else if (document.documentElement.mozRequestFullScreen) {  
-        document.documentElement.mozRequestFullScreen();  
-      } else if (document.documentElement.webkitRequestFullScreen) {  
-        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-      }  
-    } else {  
-      if (document.cancelFullScreen) {  
-        document.cancelFullScreen();  
-      } else if (document.mozCancelFullScreen) {  
-        document.mozCancelFullScreen();  
-      } else if (document.webkitCancelFullScreen) {  
-        document.webkitCancelFullScreen();  
-      }  
-    }  
-}
-
 // Events
-
-function setOrientationControls(e)
-{
-    if (!e.alpha)
-      return;
-}
 
 function onWindowResize()
 {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
-    if( !VR )
-        renderer.setSize( window.innerWidth, window.innerHeight );
-    else
-        effect.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
 function onDocumentMouseDown( event )
 {
     event.preventDefault();
-    var rect = renderer.domElement.getBoundingClientRect();
 
-    mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
-    mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+    if( event.isTrusted ) return;
 
-    if( !VR )
-        raycaster.setFromCamera( mouse, camera );
-    else
-        raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
+    raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
 
     var intersects = raycaster.intersectObjects( chart.group.children );
 
@@ -401,9 +365,11 @@ function onDocumentTouchStart( event )
     {
         event.preventDefault();
         TIMER = setInterval( function()
-                                {
-                                    camera.translateZ( -10 );
-                                } , 10);
+                            {
+                                var direction = new THREE.Vector3().copy(camera.getWorldDirection());
+                                cameraHolder.position.add(direction.multiplyScalar(0.01));
+                                cameraHolder.position.y = -1.5;
+                            } , 5);
     }
 }
 
@@ -417,15 +383,15 @@ function onDocumentTouchEnd( event )
 function animate()
 {
     requestAnimationFrame( animate );
-    renderer.setAnimationLoop( render );
-    controls.update();
-    render();
+    // renderer.setAnimationLoop( render );
+    // controls.update();
+    // render();
 }
 
 function render()
 {
-    if( effect == null )
-        renderer.render( scene, camera );
-    else
-        effect.render( scene, camera );
+    // if( effect == null )
+        // renderer.render( scene, camera );
+    // else
+        // effect.render( scene, camera );
 }

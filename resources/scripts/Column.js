@@ -13,7 +13,10 @@ function Column( coord, values, len, colors, attributes, group)
 
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
+    {
+        values[v] = values[v] * CHART_RATIO;
         totalValue+=values[v];
+    }
 
     if ( totalValue >= 0 )
     {

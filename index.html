@@ -4,6 +4,9 @@
 		<title>VRParaSets</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2018-09-11" content="AqhFUYKxq/d+E8CDT0fuYRCg8TvlTP52x0Jv7I9t27sLhR30LmcahBRfSwzP89ukjs2+ia99VrrLoRyaFAwJVA0AAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUzNjYyNDAwMH0=">
+		<meta http-equiv="origin-trial" data-feature="WebXR Device API (For Chrome M69+)" data-expires="2018-10-27" content="An4ZYOGvf6kVHNxqZxS02TPAvpZESkmBhcVCM/byViDDuEB2XKvCF43aCJjrAU/R8H3WDlv+1bDGTL/XxstHGgoAAABTeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkRldmljZU02OSIsImV4cGlyeSI6MTU0MDY1NTAyMn0=">
+		<meta http-equiv="origin-trial" data-feature="WebXR Gamepad Support" data-expires="2018-10-24" content="Agrr6lZhlwzv5jmv/mpLZA37DIiVcg3HvX8bH8EWB+OBruV3sUJuzDfYz6qs/je+LcH41DkrmPn4k9RaUaqpQAAAAABYeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkdhbWVwYWRTdXBwb3J0IiwiZXhwaXJ5IjoxNTQwMzg4NjI0fQ==">
 		<style>
 			@import url(resources/scripts/d3.parsets.css);
 			body {
@@ -19,9 +22,8 @@
 				user-select: none;
 			}
 		</style>
-	</head>
-	<body>
 
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="resources/scripts/three.min.js"></script>
 		<script src="resources/scripts/StereoEffect.js"></script>
@@ -39,17 +41,18 @@
 		<script src="resources/scripts/StackHive.js"></script>
 		<script src="resources/scripts/Pointer.js"></script>
 		<script src="resources/scripts/CameraPositions.js"></script>
-		<script src="resources/scripts/main.js"></script>
 		<script src="https://d3js.org/d3.v3.min.js"></script>
 		<script src="resources/scripts/d3.parsets.js"></script>
-
 		<script src="resources/scripts/WebVR.js"></script>
 
-		<div id="title" align="left" style="font-size: 15pt">
+	</head>
+	<body>
+
+		<div id="title" align="left" style="font-size: 15pt; display: none">
 			VRParaSets: Multidimensional Categorical Data<br>
 		</div>
 
-		<div id="inputs" style="display: block">
+		<div id="inputs" style="display: none">
 			<br>
 			User:			<input type="text" id="user_number"><br><br>
 			CSV File:		cars.csv<input type="file" id="csvfile" style="display: none;"><br><br>
@@ -93,9 +96,20 @@
 
 		<div id="vis" style="display: none; width: 100%; height: 80%; align-content: center" align="center"><noscript></noscript></div>
 
-		<div id="container"></div>
+		<!-- <div id="container"></div> -->
+
+		<a-scene>
+			<a-entity position="0 0 0">
+				<a-camera look-controls>
+					<a-cursor></a-cursor>
+				</a-camera>
+			</a-entity>
+			<a-light></a-light>
+		</a-scene>
 
 		<p id="csvdata" style="display: none" value=""></p>
+
+		<script src="resources/scripts/main.js"></script>
 
 	</body>
 </html>

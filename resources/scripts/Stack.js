@@ -21,7 +21,7 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
     {
-        values[v] = values[v] * ratio;
+        values[v] = values[v] * ratio * CHART_RATIO;
         totalValue+=values[v];
     }
 
@@ -42,6 +42,7 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
     // addArch( value of arch, color of arch )
     function addArch(value, color)
     {
+        // value = LEN / value;
         var top = tempTopValue;
         var down = top-value;
         tempTopValue-= value;
@@ -74,8 +75,9 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
     // addShape( shape, color, x, y, z, rx, ry,rz, s );
     function addShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s )
     {
+
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-        var arch = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color } ) );
+        var arch = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
         arch.position.set( x, y, z );
         arch.rotation.set( rx, ry, rz );
         arch.scale.set( s, s, s );

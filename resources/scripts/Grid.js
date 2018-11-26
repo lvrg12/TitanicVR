@@ -44,7 +44,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
             var geometry = new THREE.TextGeometry( text, {
                 font: font,
                 size: len/20,
-                height: 0.5,
+                height: LEN / 100,
                 curveSegments: 12,
                 bevelEnabled: false,
                 bevelThickness: 10,
@@ -57,7 +57,6 @@ function Grid( columns, len, fieldNames, optionNames, group)
             textMesh.rotation.x = xR;
             group.add( textMesh );
         } );
-
 
         if( isMarkerVisible )
             addMarker( coord );

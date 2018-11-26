@@ -12,12 +12,12 @@ var grid;
 var chart;
 var cameraPositions;
 var chartTmp;
-var isTraining = true;
+var isTraining = false;
 var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","2D","3D"];
+var DV_ORDER = ["3D","2D","VR"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -34,26 +34,27 @@ var QUESTION = ["Which class was the least populated?",
 var CURRENT_Q = QUESTION.length;
 var CSV_FILE = "resources/datasets/iris.csv";
 
+HIVE = false;
+STEAM = false;
+ARCH = true;
+
+generateVisualization();
+
 function generateVisualization()
 {
-    startField = document.getElementById("start_field").value.toLowerCase();
-    ignoreFields = document.getElementById("ignore_fields").value.split(",");
+    startField = "species"
+    ignoreFields = [];
 
     for(var i=0; i<ignoreFields.length; i++)
-        ignoreFields[i] = ignoreFields[i].trim().toLowerCase();
+        ignoreFields[i] = ignoreFields[i].toLowerCase();
 
     var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
     // binFields = [];
 
-    file = document.getElementById("csvfile").files[0];
-    var csv = (file) ? loadFile(file) : loadFile(null);
+    var csv = loadFile(null);
 
     table = new ProcessedTable( startField, ignoreFields, binFields, csv );
 
-    console.log(table);
-
-    toggleFullScreen();
-    generate2DGraph();
     generate3DGraph();
 }
 
@@ -68,21 +69,21 @@ function generate3DGraph()
 {
     //console.log(document.getElementById("csvdata").value)
 
-    CHART_RATIO = 2;
-    LEN = table.length / CHART_RATIO;
+    LEN = 1;
+    CHART_RATIO = LEN / table.length;
 
-    document.getElementById("title").style.display = "none";
-    document.getElementById("inputs").style.display = "none";
+    // document.getElementById("title").style.display = "none";
+    // document.getElementById("inputs").style.display = "none";
 
-    if( isTraining )
-        document.getElementById("settings").style.display = "block";
-    else
-        document.getElementById("prompt").style.display = "block";
+    // if( isTraining )
+    //     document.getElementById("settings").style.display = "block";
+    // else
+    //     document.getElementById("prompt").style.display = "block";
 
 
     init();
 
-    nextQ(1);
+    // nextQ(1);
 
     resetChart(null);
 

@@ -51,7 +51,7 @@ function GridHive( columns, len, fieldNames, optionNames, group)
             var geometry = new THREE.TextGeometry( text, {
                 font: font,
                 size: len/15,
-                height: 0.5,
+                height: LEN / 50,
                 curveSegments: 12,
                 bevelEnabled: false,
                 bevelThickness: 10,

@@ -21,7 +21,7 @@ function StackHive(coord, newCoord, values, len, colors, attributes, group, from
     var totalValue = 0;
     for( var v=0; v<values.length; v++)
     {
-        values[v] = values[v] * ratio;
+        values[v] = values[v] * ratio * CHART_RATIO;
         totalValue+=values[v];
     }
 
