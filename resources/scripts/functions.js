@@ -2,24 +2,15 @@ function init()
 {
     clock = new THREE.Clock();
 
-    // container = document.createElement( 'div' );
-    // document.body.appendChild( container );
-
     initScene();
     initCamera();
     initLight();
     initInteractions();
 
-    // controls = new THREE.OrbitControls( camera );
-    // controls.update();
-
-    window.requestAnimationFrame( render );
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     window.addEventListener( 'touchstart', onDocumentTouchStart, false );
     window.addEventListener( 'touchend', onDocumentTouchEnd, false );
-    window.addEventListener( 'resize', onWindowResize, false );
 
-    //document.body.appendChild( WEBVR.createButton( renderer ) );
 }
 
 function initCamera()
@@ -33,8 +24,9 @@ function initCamera()
 
     pointer = camera.el.lastElementChild.object3D.children[0];
 
-    pointer.material.depthTest = false;
+    pointer.material.depthTest = true;
     pointer.name = "pointer";
+
 }
 
 // inits
@@ -307,13 +299,6 @@ function loadFile( file )
 
 // Events
 
-function onWindowResize()
-{
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
 function onDocumentMouseDown( event )
 {
     event.preventDefault();
@@ -330,6 +315,7 @@ function onDocumentMouseDown( event )
         {
             INTERSECTED = intersects[ 0 ].object;
             var itype = INTERSECTED.geometry.type;
+            console.log(itype);
             
             if( FILTERED == 0 )
             {

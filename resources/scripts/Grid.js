@@ -44,7 +44,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
             var geometry = new THREE.TextGeometry( text, {
                 font: font,
                 size: len/20,
-                height: LEN / 100,
+                height: LEN / 150,
                 curveSegments: 12,
                 bevelEnabled: false,
                 bevelThickness: 10,
