@@ -28,13 +28,15 @@ function Grid( columns, len, fieldNames, optionNames, group)
         var x = coord[0];
         if( isField )
         {
-            var z = len + len/3.3;
+            var z = len + len/5;
+            var y = 0;
             text = text.toUpperCase();
             xR = -1.5708;
         }
         else
         {
             var z = coord[2];
+            var y = len*0.8;
         }
 
         var loader = new THREE.FontLoader();
@@ -53,7 +55,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
             } );
 
             var textMesh = new THREE.Mesh( geometry, material_text.clone() );
-            textMesh.position.set( x, len/-4, z );
+            textMesh.position.set( x, y, z );
             textMesh.rotation.x = xR;
             group.add( textMesh );
         } );
@@ -69,7 +71,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
 
         geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
-        geometry.vertices.push(new THREE.Vector3( x, (len/-4) + len/20, z ));
+        geometry.vertices.push(new THREE.Vector3( x, len*0.8, z ));
         var marker = new THREE.Line( geometry, material );
         group.add( marker );
     }

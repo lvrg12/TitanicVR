@@ -5,6 +5,7 @@ function init()
     initScene();
     initCamera();
     initLight();
+    initSurface();
     initInteractions();
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -49,6 +50,26 @@ function initInteractions()
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 }
+
+function initSurface()
+{
+    var surface_geometry = new THREE.BoxGeometry( LEN * table[0].length, LEN/20, LEN*1.5 );
+    var surface = new THREE.Mesh( surface_geometry, new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } ) );
+    surface.position.set( (LEN/2) * (table[0].length-1), -LEN/10, LEN/2);
+    scene.add( surface );
+
+    var floor_geometry = new THREE.PlaneGeometry( 20, 20 );
+    var floor = new THREE.Mesh( floor_geometry, new THREE.MeshBasicMaterial( { color: 0x999999 } ) );
+    floor.position.set( (LEN/2) * (table[0].length-1), -2, LEN/2);
+    floor.rotateX(-Math.PI/2);
+    scene.add( floor );
+
+    cameraHolder.position.x = (LEN/2) * (table[0].length-1);
+    cameraHolder.position.z = LEN*2;
+}
+
+
+// chart functions
 
 function changePlot( id )
 {
