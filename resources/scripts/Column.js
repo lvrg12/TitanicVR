@@ -42,6 +42,7 @@ function Column( coord, values, len, colors, attributes, group)
         cylinder.position.set( x, tempTopValue+value/2 + y, z );
         cylinder.material.transparent = true;
         cylinder.attributes = attributes;
+        cylinder.name = "cylinder";
         group.add( cylinder );
     }
 }

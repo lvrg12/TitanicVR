@@ -57,12 +57,14 @@ function initSurface()
     var surface_geometry = new THREE.BoxGeometry( LEN * table[0].length, LEN/20, LEN*1.5 );
     var surface = new THREE.Mesh( surface_geometry, new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } ) );
     surface.position.set( (LEN/2) * (table[0].length-1), -LEN/10, LEN/2);
+    surface.name = "table";
     scene.add( surface );
 
     var floor_geometry = new THREE.PlaneGeometry( 20, 20 );
     var floor = new THREE.Mesh( floor_geometry, new THREE.MeshBasicMaterial( { color: 0x999999 } ) );
     floor.position.set( (LEN/2) * (table[0].length-1), -2, LEN/2);
     floor.rotateX(-Math.PI/2);
+    floor.name = "floor";
     scene.add( floor );
 
     // move camera to center
@@ -332,17 +334,18 @@ function onDocumentMouseDown( event )
 
     var intersects = raycaster.intersectObjects( chart.group.children );
 
+    console.log(intersects);
+
     if ( intersects.length > 0 )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
         {
             INTERSECTED = intersects[ 0 ].object;
-            var itype = INTERSECTED.geometry.type;
-            console.log(itype);
+            var type = INTERSECTED.name;
             
             if( FILTERED == 0 )
             {
-                if( itype == "CylinderGeometry" | itype == "ExtrudeGeometry" )
+                if( type == "cylinder" | type == "arch" )
                 {
 
                     FILTERED = 1;

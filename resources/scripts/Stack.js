@@ -83,6 +83,7 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
         arch.scale.set( s, s, s );
         arch.material.transparent = true;
         arch.attributes = attributes;
+        arch.name = "arch";
         group.add( arch );
     }
 }

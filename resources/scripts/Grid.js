@@ -8,7 +8,6 @@ function Grid( columns, len, fieldNames, optionNames, group)
 
     var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
     var material_text = new THREE.MeshPhongMaterial( { color: 0x000000 } );
-    var geometry;
 
     // drawing quadrants
     for( var i=1; i<columns.length; i++)
@@ -57,6 +56,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
             var textMesh = new THREE.Mesh( geometry, material_text.clone() );
             textMesh.position.set( x, y, z );
             textMesh.rotation.x = xR;
+            textMesh.name = "text";
             group.add( textMesh );
         } );
 
@@ -69,22 +69,24 @@ function Grid( columns, len, fieldNames, optionNames, group)
         var x = coord[0];
         var z = coord[2];
 
-        geometry = new THREE.Geometry();
+        var geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
         geometry.vertices.push(new THREE.Vector3( x, len*0.8, z ));
         var marker = new THREE.Line( geometry, material );
+        marker.name = "marker";
         group.add( marker );
     }
 
     function addQuad( q )
     {
-        geometry = new THREE.Geometry();
+        var geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, 0 ));
         geometry.vertices.push(new THREE.Vector3( q * len, 0, 0 ));
         geometry.vertices.push(new THREE.Vector3( q * len, 0, len ));
         geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, len ));
         geometry.vertices.push(new THREE.Vector3( (q-1) * len, 0, 0 ));
         var quad = new THREE.Line( geometry, material.clone() );
+        quad.name = "quad";
         group.add( quad );
     }
 
