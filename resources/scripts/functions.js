@@ -9,8 +9,9 @@ function init()
     initInteractions();
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    window.addEventListener( 'touchend', onDocumentTouchEnd, false );
+    // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    // window.addEventListener( 'touchend', onDocumentTouchEnd, false );
+    window.addEventListener( 'vr controller connected', onDocumentMouseDown, false);
 
 }
 
@@ -66,7 +67,7 @@ function initSurface()
 
     // move camera to center
     cameraHolder.position.x = (LEN/2) * (table[0].length-1);
-    cameraHolder.position.z = LEN*2;
+    cameraHolder.position.z = LEN;
 }
 
 
@@ -386,12 +387,17 @@ function onDocumentTouchEnd( event )
     if( TIMER ) clearInterval(TIMER);
 }
 
+function onControllerClicked( event )
+{
+    console.log("clicked");
+}
+
 // Animate & Render
 
 function animate()
 {
     requestAnimationFrame( animate );
-    // renderer.setAnimationLoop( render );
+    THREE.VRController.update();
     // controls.update();
     // render();
 }
