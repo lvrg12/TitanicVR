@@ -7,11 +7,15 @@ function init()
     initLight();
     initSurface();
     initInteractions();
+    initRenderer();
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
     // window.addEventListener( 'touchend', onDocumentTouchEnd, false );
     window.addEventListener( 'vr controller connected', onDocumentMouseDown, false);
+    window.addEventListener('vrdisplayactivate', function () {  
+        renderer.vr.getDevice().requestPresent([{ source: renderer.domElement }])  
+    }); 
 
 }
 
@@ -70,6 +74,18 @@ function initSurface()
     // move camera to center
     cameraHolder.position.x = (LEN/2) * (table[0].length-1);
     cameraHolder.position.z = LEN;
+}
+
+function initRenderer()
+{
+    renderer = document.querySelector('a-scene').renderer;
+    renderer.setClearColor( 0xCCCCCC );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.vr.enabled  = true;
+    renderer.vr.standing = true;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 }
 
 
@@ -324,41 +340,42 @@ function loadFile( file )
 
 // Events
 
+function filterChart( obj )
+{
+    var name = obj.name;
+            
+    if( FILTERED == 0 )
+    {
+        if( name == "cylinder" | name == "arch" )
+        {
+
+            FILTERED = 1;
+
+            var ifield1 = obj.attributes.field1;
+            var ifield2 = obj.attributes.field2;
+            var ioption1 = obj.attributes.option1;
+            var ioption2 = obj.attributes.option2;
+
+            resetChart([ifield1,ioption1,ifield2,ioption2]);
+
+        }
+    }
+}
+
 function onDocumentMouseDown( event )
 {
     event.preventDefault();
 
     if( event.isTrusted ) return;
-
     raycaster.setFromCamera( new THREE.Vector2( 0, 0 ) , camera );
-
     var intersects = raycaster.intersectObjects( chart.group.children );
-
-    console.log(intersects);
 
     if ( intersects.length > 0 )
     {
         if ( INTERSECTED != intersects[ 0 ].object )
         {
             INTERSECTED = intersects[ 0 ].object;
-            var type = INTERSECTED.name;
-            
-            if( FILTERED == 0 )
-            {
-                if( type == "cylinder" | type == "arch" )
-                {
-
-                    FILTERED = 1;
-
-                    var ifield1 = INTERSECTED.attributes.field1;
-                    var ifield2 = INTERSECTED.attributes.field2;
-                    var ioption1 = INTERSECTED.attributes.option1;
-                    var ioption2 = INTERSECTED.attributes.option2;
-
-                    resetChart([ifield1,ioption1,ifield2,ioption2]);
-
-                }
-            }
+            filterChart( INTERSECTED );
         }
     }
     else
@@ -390,11 +407,68 @@ function onDocumentTouchEnd( event )
     if( TIMER ) clearInterval(TIMER);
 }
 
+function onControllerClicked( event )
+{
+    var controller = event.detail;
+    scene.add( controller );
+
+    controller.standingMatrix = renderer.vr.getStandingMatrix();
+    controller.head = window.camera;
+
+	var meshColorOff = 0xDB3236,//  Red.
+	meshColorOn  = 0xF4C20D,//  Yellow.
+	controllerMaterial = new THREE.MeshStandardMaterial({
+		color: meshColorOff
+	}),
+	controllerMesh = new THREE.Mesh(
+		new THREE.CylinderGeometry( 0.005, 0.05, 0.1, 6 ),
+		controllerMaterial
+	),
+	handleMesh = new THREE.Mesh(
+		new THREE.BoxGeometry( 0.03, 0.1, 0.03 ),
+		controllerMaterial
+    )
+    
+	controllerMaterial.flatShading = true;
+	controllerMesh.rotation.x = -Math.PI / 2;
+	handleMesh.position.y = -0.05;
+	controllerMesh.add( handleMesh );
+	controller.userData.mesh = controllerMesh; //  So we can change the color later.
+	controller.add( controllerMesh );
+	castShadows( controller );
+    receiveShadows( controller );
+    
+
+    controller.addEventListener( 'primary press began', function( event )
+    {
+        INTERSECTED = event.target.userData.mesh;
+
+        if( INTERSECTED == null )
+        {
+            if( FILTERED != 0 )
+            {
+                resetChart(null);
+            }
+            FILTERED = 0;
+        }
+        else
+        {
+            resetChart( INTERSECTED );
+        }
+    });
+    
+    controller.addEventListener( 'disconnected', function( event ){
+		controller.parent.remove( controller );
+	});
+
+}
+
 // Animate & Render
 
 function animate()
 {
     requestAnimationFrame( animate );
+    THREE.VRController.update();
     // controls.update();
     // render();
 }
@@ -406,14 +480,3 @@ function render()
     // else
         // effect.render( scene, camera );
 }
-
-// AFRAME FUNCTIONS
-
-AFRAME.registerComponent('a-button-listener', {
-    init: function () {
-      var el = this.el;
-      el.addEventListener('abuttondown', function (evt) {
-        el.setAttribute('visible', !el.getAttribute('visible'));
-      });
-    }
-  });
