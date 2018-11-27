@@ -64,6 +64,7 @@ function initSurface()
     floor.rotateX(-Math.PI/2);
     scene.add( floor );
 
+    // move camera to center
     cameraHolder.position.x = (LEN/2) * (table[0].length-1);
     cameraHolder.position.z = LEN*2;
 }
