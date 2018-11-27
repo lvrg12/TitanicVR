@@ -1,5 +1,6 @@
 function init()
 {
+
     clock = new THREE.Clock();
 
     initScene();
@@ -8,6 +9,11 @@ function init()
     initSurface();
     initInteractions();
     initRenderer();
+
+    WEBVR.getVRDisplay( function( display ){
+        renderer.vr.setDevice( display )
+        document.body.appendChild( WEBVR.getButton( display, renderer.domElement ))
+    })
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
