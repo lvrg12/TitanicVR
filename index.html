@@ -44,7 +44,7 @@
 		<script src="https://d3js.org/d3.v3.min.js"></script>
 		<script src="resources/scripts/d3.parsets.js"></script>
 		<script src="resources/scripts/WebVR.js"></script>
-		<script src="resources/scripts/VRController.js"></script>
+		<!-- <script src="resources/scripts/VRController.js"></script> -->
 
 	</head>
 	<body>
@@ -97,8 +97,6 @@
 
 		<div id="vis" style="display: none; width: 100%; height: 80%; align-content: center" align="center"><noscript></noscript></div>
 
-		<!-- <div id="container"></div> -->
-
 		<a-scene>
 			<a-entity position="0 -0.5 0">
 				<a-camera look-controls>
@@ -106,6 +104,8 @@
 				</a-camera>
 			</a-entity>
 			<a-light></a-light>
+			<a-box position="0 2 0" rotation="0 0 0" color="#ff0000"></a-box>
+			<a-entity oculus-touch-controls a-button-listener raycaster="far: 2"></a-entity>
 		</a-scene>
 
 		<p id="csvdata" style="display: none" value=""></p>

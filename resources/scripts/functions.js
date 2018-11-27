@@ -390,17 +390,11 @@ function onDocumentTouchEnd( event )
     if( TIMER ) clearInterval(TIMER);
 }
 
-function onControllerClicked( event )
-{
-    console.log("clicked");
-}
-
 // Animate & Render
 
 function animate()
 {
     requestAnimationFrame( animate );
-    THREE.VRController.update();
     // controls.update();
     // render();
 }
@@ -412,3 +406,14 @@ function render()
     // else
         // effect.render( scene, camera );
 }
+
+// AFRAME FUNCTIONS
+
+AFRAME.registerComponent('a-button-listener', {
+    init: function () {
+      var el = this.el;
+      el.addEventListener('abuttondown', function (evt) {
+        el.setAttribute('visible', !el.getAttribute('visible'));
+      });
+    }
+  });
