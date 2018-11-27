@@ -10,18 +10,18 @@ function init()
     initInteractions();
     initRenderer();
 
-    WEBVR.getVRDisplay( function( display ){
-        renderer.vr.setDevice( display )
-        document.body.appendChild( WEBVR.getButton( display, renderer.domElement ))
-    })
+    // WEBVR.getVRDisplay( function( display ){
+    //     renderer.vr.setDevice( display )
+    //     document.body.appendChild( WEBVR.getButton( display, renderer.domElement ))
+    // })
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
     // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
     // window.addEventListener( 'touchend', onDocumentTouchEnd, false );
-    window.addEventListener( 'vr controller connected', onDocumentMouseDown, false);
-    window.addEventListener('vrdisplayactivate', function () {  
-        renderer.vr.getDevice().requestPresent([{ source: renderer.domElement }])  
-    }); 
+    // window.addEventListener( 'vr controller connected', onDocumentMouseDown, false);
+    // window.addEventListener('vrdisplayactivate', function () {  
+    //     renderer.vr.getDevice().requestPresent([{ source: renderer.domElement }])  
+    // }); 
 
 }
 
@@ -84,14 +84,14 @@ function initSurface()
 
 function initRenderer()
 {
-    renderer = document.querySelector('a-scene').renderer;
-    renderer.setClearColor( 0xCCCCCC );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.vr.enabled  = true;
-    renderer.vr.standing = true;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // renderer = document.querySelector('a-scene').renderer;
+    // renderer.setClearColor( 0xCCCCCC );
+    // renderer.setPixelRatio( window.devicePixelRatio );
+    // renderer.setSize( window.innerWidth, window.innerHeight );
+    // renderer.vr.enabled  = true;
+    // renderer.vr.standing = true;
+    // renderer.shadowMap.enabled = true;
+    // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 }
 
 
@@ -469,13 +469,25 @@ function onControllerClicked( event )
 
 }
 
+function updateTest()
+{
+    // if( camera.rotation.x > 0 )
+    // {
+    //     box.material.color.setHex( 0xFF0000 );
+    // }
+    // else
+    // {
+    //     box.material.color.setHex( 0x0000FF );
+    // }
+}
+
 // Animate & Render
 
 function animate()
 {
     requestAnimationFrame( animate );
-    THREE.VRController.update();
-    // controls.update();
+    // THREE.VRController.update();
+    updateTest();
     // render();
 }
 
