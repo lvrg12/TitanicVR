@@ -10,7 +10,7 @@ function ProcessedTable( startFieldName, ignoreFields, binFields, table)
         table[0][i] = table[0][i].toLowerCase();
 
 
-    // // removing ignoreFields from table
+    // removing ignoreFields from table
     // for( var i=0; i<ignoreFields.length; i++)
     // {
     //     var index = table[0].indexOf(ignoreFields[i]);

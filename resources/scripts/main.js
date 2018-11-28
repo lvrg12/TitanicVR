@@ -32,7 +32,7 @@ var QUESTION = ["Which class was the least populated?",
                 "Which class had more female perished than female survivors?",
                 "How confident were you in answering the questions for this visualization (1-10)? 10 = most confident"];
 var CURRENT_Q = QUESTION.length;
-var CSV_FILE = "resources/datasets/iris.csv";
+var CSV_FILE = "resources/datasets/titanic.csv";
 
 HIVE = false;
 STEAM = false;
@@ -42,14 +42,14 @@ generateVisualization();
 
 function generateVisualization()
 {
-    startField = "species"
+    startField = "class";
     ignoreFields = [];
 
     for(var i=0; i<ignoreFields.length; i++)
         ignoreFields[i] = ignoreFields[i].toLowerCase();
 
-    var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
-    // binFields = [];
+    // var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
+    var binFields = [];
 
     var csv = loadFile(null);
 
