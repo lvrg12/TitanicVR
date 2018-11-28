@@ -492,25 +492,12 @@ function onControllerClicked( event )
 
 }
 
-function updateTest()
-{
-    // if( camera.rotation.x > 0 )
-    // {
-    //     box.material.color.setHex( 0xFF0000 );
-    // }
-    // else
-    // {
-    //     box.material.color.setHex( 0x0000FF );
-    // }
-}
-
 // Animate & Render
 
 function animate()
 {
     requestAnimationFrame( animate );
     // THREE.VRController.update();
-    updateTest();
     // render();
 }
 
