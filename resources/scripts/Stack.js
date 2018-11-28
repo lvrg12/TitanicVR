@@ -78,6 +78,12 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
 
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
         var arch = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: color } ) );
+
+        // var outline_material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
+        // var outline = new THREE.Mesh( geometry.copy(), outline_material );
+
+        // arch.add(outline);
+
         arch.position.set( x, y, z );
         arch.rotation.set( rx, ry, rz );
         arch.scale.set( s, s, s );

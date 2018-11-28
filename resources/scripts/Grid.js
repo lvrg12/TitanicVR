@@ -35,7 +35,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
         else
         {
             var z = coord[2];
-            var y = len*0.8;
+            var y = len;
         }
 
         var loader = new THREE.FontLoader();
@@ -71,7 +71,7 @@ function Grid( columns, len, fieldNames, optionNames, group)
 
         var geometry = new THREE.Geometry();
         geometry.vertices.push(new THREE.Vector3( x, 0, z ));
-        geometry.vertices.push(new THREE.Vector3( x, len*0.8, z ));
+        geometry.vertices.push(new THREE.Vector3( x, len, z ));
         var marker = new THREE.Line( geometry, material );
         marker.name = "marker";
         group.add( marker );

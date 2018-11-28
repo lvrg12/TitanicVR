@@ -33,18 +33,7 @@ function init()
     initInteractions();
     initRenderer();
 
-    // WEBVR.getVRDisplay( function( display ){
-    //     renderer.vr.setDevice( display )
-    //     document.body.appendChild( WEBVR.getButton( display, renderer.domElement ))
-    // })
-
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    // window.addEventListener( 'touchend', onDocumentTouchEnd, false );
-    // window.addEventListener( 'vr controller connected', onDocumentMouseDown, false);
-    // window.addEventListener('vrdisplayactivate', function () {  
-    //     renderer.vr.getDevice().requestPresent([{ source: renderer.domElement }])  
-    // }); 
 
 }
 
