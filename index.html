@@ -100,7 +100,7 @@
 		<div id="vis" style="display: none; width: 100%; height: 80%; align-content: center" align="center"><noscript></noscript></div>
 
 		<a-scene>
-			<a-sphere position="0 1.25 0" radius="1.25" color="#ff0000" shader="flat"></a-sphere>
+			<!-- <a-sphere position="0 1.25 0" radius="1.25" color="#ff0000" shader="flat"></a-sphere> -->
 
 			<a-entity position="0 -0.5 0">
 				<a-camera look-controls>
@@ -108,12 +108,12 @@
 				</a-camera>
 			</a-entity>
 			<a-light></a-light>
-			<a-entity oculus-touch-controls="hand: right" a-button-listener></a-entity>
+			<!-- <a-entity oculus-touch-controls="hand: right" a-button-listener></a-entity> -->
 			<!-- <a-entity laser-controls="hand: right" a-button-listener></a-entity> -->
 
-			<!-- <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [mixin='box']" line="color: #118A7E"></a-entity> -->
-			<!-- <a-mixin id="box" geometry="primitive: box" material="color: #FAFAFA" rotation="0 0 -35" scale="0.5 0.5 0.5" intersect-color-change shadow="cast: true; receive: false"></a-mixin> -->
-			<!-- <a-entity boxes></a-entity> -->
+			<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [mixin='box']" line="color: #118A7E"></a-entity>
+			<a-mixin id="box" geometry="primitive: box" material="color: #FAFAFA" rotation="0 0 -35" scale="0.5 0.5 0.5" intersect-color-change shadow="cast: true; receive: false"></a-mixin>
+			<a-entity boxes></a-entity>
 		</a-scene>
 
 		<p id="csvdata" style="display: none" value=""></p>
