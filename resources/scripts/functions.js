@@ -34,7 +34,8 @@ function init()
     initRenderer();
 
     window.addEventListener( 'mousedown', onDocumentMouseDown, false );
-
+    // window.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    // window.addEventListener( 'touchend', onDocumentTouchEnd, false );
 }
 
 function initCamera()
@@ -84,7 +85,7 @@ function initSurface()
 
     var floor_geometry = new THREE.PlaneGeometry( 20, 20 );
     var floor = new THREE.Mesh( floor_geometry, new THREE.MeshBasicMaterial( { color: 0x999999 } ) );
-    floor.position.set( (LEN/2) * (table[0].length-1), -2, LEN/2);
+    floor.position.set( (LEN/2) * (table[0].length-1), -3, LEN/2);
     floor.rotateX(-Math.PI/2);
     floor.name = "floor";
     scene.add( floor );
