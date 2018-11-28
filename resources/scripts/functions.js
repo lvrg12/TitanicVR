@@ -1,11 +1,36 @@
-AFRAME.registerComponent('a-button-listener', {
+AFRAME.registerComponent('boxes', {
     init: function () {
+      var box;
+      var columns = 20;
       var el = this.el;
-      el.addEventListener('abuttondown', function (evt) {
-        el.setAttribute('visible', !el.getAttribute('visible'));
-      });
+      var i;
+      var j;
+      var rows = 15;
+      if (el.sceneEl.isMobile) {
+        columns = 10;
+        rows = 5;
+      };
+      for (x = columns / -2; x < columns / 2; x++) {
+        for (y = 0.5; y < rows; y++) {
+          box = document.createElement('a-entity');
+          box.setAttribute('mixin', 'box');
+          box.setAttribute('position', {x: x * .6, y: y * .6, z: 1.5});
+          el.appendChild(box);
+        }
+      }
     }
   });
+//   AFRAME.registerComponent('shadow-if-mobile', {
+//     init: function () {
+//       if (!this.el.sceneEl.isMobile) {
+//         this.el.setAttribute('light', {
+//           castShadow: true,
+//           shadowMapWidth: 2048,
+//           shadowMapHeight: 1024
+//         });
+//       }
+//     }
+//   });
 
 function init()
 {

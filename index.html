@@ -23,7 +23,7 @@
 			}
 		</style>
 
-		<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="resources/scripts/three.min.js"></script>
 		<script src="resources/scripts/StereoEffect.js"></script>
@@ -45,6 +45,8 @@
 		<script src="resources/scripts/d3.parsets.js"></script>
 		<script src="resources/scripts/WebVR.js"></script>
 		<script src="resources/scripts/VRController.js"></script>
+
+		<script src="resources/scripts/intersect-color-change.js"></script>
 
 	</head>
 	<body>
@@ -106,11 +108,12 @@
 				</a-camera>
 			</a-entity>
 			<a-light></a-light>
-			<!-- <a-mixin id="box" geometry="primitive: box" material="color: #FAFAFA" rotation="0 0 0" scale="0.5 0.5 0.5" intersect-color-change shadow="cast: true; receive: false"></a-mixin> -->
-			<!-- <a-entity id="rightHand" hand-controls="right"></a-entity> -->
-			<!-- <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: box" line="color: #118A7E"></a-entity> -->
 			<a-entity oculus-touch-controls="hand: right" a-button-listener></a-entity>
 			<!-- <a-entity laser-controls="hand: right" a-button-listener></a-entity> -->
+
+			<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [mixin='box']" line="color: #118A7E"></a-entity>
+			<a-mixin id="box" geometry="primitive: box" material="color: #FAFAFA" rotation="0 0 -35" scale="0.5 0.5 0.5" intersect-color-change shadow="cast: true; receive: false"></a-mixin>
+			<a-entity boxes></a-entity>
 		</a-scene>
 
 		<p id="csvdata" style="display: none" value=""></p>
