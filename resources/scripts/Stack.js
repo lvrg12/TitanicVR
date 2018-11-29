@@ -58,6 +58,7 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
         if( ARCH )
         {
             arch.moveTo( 0 , 0 );
+            // arch.splineThru([new THREE.Vector2( dist/2,top ),new THREE.Vector2( dist,0 ),new THREE.Vector2( dist/2,down ),new THREE.Vector2( 0,0 )])
             arch.quadraticCurveTo(dist/2,top,dist,0);
             arch.quadraticCurveTo(dist/2,down,0,0);
         }
@@ -78,6 +79,8 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
         var material = new THREE.MeshStandardMaterial( { color: color } );
         var arch = new THREE.Mesh( geometry, material );
+        // arch.geometry.computeVertexNormals(true);
+        
 
         arch.position.set( x, y, z );
         arch.rotation.set( rx, ry, rz );
