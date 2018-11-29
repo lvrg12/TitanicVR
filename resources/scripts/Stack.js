@@ -76,7 +76,7 @@ function Stack(coord, newCoord, values, len, colors, attributes, group)
     function addShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s )
     {
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-        var material = new THREE.MeshPhongMaterial( { color: color } );
+        var material = new THREE.MeshStandardMaterial( { color: color } );
         var arch = new THREE.Mesh( geometry, material );
 
         arch.position.set( x, y, z );

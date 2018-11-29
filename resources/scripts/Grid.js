@@ -113,7 +113,7 @@ function Grid( columns, len, fieldNames, optionNames, group, firstField, colors)
 
     function addLegend( firstField, colors )
     {
-        var separation = 0.5;
+        var separation = 0.65;
         var legend = new THREE.Group();
 
         // word_lengths = []
@@ -130,7 +130,7 @@ function Grid( columns, len, fieldNames, optionNames, group, firstField, colors)
 
                 var geometry = new THREE.TextGeometry( text, {
                     font: font,
-                    size: len/20,
+                    size: len/15,
                     height: LEN / 300,
                     curveSegments: 12,
                     bevelEnabled: false

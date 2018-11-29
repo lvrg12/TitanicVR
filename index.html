@@ -100,14 +100,16 @@
 		<div id="vis" style="display: none; width: 100%; height: 80%; align-content: center" align="center"><noscript></noscript></div>
 
 		<a-scene>
-			<!-- <a-sphere position="0 1.25 0" radius="1.25" color="#ff0000" shader="flat"></a-sphere> -->
-
+			<a-sky color="#eeeeee"></a-sky>
 			<a-entity position="0 -0.8 0">
 				<a-camera look-controls>
 					<a-cursor></a-cursor>
 				</a-camera>
 			</a-entity>
-			<a-entity light="type: directional; color: #EEE; intensity: 1.5" position="0 1 1" rotation="0 -90 0"></a-entity>
+			<a-entity id="light1" light="type: point; color: #EEE; intensity: 0.9"></a-entity>
+			<a-entity id="light2" light="type: point; color: #EEE; intensity: 0.9"></a-entity>
+			<a-entity id="light3" light="type: point; color: #EEE; intensity: 0.9"></a-entity>
+			<a-entity id="light4" light="type: point; color: #EEE; intensity: 0.9"></a-entity>
 
 			<a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [mixin='box']" line="color: #118A7E"></a-entity>
 		

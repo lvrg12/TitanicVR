@@ -64,9 +64,21 @@ function initScene()
 
 function initLight()
 {
-    // document.querySelector('a-light').object3D.name = "hpcc_light_group";
-    // light = document.querySelector('a-light').object3D.children[0];
-    // light.name = "hpcc_light";
+    var light1 = document.getElementById("light1").object3D;
+    var light2 = document.getElementById("light2").object3D;
+    var light3 = document.getElementById("light3").object3D;
+    var light4 = document.getElementById("light4").object3D;
+
+    var height = LEN * 2;
+    var dist = LEN/0.25;
+
+    // back lights
+    light1.position.set( -dist, height, -dist);
+    light2.position.set( LEN * (table[0].length) + dist, height, -dist);
+
+    // front lights
+    light3.position.set( -dist, height, LEN + dist);
+    light4.position.set( LEN * (table[0].length) + dist, height, LEN + dist);
 }
 
 function initInteractions()
@@ -78,13 +90,13 @@ function initInteractions()
 function initSurface()
 {
     var surface_geometry = new THREE.BoxGeometry( LEN * table[0].length, LEN/20, LEN*1.5 );
-    var surface = new THREE.Mesh( surface_geometry, new THREE.MeshPhongMaterial( { color: 0xd4d4d4 } ) );
+    var surface = new THREE.Mesh( surface_geometry, new THREE.MeshPhongMaterial( { color: 0xbababa, shininess: 50 } ) );
     surface.position.set( (LEN/2) * (table[0].length-1), -LEN/10, LEN/2);
     surface.name = "table";
     scene.add( surface );
 
     var floor_geometry = new THREE.PlaneGeometry( 20, 20 );
-    var floor = new THREE.Mesh( floor_geometry, new THREE.MeshPhongMaterial( { color: 0x999999 } ) );
+    var floor = new THREE.Mesh( floor_geometry, new THREE.MeshPhongMaterial( { color: 0x333333, shininess: 50 } ) );
     floor.position.set( (LEN/2) * (table[0].length-1), -2.5, LEN/2);
     floor.rotateX(-Math.PI/2);
     floor.name = "floor";
