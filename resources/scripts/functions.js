@@ -46,6 +46,7 @@ function initCamera()
     document.querySelector('a-camera').object3D.name = "hppc_camera_group";
     camera = document.querySelector('a-camera').object3D.children[1];
     camera.name = "camera";
+    // camera.position.z = -2;
 
     pointer = camera.el.lastElementChild.object3D.children[0];
 
@@ -60,6 +61,7 @@ function initScene()
 {
     scene = document.querySelector('a-scene').object3D;
     scene.background = new THREE.Color( 0xffffff );
+    scene.position.z = -2;
 }
 
 function initLight()
@@ -91,7 +93,7 @@ function initSurface()
 {
     var surface_geometry = new THREE.BoxGeometry( LEN * table[0].length, LEN/20, LEN*1.5 );
     var surface = new THREE.Mesh( surface_geometry, new THREE.MeshPhongMaterial( { color: 0xbababa, shininess: 50 } ) );
-    surface.position.set( (LEN/2) * (table[0].length-1), -LEN/10, LEN/2);
+    surface.position.set( (LEN/2) * (table[0].length-1), -LEN/25, LEN/2);
     surface.name = "table";
     scene.add( surface );
 
