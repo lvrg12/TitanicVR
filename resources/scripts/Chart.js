@@ -10,9 +10,9 @@ function Chart(p_table, filterVar)
     // Grid
 
     if( HIVE )
-        grid = new GridHive(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), scene);
+        grid = new GridHive(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), scene );
     else
-        grid = new Grid(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), scene);
+        grid = new Grid(this.data.getNumberOfAllOptions(), LEN, this.data.getAllFields(), this.data.getAllOptions(), scene, this.data.getOptionsOfField(0), this.data.getColors() );
 
 
     // Columns

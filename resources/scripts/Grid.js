@@ -1,7 +1,7 @@
 // columns = array of number of options of all columns
 // len = length of quadrandt side
 
-function Grid( columns, len, fieldNames, optionNames, group)
+function Grid( columns, len, fieldNames, optionNames, group, firstField, colors)
 {
     this.type = "Grid";
     this.columns = columns.length;
@@ -20,6 +20,8 @@ function Grid( columns, len, fieldNames, optionNames, group)
         for( var j=0; j<columns[f]; j++)
             addText(optionNames[f][j],markerLocation(f,j),false,true);
     }
+
+    addLegend( firstField, colors );
 
     function addText( text, coord, isField, isMarkerVisible )
     {
@@ -107,6 +109,43 @@ function Grid( columns, len, fieldNames, optionNames, group)
     function getFieldCount()
     {
         return columns.length;
+    }
+
+    function addLegend( firstField, colors )
+    {
+        var separation = 0.5;
+        var legend = new THREE.Group();
+
+        // word_lengths = []
+        // for( var l=0; l<firstField.length; l++ )
+        //     word_lengths.append(firstField[l].length*0.05);
+
+        for( var l=0; l<firstField.length; l++ )
+            addTextLegend(firstField[l],colors[l],l*separation);
+
+        function addTextLegend( text, color, x )
+        {
+            var loader = new THREE.FontLoader();
+            loader.load( 'resources/fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+                var geometry = new THREE.TextGeometry( text, {
+                    font: font,
+                    size: len/20,
+                    height: LEN / 300,
+                    curveSegments: 12,
+                    bevelEnabled: false
+                } );
+    
+                var textMesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial( { color: color }) );
+                textMesh.position.set( x, 0, 0 );
+                // textMesh.rotateX( -Math.PI/2);
+                legend.add( textMesh );
+            } );
+        }
+        legend.position.set((LEN/2) * (table[0].length-1) - firstField.length * separation / 2, len+len/4 ,0);
+
+        group.add(legend);
+
     }
 
     this.markerLocation = markerLocation;

@@ -78,13 +78,13 @@ function initInteractions()
 function initSurface()
 {
     var surface_geometry = new THREE.BoxGeometry( LEN * table[0].length, LEN/20, LEN*1.5 );
-    var surface = new THREE.Mesh( surface_geometry, new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } ) );
+    var surface = new THREE.Mesh( surface_geometry, new THREE.MeshPhongMaterial( { color: 0xd4d4d4 } ) );
     surface.position.set( (LEN/2) * (table[0].length-1), -LEN/10, LEN/2);
     surface.name = "table";
     scene.add( surface );
 
     var floor_geometry = new THREE.PlaneGeometry( 20, 20 );
-    var floor = new THREE.Mesh( floor_geometry, new THREE.MeshBasicMaterial( { color: 0x999999 } ) );
+    var floor = new THREE.Mesh( floor_geometry, new THREE.MeshPhongMaterial( { color: 0x999999 } ) );
     floor.position.set( (LEN/2) * (table[0].length-1), -2.5, LEN/2);
     floor.rotateX(-Math.PI/2);
     floor.name = "floor";
