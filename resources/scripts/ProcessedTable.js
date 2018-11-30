@@ -11,12 +11,12 @@ function ProcessedTable( startFieldName, ignoreFields, binFields, table)
 
 
     // removing ignoreFields from table
-    // for( var i=0; i<ignoreFields.length; i++)
-    // {
-    //     var index = table[0].indexOf(ignoreFields[i]);
-    //     for( var j=0; j<table.length; j++)
-    //         table[j].splice(index, 1);
-    // }
+    for( var i=0; i<ignoreFields.length; i++)
+    {
+        var index = table[0].indexOf(ignoreFields[i]);
+        for( var j=0; j<table.length; j++)
+            table[j].splice(index, 1);
+    }
 
     // binning fields
     if( binFields.length > 0 )
