@@ -72,14 +72,6 @@ function generate3DGraph()
     LEN = 1;
     CHART_RATIO = LEN / table.length;
 
-    // document.getElementById("title").style.display = "none";
-    // document.getElementById("inputs").style.display = "none";
-
-    // if( isTraining )
-    //     document.getElementById("settings").style.display = "block";
-    // else
-    //     document.getElementById("prompt").style.display = "block";
-
 
     init();
 

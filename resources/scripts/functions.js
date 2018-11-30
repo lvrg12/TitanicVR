@@ -102,7 +102,7 @@ function initSurface()
     floor.position.set( (LEN/2) * (table[0].length-1), -2.5, LEN/2);
     floor.rotateX(-Math.PI/2);
     floor.name = "floor";
-    scene.add( floor );
+    // scene.add( floor );
 
     // move camera to center
     cameraHolder.position.x = (LEN/2) * (table[0].length-1);
