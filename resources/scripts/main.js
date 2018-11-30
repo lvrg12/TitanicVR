@@ -17,7 +17,7 @@ var LEN;
 var ARCH;
 var pointer;
 var TIMER;
-var DV_ORDER = ["VR","2D","3D"];
+var DV_ORDER = ["3D","2D","3D"];
 var CURRENT_DVD = DV_ORDER.length-1;
 var Q_TIMER;
 var QUESTION = ["Which class was the least populated?",
@@ -32,7 +32,7 @@ var QUESTION = ["Which class was the least populated?",
                 "Which class had more female perished than female survivors?",
                 "How confident were you in answering the questions for this visualization (1-10)? 10 = most confident"];
 var CURRENT_Q = QUESTION.length;
-var CSV_FILE = "resources/datasets/iris.csv";
+var CSV_FILE = "resources/datasets/titanic.csv";
 
 function generateVisualization()
 {
@@ -42,8 +42,8 @@ function generateVisualization()
     for(var i=0; i<ignoreFields.length; i++)
         ignoreFields[i] = ignoreFields[i].trim().toLowerCase();
 
-    var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
-    // binFields = [];
+    // var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
+    var binFields = [];
 
     file = document.getElementById("csvfile").files[0];
     var csv = (file) ? loadFile(file) : loadFile(null);
@@ -52,7 +52,7 @@ function generateVisualization()
 
     console.log(table);
 
-    toggleFullScreen();
+    // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
 }
