@@ -1,5 +1,6 @@
 # TitanicVR: Data Visualization of Titanic Datasets
-Website: https://lvrg12.github.io/TitanicVR/
+VR Website: https://lvrg12.github.io/TitanicVR/
+3D/2D Website: https://lvrg12.github.io/TitanicVR/3D/
 
 ## Description
 
