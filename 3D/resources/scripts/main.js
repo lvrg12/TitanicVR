@@ -34,18 +34,23 @@ var QUESTION = ["Which class was the least populated?",
 var CURRENT_Q = QUESTION.length;
 var CSV_FILE = "resources/datasets/titanic.csv";
 
+generateVisualization();
+
 function generateVisualization()
 {
-    startField = document.getElementById("start_field").value.toLowerCase();
-    ignoreFields = document.getElementById("ignore_fields").value.split(",");
+    // startField = document.getElementById("start_field").value.toLowerCase();
+    // ignoreFields = document.getElementById("ignore_fields").value.split(",");
+    // file = document.getElementById("csvfile").files[0];
+
+    startField = "class";
+    ignoreFields = "";
+    file = null;
 
     for(var i=0; i<ignoreFields.length; i++)
         ignoreFields[i] = ignoreFields[i].trim().toLowerCase();
 
     // var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
     var binFields = [];
-
-    file = document.getElementById("csvfile").files[0];
     var csv = (file) ? loadFile(file) : loadFile(null);
 
     table = new ProcessedTable( startField, ignoreFields, binFields, csv );
