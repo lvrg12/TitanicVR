@@ -1,7 +1,9 @@
 # TitanicVR: Data Visualization of Titanic Datasets
 VR Website: https://lvrg12.github.io/TitanicVR/
+Note: Compatible with Google Cardboard and Supermedium (Oculus)
 
-3D/2D Website: https://lvrg12.github.io/TitanicVR/3D/
+VR/3D/2D Website: https://lvrg12.github.io/TitanicVR/3D/
+Note: VR only compatible with Google Cardboard
 
 ## Description
 
