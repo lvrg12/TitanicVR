@@ -50,8 +50,6 @@ function generateVisualization()
 
     table = new ProcessedTable( startField, ignoreFields, binFields, csv );
 
-    console.log(table);
-
     // toggleFullScreen();
     generate2DGraph();
     generate3DGraph();
