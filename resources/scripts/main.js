@@ -60,7 +60,7 @@ function generateVisualization()
 
 function generate2DGraph()
 {
-    var chart = d3.parsets().dimensions( table[0] );
+    var chart = d3.parsets().dimensions( ["Class","Age","Sex","Survived"] );
 	var vis = d3.select( "#vis" ).append( "svg" ).attr( "width" , chart.width() ).attr( "height", chart.height() );
 	d3.csv( CSV_FILE, function(error, csv) { vis.datum( csv ).call( chart ); } );
 }
