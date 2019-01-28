@@ -50,13 +50,9 @@ function generateVisualization()
 
     // var binFields = [ ["sepal_length",4], ["sepal_width",4], ["petal_length",4], ["petal_width",4] ];
     var binFields = [];
-
     var csv = loadFile(null);
-
     table = new ProcessedTable( startField, ignoreFields, binFields, csv );
 
-    // toggleFullScreen();
-    // generate2DGraph();
     generate3DGraph();
 }
 
